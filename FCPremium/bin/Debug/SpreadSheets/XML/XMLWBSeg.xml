@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<ss:Workbook xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">
+ <x:ExcelWorkbook>
+  <x:ProtectStructure>False</x:ProtectStructure>
+  <x:ActiveSheet>0</x:ActiveSheet>
+  <x:HideWorkbookTabs/>
+  <x:HideHorizontalScrollBar/>
+  <x:HideVerticalScrollBar/>
+ </x:ExcelWorkbook>
+ <ss:Styles>
+  <ss:Style ss:ID="Default">
+   <ss:Alignment ss:Horizontal="Automatic" ss:Rotate="0.0" ss:Vertical="Bottom"
+    ss:ReadingOrder="Context"/>
+   <ss:Borders>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="10" ss:Color="Automatic" ss:Bold="0"
+    ss:Italic="0" ss:Underline="None"/>
+   <ss:Interior ss:Color="Automatic" ss:Pattern="None"/>
+   <ss:NumberFormat ss:Format="General"/>
+   <ss:Protection ss:Protected="1"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc1D2F470000000000">
+   <ss:Alignment/>
+   <ss:Font ss:Size="8"/>
+   <ss:Interior/>
+  </ss:Style>
+  <ss:Style ss:ID="wc1D2F4B0000000000">
+   <ss:Alignment/>
+   <ss:Font ss:Size="8"/>
+   <ss:Interior ss:Color="#B0C4DE" ss:Pattern="Solid"/>
+  </ss:Style>
+ </ss:Styles>
+ <c:ComponentOptions>
+  <c:Toolbar ss:Hidden="1">
+  </c:Toolbar>
+  <c:Label>
+   <c:Caption>Hoja de cálculo de Microsoft Office</c:Caption>
+  </c:Label>
+  <c:MaxHeight>80%</c:MaxHeight>
+  <c:MaxWidth>80%</c:MaxWidth>
+  <c:NextSheetNumber>4</c:NextSheetNumber>
+ </c:ComponentOptions>
+ <x:WorkbookOptions>
+  <c:OWCVersion>12.0.0.6502         </c:OWCVersion>
+  <x:Height>4022</x:Height>
+  <x:Width>5503</x:Width>
+ </x:WorkbookOptions>
+ <ss:Worksheet ss:Name="Hoja1">
+  <x:WorksheetOptions>
+   <x:Selected/>
+   <x:DoNotDisplayColHeaders/>
+   <x:DoNotDisplayRowHeaders/>
+   <x:ViewableRange>R1C1:R15C3</x:ViewableRange>
+   <x:Selection>R3C1</x:Selection>
+   <x:FreezePanes/>
+   <x:FrozenNoSplit/>
+   <x:TopRowVisible>0</x:TopRowVisible>
+   <x:TopRowBottomPane>2</x:TopRowBottomPane>
+   <x:SplitHorizontal>2</x:SplitHorizontal>
+   <x:ActivePane>2</x:ActivePane>
+   <x:ProtectContents>False</x:ProtectContents>
+   <x:Unsynced/>
+  </x:WorksheetOptions>
+  <c:WorksheetOptions>
+  </c:WorksheetOptions>
+  <ss:Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="4"
+   ss:DefaultColumnWidth="48.0" ss:DefaultRowHeight="11.25"
+   ss:StyleID="wc1D2F470000000000">
+   <ss:Column ss:Width="52.49999999999999" ss:AutoFitWidth="0"/>
+   <ss:Column ss:Width="53.24999999999999" ss:AutoFitWidth="0"/>
+   <ss:Row ss:AutoFitHeight="0">
+    <ss:Cell ss:StyleID="wc1D2F470000000000"/>
+    <ss:Cell ss:Index="3" ss:StyleID="wc1D2F470000000000"/>
+   </ss:Row>
+   <ss:Row ss:AutoFitHeight="0">
+    <ss:Cell ss:StyleID="wc1D2F4B0000000000">
+     <ss:Data ss:Type="String">Segmento</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc1D2F4B0000000000">
+     <ss:Data ss:Type="String">Factor</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc1D2F4B0000000000">
+     <ss:Data ss:Type="String">Importe</ss:Data>
+    </ss:Cell>
+   </ss:Row>
+   <ss:Row ss:AutoFitHeight="0">
+    <ss:Cell ss:StyleID="wc1D2F470000000000"/>
+    <ss:Cell ss:Index="3" ss:StyleID="wc1D2F470000000000"/>
+   </ss:Row>
+   <ss:Row ss:AutoFitHeight="0">
+    <ss:Cell ss:StyleID="wc1D2F470000000000"/>
+    <ss:Cell ss:Index="3" ss:StyleID="wc1D2F470000000000"/>
+   </ss:Row>
+  </ss:Table>
+ </ss:Worksheet>
+ <ss:Worksheet ss:Name="Hoja2">
+  <x:WorksheetOptions>
+   <x:ViewableRange>R1:R262144</x:ViewableRange>
+   <x:Selection>R1C1</x:Selection>
+   <x:TopRowVisible>0</x:TopRowVisible>
+   <x:LeftColumnVisible>0</x:LeftColumnVisible>
+   <x:ProtectContents>False</x:ProtectContents>
+  </x:WorksheetOptions>
+  <c:WorksheetOptions>
+  </c:WorksheetOptions>
+ </ss:Worksheet>
+ <ss:Worksheet ss:Name="Hoja3">
+  <x:WorksheetOptions>
+   <x:ViewableRange>R1:R262144</x:ViewableRange>
+   <x:Selection>R1C1</x:Selection>
+   <x:TopRowVisible>0</x:TopRowVisible>
+   <x:LeftColumnVisible>0</x:LeftColumnVisible>
+   <x:ProtectContents>False</x:ProtectContents>
+  </x:WorksheetOptions>
+  <c:WorksheetOptions>
+  </c:WorksheetOptions>
+ </ss:Worksheet>
+</ss:Workbook>

@@ -1,0 +1,6 @@
+IF OBJECT_ID('dbo.XMLEmpresas') IS NULL Begin CREATE TABLE [dbo].[XMLEmpresas]([IdEmpresa] [int] IDENTITY(1,1) NOT NULL,
+[Empresa] [char](250) NULL,[ctBDD] [char](150) NULL,[CkADw] [int] NULL,[Indexado] [datetime] NULL) ON [PRIMARY] END|
+IF OBJECT_ID('dbo.XMLRutasADW') IS NULL Begin CREATE TABLE [dbo].[XMLRutasADW]([IDEmpresa] [int] NOT NULL,[Nombre] [nvarchar](max) NOT NULL,
+[IdAdw] [int] NOT NULL,[Ruta] [nvarchar](max) NOT NULL,[Sucursal] [nvarchar](max) NULL,[Prefijo] [nvarchar](50) NULL) ON [PRIMARY] END|
+IF OBJECT_ID('dbo.XMLGenerales') IS NULL Begin CREATE TABLE [dbo].[XMLGenerales]([RutaEmpresasAdm] [nvarchar](max) NULL,
+[RutaSDKAd] [nvarchar](max) NULL,[RutaIndex] [nvarchar](max) NULL) ON [PRIMARY] END
