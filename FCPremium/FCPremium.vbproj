@@ -13,6 +13,21 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,8 +102,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\clEmpresa.vb" />
     <Compile Include="Clases\clModulos.vb" />
     <Compile Include="Clases\clParametros.vb" />
+    <Compile Include="Clases\clSubMenu.vb" />
+    <Compile Include="Clases\clUserAPI.vb" />
     <Compile Include="Clases\clUsuario.vb" />
     <Compile Include="Formularios\frmActivador.Designer.vb">
       <DependentUpon>frmActivador.vb</DependentUpon>
@@ -102,10 +120,28 @@
     <Compile Include="Formularios\frmConfig.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\frmConfigDigital.Designer.vb">
+      <DependentUpon>frmConfigDigital.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmConfigDigital.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmdigital.Designer.vb">
+      <DependentUpon>frmdigital.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmdigital.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\frmLogin.Designer.vb">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmLoginAPI.Designer.vb">
+      <DependentUpon>frmLoginAPI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmLoginAPI.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\frmPrincipal.Designer.vb">
@@ -122,6 +158,7 @@
     </Compile>
     <Compile Include="Modulos\ModFC_Premium.vb" />
     <Compile Include="Modulos\GeneralFC.vb" />
+    <Compile Include="Modulos\modGlobales.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -146,8 +183,17 @@
     <EmbeddedResource Include="Formularios\frmConfig.resx">
       <DependentUpon>frmConfig.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmConfigDigital.resx">
+      <DependentUpon>frmConfigDigital.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmdigital.resx">
+      <DependentUpon>frmdigital.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmLoginAPI.resx">
+      <DependentUpon>frmLoginAPI.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmPrincipal.resx">
       <DependentUpon>frmPrincipal.vb</DependentUpon>
@@ -208,6 +254,13 @@
     <Content Include="20061b52-7f55-4757-abae-009b42bbaf0a_200x200.ico" />
     <Content Include="ce91a043-2448-44f0-9967-fc678d35aa69_200x200.ico" />
     <Content Include="fcpreapli.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

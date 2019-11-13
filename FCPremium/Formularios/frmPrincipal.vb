@@ -4,11 +4,17 @@ Imports Microsoft.Office.Interop
 Imports Microsoft.Office.Interop.Excel
 Public Class frmPrincipal
     Private modu As clModulos
+
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
+    End Sub
+
     Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.BackColor = Color.FromArgb(228, 227, 228)
         BloqueaMenu()
         CargaMenu()
         If cUsuario IsNot Nothing Then
-            Me.lbUser.Text = cUsuario.Nombreuser & " " & cUsuario.Apellidop
+            Me.Text = "Inicio -  Usuario: " & cUsuario.Nombreuser & " " & cUsuario.Apellidop
         End If
     End Sub
 
@@ -159,5 +165,33 @@ RegresaMenu:
     Private Sub MuserChan_Click(sender As Object, e As EventArgs) Handles MuserChan.Click
         frmLogin.Show()
         Me.Refresh()
+    End Sub
+
+    Private Sub MuserADD_Click(sender As Object, e As EventArgs) Handles MuserADD.Click
+        frmUsuario.Show()
+    End Sub
+
+    Private Sub MActivos_Click(sender As Object, e As EventArgs) Handles MActivos.Click
+
+    End Sub
+
+    Private Sub MDigital_Click(sender As Object, e As EventArgs) Handles MDigital.Click
+        Dim hijo As New frmdigital
+        hijo.MdiParent = Me
+        If Inicio_UserAPI() = False Then
+            frmLoginAPI.ShowDialog()
+            If Inicio_UserAPI() = True Then
+                If CheckForm(hijo) Is Nothing Then
+                    hijo.Show()
+                End If
+            Else
+                MsgBox("No se inicio sesión en el CRM.", vbInformation, "Validación")
+            End If
+        Else
+            If CheckForm(hijo) Is Nothing Then
+                hijo.Show()
+            End If
+        End If
+
     End Sub
 End Class

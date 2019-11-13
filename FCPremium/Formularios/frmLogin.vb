@@ -8,8 +8,8 @@ Public Class frmLogin
         Dim arrDatos() As String
         Dim vectoraux() As String
         Dim jsonMod As String, dFiltro As String
-        'Me.TBUser.Text = "admin"
-        'Me.TBPass.Text = "123"
+        Me.TBUser.Text = "FCPREMIUM"
+        Me.TBPass.Text = "FC2019"
 
         menUser = False
         mUserNube = "admindublock"
@@ -91,61 +91,6 @@ Entrar:
                     My.Settings.Save()
                 End If
             End If
-
-
-
-            'If My.Settings.Serial = "" And My.Settings.ProductoRegistrado = False Then
-            '    MsgBox("El Producto no esta activado.", MsgBoxStyle.Exclamation, "Validación")
-            '    frmActivador.ShowDialog()
-            '    If My.Settings.Serial <> "" Then
-            '        GoTo Entrar
-            '    Else
-            '        Me.Close()
-            '    End If
-            'Else
-
-            '    If Date.Now.Date > My.Settings.FechaCaduca.Date And My.Settings.FechaCaduca <> DateTime.MinValue Then
-            '        MsgBox("La clave de Producto ha expirado.", MsgBoxStyle.Exclamation, "Validación")
-            '        frmActivador.ShowDialog()
-            '        If Date.Now.Date > My.Settings.FechaCaduca.Date Then
-            '            Me.Close()
-            '        Else
-            '            GoTo Entrar
-            '        End If
-            '    Else
-            '        fError = FC_Conexion()
-            '        cParam = New clParametros
-            '        If cParam.loadParam() = False Then
-            '            MsgBox("Falta confifurar los parametros." & vbCrLf & "Ingresar como Administrador.", vbInformation, "Validación")
-            '            GoTo inicionew
-            '        End If
-            '        sSystema = 1
-            '        If My.Computer.Network.IsAvailable Then
-            '            If cParam.Rfclien <> "" And cParam.Equipo <> "" Then
-            '                If verificaClave() = False Then
-            '                    MsgBox("La clave de Producto no es correcta.", MsgBoxStyle.Exclamation, "Validación")
-            '                    frmActivador.ShowDialog()
-            '                    If verificaClave() = False Then
-            '                        Me.Close()
-            '                    Else
-            '                        GoTo Entrar
-            '                    End If
-            '                End If
-            '            Else
-            '                MsgBox("Falta confifurar los parametros." & vbCrLf & "Ingresar como Administrador.", vbInformation, "Validación")
-            '                GoTo inicionew
-            '            End If
-            '        Else
-            '            Dim ddias As Integer = DateDiff(DateInterval.Day, My.Settings.FechaConexion.Date, Date.Now.Date)
-            '            If ddias > 20 Then
-            '                MsgBox("La clave de Producto no se ha podido actualizar." & vbCrLf & "Conectar a internet para actualizar.", MsgBoxStyle.Exclamation, "Validación")
-            '            Else
-            '            End If
-            '        End If
-            '    End If
-
-            'End If
-
         End If
     End Sub
 

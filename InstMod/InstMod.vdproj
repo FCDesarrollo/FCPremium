@@ -16,13 +16,13 @@
         "Entry"
         {
         "MsmKey" = "8:_07CB5A955FCAA8DF40328707C3496DC5"
-        "OwnerKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+        "OwnerKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_206212CC8A0B02D5F45982C664BE681D"
-        "OwnerKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+        "OwnerKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -34,25 +34,25 @@
         "Entry"
         {
         "MsmKey" = "8:_7E13E1B803505CF48E3C3CF7982BC140"
-        "OwnerKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+        "OwnerKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B6132375F0EC954C01CEF70851548F22"
-        "OwnerKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+        "MsmKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_B6132375F0EC954C01CEF70851548F22"
+        "OwnerKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C90BD62B6EDA338F3246C38295BD5F93"
-        "OwnerKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+        "OwnerKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+        "OwnerKey" = "8:_9DB269A02DC04BD3A4EBAAB49E36E140"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -109,6 +109,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -125,6 +133,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -385,15 +409,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:InstMod"
-        "ProductCode" = "8:{22E16BE1-3AE4-4B90-A455-DE8D3B0B6CD1}"
-        "PackageCode" = "8:{FC120236-7FB5-473B-A489-E96ECC66EE61}"
+        "ProductCode" = "8:{E20DFD62-0A82-40C6-BD3C-CBB53E8055C4}"
+        "PackageCode" = "8:{4F4F6DE9-D92F-4ABA-8E4C-718EAEA77BB9}"
         "UpgradeCode" = "8:{0766AEF2-C513-4DC2-9CFF-31B6F9EEFD07}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:2.0"
         "Manufacturer" = "8:ArtModulos"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -514,7 +538,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+            "Target" = "8:"
             "Folder" = "8:_188A38EFF8C24238A7C96427EE21F47B"
             "WorkingFolder" = "8:_3A538E7F96224CC085B88A0A2CD897FA"
             "Icon" = "8:_560FF5248982478AAA576C77E30FF1F0"
@@ -528,7 +552,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+            "Target" = "8:"
             "Folder" = "8:_1DB2CA36F68E4F94997F082B4E285868"
             "WorkingFolder" = "8:_3A538E7F96224CC085B88A0A2CD897FA"
             "Icon" = "8:_560FF5248982478AAA576C77E30FF1F0"
@@ -933,9 +957,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C6DBFEF8F3DC49178E2A1310633EF3C4"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9DB269A02DC04BD3A4EBAAB49E36E140"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\FCPremium\\obj\\Debug\\FCPremium.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_3A538E7F96224CC085B88A0A2CD897FA"

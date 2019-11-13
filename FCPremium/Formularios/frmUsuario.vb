@@ -295,4 +295,5 @@ Public Class frmUsuario
             MsgBox("El usuario es incorrecto.", vbInformation + vbExclamation, "Validación")
         End If
     End Sub
+
 End Class

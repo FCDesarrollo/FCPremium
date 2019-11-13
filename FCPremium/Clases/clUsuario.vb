@@ -10,6 +10,10 @@ Public Class clUsuario
     Private _tipo As Integer
     Private _status As Integer
 
+    Private _usuarioAPI As String
+    Private _pwd As String
+
+
     Private _modper As New Collection
 
     Public Property Iduser As Integer
@@ -90,6 +94,26 @@ Public Class clUsuario
         End Get
         Set(value As Collection)
             _modper = value
+        End Set
+    End Property
+
+
+
+    Public Property Pwd As String
+        Get
+            Return _pwd
+        End Get
+        Set(value As String)
+            _pwd = value
+        End Set
+    End Property
+
+    Public Property UsuarioAPI As String
+        Get
+            Return _usuarioAPI
+        End Get
+        Set(value As String)
+            _usuarioAPI = value
         End Set
     End Property
 
