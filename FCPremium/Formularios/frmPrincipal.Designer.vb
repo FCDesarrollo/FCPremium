@@ -37,22 +37,25 @@ Partial Class frmPrincipal
         Me.Msep2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MConcilia = New System.Windows.Forms.ToolStripButton()
         Me.MEstados = New System.Windows.Forms.ToolStripButton()
+        Me.MActivos = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MDigital = New System.Windows.Forms.ToolStripButton()
         Me.MSep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MConfig = New System.Windows.Forms.ToolStripButton()
-        Me.lbUser = New System.Windows.Forms.Label()
         Me.PMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'PMenu
         '
         Me.PMenu.AutoSize = False
+        Me.PMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.PMenu.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle))
         Me.PMenu.GripMargin = New System.Windows.Forms.Padding(3)
         Me.PMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MSep3, Me.MConfig})
+        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.MSep3, Me.MConfig})
         Me.PMenu.Location = New System.Drawing.Point(0, 0)
         Me.PMenu.Name = "PMenu"
-        Me.PMenu.Size = New System.Drawing.Size(800, 60)
+        Me.PMenu.Size = New System.Drawing.Size(902, 60)
         Me.PMenu.TabIndex = 0
         Me.PMenu.Text = "ToolStrip1"
         '
@@ -184,6 +187,32 @@ Partial Class frmPrincipal
         Me.MEstados.Text = "Estados Financieros"
         Me.MEstados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'MActivos
+        '
+        Me.MActivos.Image = CType(resources.GetObject("MActivos.Image"), System.Drawing.Image)
+        Me.MActivos.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.MActivos.Name = "MActivos"
+        Me.MActivos.Size = New System.Drawing.Size(52, 57)
+        Me.MActivos.Tag = "8"
+        Me.MActivos.Text = "Activos"
+        Me.MActivos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 60)
+        Me.ToolStripSeparator1.Tag = "0"
+        '
+        'MDigital
+        '
+        Me.MDigital.Image = CType(resources.GetObject("MDigital.Image"), System.Drawing.Image)
+        Me.MDigital.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.MDigital.Name = "MDigital"
+        Me.MDigital.Size = New System.Drawing.Size(115, 57)
+        Me.MDigital.Tag = "9"
+        Me.MDigital.Text = "Asociación Digital"
+        Me.MDigital.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
         'MSep3
         '
         Me.MSep3.Name = "MSep3"
@@ -202,33 +231,21 @@ Partial Class frmPrincipal
         Me.MConfig.Text = "Configuración"
         Me.MConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'lbUser
-        '
-        Me.lbUser.AutoSize = True
-        Me.lbUser.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbUser.Location = New System.Drawing.Point(538, 428)
-        Me.lbUser.Name = "lbUser"
-        Me.lbUser.Size = New System.Drawing.Size(54, 13)
-        Me.lbUser.TabIndex = 1
-        Me.lbUser.Text = "Usuario:"
-        Me.lbUser.TextAlign = System.Drawing.ContentAlignment.BottomRight
-        '
         'frmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.lbUser)
+        Me.ClientSize = New System.Drawing.Size(902, 450)
         Me.Controls.Add(Me.PMenu)
-        Me.MaximizeBox = False
+        Me.IsMdiContainer = True
         Me.Name = "frmPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Inicio"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.PMenu.ResumeLayout(False)
         Me.PMenu.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -244,9 +261,11 @@ Partial Class frmPrincipal
     Friend WithEvents MSep3 As ToolStripSeparator
     Friend WithEvents MConfig As ToolStripButton
     Friend WithEvents Msep2 As ToolStripSeparator
-    Friend WithEvents lbUser As Label
     Friend WithEvents MUser As ToolStripDropDownButton
     Friend WithEvents MuserADD As ToolStripMenuItem
     Friend WithEvents MuserChan As ToolStripMenuItem
     Friend WithEvents MuserLog As ToolStripMenuItem
+    Friend WithEvents MActivos As ToolStripButton
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents MDigital As ToolStripButton
 End Class

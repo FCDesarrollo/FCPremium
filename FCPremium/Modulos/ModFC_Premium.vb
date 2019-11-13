@@ -13,27 +13,7 @@ Module ModFC_Premium
     'BEGIN
     '	ALTER TABLE FCParametros
     '  ADD prueba2 VARCHAR(50) END
-    Public Const tAdmin As Integer = 0
-    Public Const tSupervisor As Integer = 1
-    Public Const tUsuario As Integer = 2
 
-    Public sSystema As Integer ' 0.- IGUAL SIN INSTALAR , 1.- YA INSTALADO
-    Public Const UserAdmin As String = "FCPREMIUM"
-    Public Const PassAdmin As String = "FC2019"
-    Public menUser As Boolean
-
-    Public jsonObject As Newtonsoft.Json.Linq.JObject
-
-    Public cUsuario As clUsuario
-    Public cParam As clParametros
-
-    Public Const conInfo As String = "Intalación " & vbCrLf & "Guarda la configuración Principal para los Modulos."
-
-    Public mLinkNube As String
-    Public mUserNube As String
-    Public mPassNube As String
-    'Public Const mApi As String = "http://localhost/ApiConsultorMX/miconsultor/public/"
-    Public Const mApi As String = "http://apicrm.dublock.com/public/"
     Public Sub CrearTablasPremium()
         Dim cpCom As SqlCommand
         Dim cQue As String
@@ -135,7 +115,8 @@ Module ModFC_Premium
         End Using
     End Function
 
-    Public Function ConsumeAPI(ByVal aAPi As String, ByVal aMetodo As String, ByVal aDatos As String) As String
+    Public Function ConsumeAPI(ByVal aAPi As String, ByVal aMetodo As String,
+                               ByVal aDatos As String, Optional sMe As String = "POST", Optional sType As String = "URL") As String
         Dim s As HttpWebRequest
         Dim enc As UTF8Encoding
         Dim response As HttpWebResponse
@@ -147,19 +128,26 @@ Module ModFC_Premium
         Try
             s = HttpWebRequest.Create(aAPi & aMetodo)
             enc = New System.Text.UTF8Encoding()
-            postdata = aDatos
-            postdatabytes = enc.GetBytes(postdata)
-            s.Method = "POST"
-            s.ContentType = "application/x-www-form-urlencoded"
-            s.ContentLength = postdatabytes.Length
+            If sMe = "POST" Then
+                postdata = aDatos
+                postdatabytes = enc.GetBytes(postdata)
+                s.ContentLength = postdatabytes.Length
+            End If
+            s.Method = sMe
+            If sType = "URL" Then
+                s.ContentType = "application/x-www-form-urlencoded"
+            Else
+                s.ContentType = "application/json"
+            End If
 
-            Using stream = s.GetRequestStream()
-                stream.Write(postdatabytes, 0, postdatabytes.Length)
-            End Using
+            If sMe = "POST" Then
+                Using stream = s.GetRequestStream()
+                    stream.Write(postdatabytes, 0, postdatabytes.Length)
+                End Using
+            End If
             'Dim result = s.GetResponse()
             response = DirectCast(s.GetResponse(), HttpWebResponse)
             reader = New StreamReader(response.GetResponseStream())
-
 
             rawresponse = reader.ReadToEnd()
             ConsumeAPI = rawresponse
@@ -332,4 +320,6 @@ Module ModFC_Premium
         Dim serialDD As New ManagementObject("Win32_PhysicalMedia='\\.\PHYSICALDRIVE0'")
         GetSerialDisco = Trim(serialDD.Properties("SerialNumber").Value.ToString)
     End Function
+
+
 End Module

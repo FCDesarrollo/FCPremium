@@ -22,3 +22,6 @@ C:\ProyectosVB\FCPremium\FCPremium\bin\Debug\eCryptography.dll
 C:\ProyectosVB\FCPremium\FCPremium\bin\Debug\DotNetZip.dll
 C:\ProyectosVB\FCPremium\FCPremium\bin\Debug\DotNetZip.pdb
 C:\ProyectosVB\FCPremium\FCPremium\bin\Debug\DotNetZip.xml
+C:\ProyectosVB\FCPremium\FCPremium\obj\Debug\FCPremium.frmdigital.resources
+C:\ProyectosVB\FCPremium\FCPremium\obj\Debug\FCPremium.frmLoginAPI.resources
+C:\ProyectosVB\FCPremium\FCPremium\obj\Debug\FCPremium.frmConfigDigital.resources

@@ -25,6 +25,7 @@ Partial Class frmActivador
         Me.lbcla = New System.Windows.Forms.Label()
         Me.txtproducto = New System.Windows.Forms.TextBox()
         Me.btnActivar = New System.Windows.Forms.Button()
+        Me.btnSalir = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lbcla
@@ -48,18 +49,28 @@ Partial Class frmActivador
         '
         Me.btnActivar.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnActivar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnActivar.Location = New System.Drawing.Point(69, 51)
+        Me.btnActivar.Location = New System.Drawing.Point(27, 51)
         Me.btnActivar.Name = "btnActivar"
         Me.btnActivar.Size = New System.Drawing.Size(101, 39)
         Me.btnActivar.TabIndex = 2
         Me.btnActivar.Text = "Activar"
         Me.btnActivar.UseVisualStyleBackColor = False
         '
+        'btnSalir
+        '
+        Me.btnSalir.Location = New System.Drawing.Point(153, 51)
+        Me.btnSalir.Name = "btnSalir"
+        Me.btnSalir.Size = New System.Drawing.Size(75, 39)
+        Me.btnSalir.TabIndex = 3
+        Me.btnSalir.Text = "Salir"
+        Me.btnSalir.UseVisualStyleBackColor = True
+        '
         'frmActivador
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(254, 102)
+        Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.btnActivar)
         Me.Controls.Add(Me.txtproducto)
         Me.Controls.Add(Me.lbcla)
@@ -76,4 +87,5 @@ Partial Class frmActivador
     Friend WithEvents lbcla As Label
     Friend WithEvents txtproducto As TextBox
     Friend WithEvents btnActivar As Button
+    Friend WithEvents btnSalir As Button
 End Class
