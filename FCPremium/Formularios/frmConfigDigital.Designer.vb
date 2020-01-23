@@ -22,6 +22,7 @@ Partial Class frmConfigDigital
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConfigDigital))
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cbempresa = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -35,24 +36,39 @@ Partial Class frmConfigDigital
         Me.dignombreadw = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digsucursal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digempresacrm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bddCont = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabConfig = New System.Windows.Forms.TabControl()
         Me.tbaSuc = New System.Windows.Forms.TabPage()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TabRubros = New System.Windows.Forms.TabPage()
-        Me.dgDocModelos = New System.Windows.Forms.DataGridView()
+        Me.btnenvia = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.dgDocModelos = New System.Windows.Forms.DataGridView()
         Me.digclave = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digidmenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digidsubmenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.digiddocmode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgtipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgenviado = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.dgnombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digoperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.dgConceptos = New System.Windows.Forms.DataGridView()
+        Me.digcodcon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.digactcon = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.digsuc = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.digcon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.digconEnvia = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.digconclave = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.plan = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.btnEnviaCon = New System.Windows.Forms.Button()
         CType(Me.dgempresas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabConfig.SuspendLayout()
         Me.tbaSuc.SuspendLayout()
         Me.TabRubros.SuspendLayout()
         CType(Me.dgDocModelos, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label3
@@ -78,7 +94,7 @@ Partial Class frmConfigDigital
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(6, 8)
+        Me.Label1.Location = New System.Drawing.Point(6, 3)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(142, 13)
         Me.Label1.TabIndex = 10
@@ -101,12 +117,13 @@ Partial Class frmConfigDigital
         Me.dgempresas.AllowUserToResizeRows = False
         Me.dgempresas.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.dgempresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgempresas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.digidadw, Me.digidempresacont, Me.digidempresacrm, Me.digruta, Me.digidsuc, Me.dignombreadw, Me.digsucursal, Me.digempresacrm})
+        Me.dgempresas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.digidadw, Me.digidempresacont, Me.digidempresacrm, Me.digruta, Me.digidsuc, Me.dignombreadw, Me.digsucursal, Me.digempresacrm, Me.bddCont})
         Me.dgempresas.GridColor = System.Drawing.SystemColors.ControlLightLight
-        Me.dgempresas.Location = New System.Drawing.Point(9, 24)
+        Me.dgempresas.Location = New System.Drawing.Point(6, 19)
+        Me.dgempresas.MultiSelect = False
         Me.dgempresas.Name = "dgempresas"
         Me.dgempresas.RowHeadersVisible = False
-        Me.dgempresas.Size = New System.Drawing.Size(430, 259)
+        Me.dgempresas.Size = New System.Drawing.Size(439, 273)
         Me.dgempresas.TabIndex = 18
         '
         'digidadw
@@ -160,6 +177,13 @@ Partial Class frmConfigDigital
         Me.digempresacrm.ReadOnly = True
         Me.digempresacrm.Width = 170
         '
+        'bddCont
+        '
+        Me.bddCont.HeaderText = "base"
+        Me.bddCont.Name = "bddCont"
+        Me.bddCont.ReadOnly = True
+        Me.bddCont.Visible = False
+        '
         'TabConfig
         '
         Me.TabConfig.Controls.Add(Me.tbaSuc)
@@ -188,7 +212,7 @@ Partial Class frmConfigDigital
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Yellow
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(117, 286)
+        Me.Label4.Location = New System.Drawing.Point(130, 295)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(315, 13)
         Me.Label4.TabIndex = 19
@@ -196,6 +220,7 @@ Partial Class frmConfigDigital
         '
         'TabRubros
         '
+        Me.TabRubros.Controls.Add(Me.btnenvia)
         Me.TabRubros.Controls.Add(Me.Label5)
         Me.TabRubros.Controls.Add(Me.dgDocModelos)
         Me.TabRubros.Location = New System.Drawing.Point(4, 22)
@@ -206,6 +231,26 @@ Partial Class frmConfigDigital
         Me.TabRubros.Text = "Rubros"
         Me.TabRubros.UseVisualStyleBackColor = True
         '
+        'btnenvia
+        '
+        Me.btnenvia.BackColor = System.Drawing.Color.DodgerBlue
+        Me.btnenvia.Location = New System.Drawing.Point(309, 3)
+        Me.btnenvia.Name = "btnenvia"
+        Me.btnenvia.Size = New System.Drawing.Size(130, 23)
+        Me.btnenvia.TabIndex = 18
+        Me.btnenvia.Text = "Enviar Rubros al CRM"
+        Me.btnenvia.UseVisualStyleBackColor = False
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(3, 12)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(274, 13)
+        Me.Label5.TabIndex = 17
+        Me.Label5.Text = "Documentos Modelos para enviar como Rubros"
+        '
         'dgDocModelos
         '
         Me.dgDocModelos.AllowUserToAddRows = False
@@ -213,23 +258,14 @@ Partial Class frmConfigDigital
         Me.dgDocModelos.AllowUserToResizeRows = False
         Me.dgDocModelos.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.dgDocModelos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgDocModelos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.digclave, Me.digidmenu, Me.digidsubmenu, Me.dgtipo, Me.dgenviado, Me.dgnombre, Me.digoperacion})
+        Me.dgDocModelos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.digclave, Me.digidmenu, Me.digidsubmenu, Me.digiddocmode, Me.dgtipo, Me.dgenviado, Me.dgnombre, Me.digoperacion})
         Me.dgDocModelos.GridColor = System.Drawing.SystemColors.ControlLightLight
-        Me.dgDocModelos.Location = New System.Drawing.Point(6, 31)
+        Me.dgDocModelos.Location = New System.Drawing.Point(3, 28)
+        Me.dgDocModelos.MultiSelect = False
         Me.dgDocModelos.Name = "dgDocModelos"
         Me.dgDocModelos.RowHeadersVisible = False
-        Me.dgDocModelos.Size = New System.Drawing.Size(416, 274)
+        Me.dgDocModelos.Size = New System.Drawing.Size(439, 280)
         Me.dgDocModelos.TabIndex = 16
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(6, 15)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(274, 13)
-        Me.Label5.TabIndex = 17
-        Me.Label5.Text = "Documentos Modelos para enviar como Rubros"
         '
         'digclave
         '
@@ -249,6 +285,12 @@ Partial Class frmConfigDigital
         Me.digidsubmenu.Name = "digidsubmenu"
         Me.digidsubmenu.Visible = False
         '
+        'digiddocmode
+        '
+        Me.digiddocmode.HeaderText = "iddocmodelo"
+        Me.digiddocmode.Name = "digiddocmode"
+        Me.digiddocmode.Visible = False
+        '
         'dgtipo
         '
         Me.dgtipo.HeaderText = "Tipo"
@@ -261,27 +303,125 @@ Partial Class frmConfigDigital
         '
         Me.dgenviado.HeaderText = "Enviado"
         Me.dgenviado.Name = "dgenviado"
-        Me.dgenviado.Width = 70
+        Me.dgenviado.Width = 60
         '
         'dgnombre
         '
         Me.dgnombre.HeaderText = "Nombre"
         Me.dgnombre.Name = "dgnombre"
         Me.dgnombre.ReadOnly = True
-        Me.dgnombre.Width = 170
+        Me.dgnombre.Width = 180
         '
         'digoperacion
         '
         Me.digoperacion.HeaderText = "Operación"
         Me.digoperacion.Name = "digoperacion"
         Me.digoperacion.ReadOnly = True
-        Me.digoperacion.Width = 150
+        Me.digoperacion.Width = 170
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(485, 110)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(71, 13)
+        Me.Label6.TabIndex = 20
+        Me.Label6.Text = "Conceptos."
+        '
+        'dgConceptos
+        '
+        Me.dgConceptos.AllowUserToAddRows = False
+        Me.dgConceptos.AllowUserToDeleteRows = False
+        Me.dgConceptos.AllowUserToResizeColumns = False
+        Me.dgConceptos.AllowUserToResizeRows = False
+        Me.dgConceptos.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
+        Me.dgConceptos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgConceptos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.digcodcon, Me.digactcon, Me.digsuc, Me.digcon, Me.digconEnvia, Me.digconclave, Me.plan})
+        Me.dgConceptos.GridColor = System.Drawing.SystemColors.ControlLightLight
+        Me.dgConceptos.Location = New System.Drawing.Point(488, 126)
+        Me.dgConceptos.Name = "dgConceptos"
+        Me.dgConceptos.RowHeadersVisible = False
+        Me.dgConceptos.Size = New System.Drawing.Size(463, 312)
+        Me.dgConceptos.TabIndex = 21
+        '
+        'digcodcon
+        '
+        Me.digcodcon.HeaderText = "codgico concepto"
+        Me.digcodcon.Name = "digcodcon"
+        Me.digcodcon.Visible = False
+        '
+        'digactcon
+        '
+        Me.digactcon.HeaderText = "Excluye"
+        Me.digactcon.Name = "digactcon"
+        Me.digactcon.ToolTipText = "Conceptos Excluidos para busqueda de documentos en AdminPAQ"
+        Me.digactcon.Width = 45
+        '
+        'digsuc
+        '
+        Me.digsuc.HeaderText = "Sucursal"
+        Me.digsuc.Name = "digsuc"
+        Me.digsuc.ReadOnly = True
+        Me.digsuc.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.digsuc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.digsuc.Width = 70
+        '
+        'digcon
+        '
+        Me.digcon.HeaderText = "Concepto"
+        Me.digcon.Name = "digcon"
+        Me.digcon.ReadOnly = True
+        Me.digcon.Width = 145
+        '
+        'digconEnvia
+        '
+        Me.digconEnvia.HeaderText = "Rec. Lote"
+        Me.digconEnvia.Name = "digconEnvia"
+        Me.digconEnvia.ToolTipText = "Concepto para enviar como Rubro para la recepción por lotes"
+        Me.digconEnvia.Width = 70
+        '
+        'digconclave
+        '
+        Me.digconclave.HeaderText = "Clave"
+        Me.digconclave.Name = "digconclave"
+        Me.digconclave.Visible = False
+        '
+        'plan
+        '
+        Me.plan.HeaderText = "Plantilla"
+        Me.plan.Name = "plan"
+        Me.plan.Width = 120
+        '
+        'Label7
+        '
+        Me.Label7.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(485, 9)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(466, 87)
+        Me.Label7.TabIndex = 22
+        Me.Label7.Text = resources.GetString("Label7.Text")
+        '
+        'btnEnviaCon
+        '
+        Me.btnEnviaCon.BackColor = System.Drawing.Color.DodgerBlue
+        Me.btnEnviaCon.Location = New System.Drawing.Point(763, 99)
+        Me.btnEnviaCon.Name = "btnEnviaCon"
+        Me.btnEnviaCon.Size = New System.Drawing.Size(188, 24)
+        Me.btnEnviaCon.TabIndex = 23
+        Me.btnEnviaCon.Text = "Enviar Conceptos(Rubros) al CRM"
+        Me.btnEnviaCon.UseVisualStyleBackColor = False
         '
         'frmConfigDigital
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(963, 450)
+        Me.Controls.Add(Me.btnEnviaCon)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.dgConceptos)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.TabConfig)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label3)
@@ -298,6 +438,7 @@ Partial Class frmConfigDigital
         Me.TabRubros.ResumeLayout(False)
         Me.TabRubros.PerformLayout()
         CType(Me.dgDocModelos, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgConceptos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -312,6 +453,11 @@ Partial Class frmConfigDigital
     Friend WithEvents tbaSuc As TabPage
     Friend WithEvents TabRubros As TabPage
     Friend WithEvents Label4 As Label
+    Friend WithEvents dgDocModelos As DataGridView
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents dgConceptos As DataGridView
+    Friend WithEvents Label7 As Label
     Friend WithEvents digidadw As DataGridViewTextBoxColumn
     Friend WithEvents digidempresacont As DataGridViewTextBoxColumn
     Friend WithEvents digidempresacrm As DataGridViewTextBoxColumn
@@ -320,13 +466,22 @@ Partial Class frmConfigDigital
     Friend WithEvents dignombreadw As DataGridViewTextBoxColumn
     Friend WithEvents digsucursal As DataGridViewTextBoxColumn
     Friend WithEvents digempresacrm As DataGridViewTextBoxColumn
-    Friend WithEvents dgDocModelos As DataGridView
-    Friend WithEvents Label5 As Label
+    Friend WithEvents bddCont As DataGridViewTextBoxColumn
     Friend WithEvents digclave As DataGridViewTextBoxColumn
     Friend WithEvents digidmenu As DataGridViewTextBoxColumn
     Friend WithEvents digidsubmenu As DataGridViewTextBoxColumn
+    Friend WithEvents digiddocmode As DataGridViewTextBoxColumn
     Friend WithEvents dgtipo As DataGridViewTextBoxColumn
     Friend WithEvents dgenviado As DataGridViewCheckBoxColumn
     Friend WithEvents dgnombre As DataGridViewTextBoxColumn
     Friend WithEvents digoperacion As DataGridViewTextBoxColumn
+    Friend WithEvents btnenvia As Button
+    Friend WithEvents btnEnviaCon As Button
+    Friend WithEvents digcodcon As DataGridViewTextBoxColumn
+    Friend WithEvents digactcon As DataGridViewCheckBoxColumn
+    Friend WithEvents digsuc As DataGridViewTextBoxColumn
+    Friend WithEvents digcon As DataGridViewTextBoxColumn
+    Friend WithEvents digconEnvia As DataGridViewCheckBoxColumn
+    Friend WithEvents digconclave As DataGridViewTextBoxColumn
+    Friend WithEvents plan As DataGridViewComboBoxColumn
 End Class

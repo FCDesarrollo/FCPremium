@@ -4,7 +4,6 @@
     Private _apellidop As String
     Private _apellidom As String
     Private _usuario As String
-    Private _password As String
     Private _tipo As Integer
     Private _status As Integer
 
@@ -85,14 +84,6 @@
         End Set
     End Property
 
-    Public Property Password As String
-        Get
-            Return _password
-        End Get
-        Set(value As String)
-            _password = value
-        End Set
-    End Property
 
     Public Property Tipo As Integer
         Get
@@ -135,7 +126,7 @@
                 e.Status = Row("status")
                 e.Correo = Row("correo")
                 e.EmpresaBD = Row("empresaBD")
-                e.Vigencia = Row("vigencia")
+                'e.Vigencia = Row("vigencia")
                 e.Usuario_storage = Row("usuario_storage")
                 e.Password_storage = Row("password_storage")
 
