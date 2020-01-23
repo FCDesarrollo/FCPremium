@@ -15,6 +15,8 @@
     Private _usuario_storage As String
     Private _password_storage As String
 
+
+
     Public Property Idempresa As Integer
         Get
             Return _idempresa
@@ -149,4 +151,5 @@
             _password_storage = value
         End Set
     End Property
+
 End Class

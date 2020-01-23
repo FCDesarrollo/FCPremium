@@ -102,9 +102,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\clDocDigital.vb" />
     <Compile Include="Clases\clEmpresa.vb" />
     <Compile Include="Clases\clModulos.vb" />
     <Compile Include="Clases\clParametros.vb" />
+    <Compile Include="Clases\clRubro.vb" />
     <Compile Include="Clases\clSubMenu.vb" />
     <Compile Include="Clases\clUserAPI.vb" />
     <Compile Include="Clases\clUsuario.vb" />
@@ -112,6 +114,12 @@
       <DependentUpon>frmActivador.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmActivador.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmAddDoc.Designer.vb">
+      <DependentUpon>frmAddDoc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmAddDoc.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\frmConfig.Designer.vb">
@@ -150,6 +158,12 @@
     <Compile Include="Formularios\frmPrincipal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\frmRubros.Designer.vb">
+      <DependentUpon>frmRubros.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmRubros.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\frmUsuario.Designer.vb">
       <DependentUpon>frmUsuario.vb</DependentUpon>
     </Compile>
@@ -159,6 +173,7 @@
     <Compile Include="Modulos\ModFC_Premium.vb" />
     <Compile Include="Modulos\GeneralFC.vb" />
     <Compile Include="Modulos\modGlobales.vb" />
+    <Compile Include="Modulos\modTablas.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -180,6 +195,9 @@
     <EmbeddedResource Include="Formularios\frmActivador.resx">
       <DependentUpon>frmActivador.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmAddDoc.resx">
+      <DependentUpon>frmAddDoc.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmConfig.resx">
       <DependentUpon>frmConfig.vb</DependentUpon>
     </EmbeddedResource>
@@ -197,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmPrincipal.resx">
       <DependentUpon>frmPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmRubros.resx">
+      <DependentUpon>frmRubros.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmUsuario.resx">
       <DependentUpon>frmUsuario.vb</DependentUpon>

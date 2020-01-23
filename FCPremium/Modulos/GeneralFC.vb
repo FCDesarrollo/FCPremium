@@ -10,6 +10,7 @@ Module GeneralFC
     ''VARIABLES DE CONEXION
     Public DConexiones As Dictionary(Of String, SqlConnection)
     Public FC_Con As New SqlConnection
+    Public FC_SQL As New SqlConnection
     Public FC_CONFOX As New OdbcConnection
     ''VARIABLES PARA CONSULTAS
     Public Rs As SqlDataReader
@@ -62,8 +63,26 @@ Module GeneralFC
         FC_Conexion = 0
         Exit Function
 ERR_CON:
-        MsgBox(Err.Description, vbCritical, "Validación")
+        MsgBox("Error al conectar base de datos General." & vbCrLf & Err.Description, vbCritical, "Validación")
         FC_Conexion = Err.Number
+    End Function
+
+    Public Function FC_ConexionSQL(ByVal BaseSQL As String) As Long
+        Dim conData() As String
+        On Error GoTo ERR_CON
+
+        If FC_SQL.State = ConnectionState.Connecting Then FC_SQL.Close()
+        conData = FC_GetDatos()
+        FC_SQL = New SqlConnection()
+        FC_SQL.ConnectionString = "Data Source=" + conData(0) + " ;" &
+                         "Initial Catalog=" + BaseSQL + ";" &
+                         "User Id=" + conData(1) + ";Password=" + conData(2) + ";MultipleActiveResultSets=True"
+        FC_SQL.Open()
+        FC_ConexionSQL = 0
+        Exit Function
+ERR_CON:
+        MsgBox("Error al conectar base SQL." & vbCrLf & Err.Description, vbCritical, "Validación")
+        FC_ConexionSQL = Err.Number
     End Function
 
     Public Function FC_ConexionFOX(foxRuta As String) As Long
@@ -77,7 +96,7 @@ ERR_CON:
         FC_ConexionFOX = 0
         Exit Function
 ERR_CON:
-        MsgBox(Err.Description)
+        MsgBox("Error al conectar base FoxCon." & vbCrLf & Err.Description, "Validación")
         FC_ConexionFOX = Err.Number
     End Function
 
@@ -117,6 +136,17 @@ ERR_CON:
         Set(ByVal val As String)
             On Error Resume Next
             WriteToRegistry("RutaModulos", val)
+        End Set
+    End Property
+
+    Public Property FC_RutaSincronizada() As String
+        Get
+            On Error Resume Next
+            FC_RutaSincronizada = My.Computer.Registry.GetValue(FC_REGKEY, "RutaSincronizada", Nothing)
+        End Get
+        Set(ByVal val As String)
+            On Error Resume Next
+            WriteToRegistry("RutaSincronizada", val)
         End Set
     End Property
 
@@ -216,5 +246,10 @@ ERR_GETCONS:
             End If
         Next
         Return blnAbierto
+    End Function
+
+    Public Function ObtenerUltimoDia(Fecha As Date) As Date
+        '    ObtenerPrimerDia = DateSerial(Year(Fecha), Month(Fecha) + 0, 1)
+        ObtenerUltimoDia = DateSerial(Year(Fecha), Month(Fecha) + 1, 0)
     End Function
 End Module
