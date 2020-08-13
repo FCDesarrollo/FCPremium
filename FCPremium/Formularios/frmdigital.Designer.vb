@@ -22,8 +22,8 @@ Partial Class frmdigital
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmdigital))
         Me.LUser = New System.Windows.Forms.Label()
         Me.btnUser = New System.Windows.Forms.Button()
@@ -256,8 +256,8 @@ Partial Class frmdigital
         '
         'numar
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.numar.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.numar.DefaultCellStyle = DataGridViewCellStyle1
         Me.numar.HeaderText = "Num."
         Me.numar.Name = "numar"
         Me.numar.ReadOnly = True
@@ -305,9 +305,9 @@ Partial Class frmdigital
         '
         'cimporte
         '
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.cimporte.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.cimporte.DefaultCellStyle = DataGridViewCellStyle2
         Me.cimporte.HeaderText = "Importe"
         Me.cimporte.Name = "cimporte"
         Me.cimporte.ReadOnly = True
