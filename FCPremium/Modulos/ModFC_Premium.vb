@@ -80,6 +80,8 @@ Module ModFC_Premium
         cpCom = New SqlCommand(cQue, FC_Con)
         cpCom.ExecuteNonQuery()
         cpCom.Dispose()
+
+
     End Sub
 
     Public Function VerificaTablas() As Boolean

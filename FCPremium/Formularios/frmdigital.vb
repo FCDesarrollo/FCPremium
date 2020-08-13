@@ -1054,4 +1054,12 @@ BuscaInicio:
         bddFox = CStr(cbsucursal.SelectedValue)
         Buscar_documentos()
     End Sub
+
+    Private Sub dgDocDigitales_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgDocDigitales.CellContentClick
+
+    End Sub
+
+    Private Sub txtBus_TextChanged(sender As Object, e As EventArgs) Handles txtBus.TextChanged
+
+    End Sub
 End Class
