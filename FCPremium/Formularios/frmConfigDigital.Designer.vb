@@ -27,6 +27,9 @@ Partial Class frmConfigDigital
         Me.cbempresa = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.TabConfig = New System.Windows.Forms.TabControl()
+        Me.tbaSuc = New System.Windows.Forms.TabPage()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.dgempresas = New System.Windows.Forms.DataGridView()
         Me.digidadw = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digidempresacont = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -37,9 +40,6 @@ Partial Class frmConfigDigital
         Me.digsucursal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.digempresacrm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.bddCont = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TabConfig = New System.Windows.Forms.TabControl()
-        Me.tbaSuc = New System.Windows.Forms.TabPage()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.TabRubros = New System.Windows.Forms.TabPage()
         Me.btnenvia = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -63,9 +63,9 @@ Partial Class frmConfigDigital
         Me.plan = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnEnviaCon = New System.Windows.Forms.Button()
-        CType(Me.dgempresas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabConfig.SuspendLayout()
         Me.tbaSuc.SuspendLayout()
+        CType(Me.dgempresas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabRubros.SuspendLayout()
         CType(Me.dgDocModelos, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,6 +109,40 @@ Partial Class frmConfigDigital
         Me.Label2.TabIndex = 12
         Me.Label2.Text = "Datos Necesarios para enviar a la empresa CRM." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Sucursales." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Rubros."
         '
+        'TabConfig
+        '
+        Me.TabConfig.Controls.Add(Me.tbaSuc)
+        Me.TabConfig.Controls.Add(Me.TabRubros)
+        Me.TabConfig.Location = New System.Drawing.Point(15, 101)
+        Me.TabConfig.Name = "TabConfig"
+        Me.TabConfig.SelectedIndex = 0
+        Me.TabConfig.Size = New System.Drawing.Size(453, 337)
+        Me.TabConfig.TabIndex = 19
+        '
+        'tbaSuc
+        '
+        Me.tbaSuc.Controls.Add(Me.Label4)
+        Me.tbaSuc.Controls.Add(Me.dgempresas)
+        Me.tbaSuc.Controls.Add(Me.Label1)
+        Me.tbaSuc.Location = New System.Drawing.Point(4, 22)
+        Me.tbaSuc.Name = "tbaSuc"
+        Me.tbaSuc.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbaSuc.Size = New System.Drawing.Size(445, 311)
+        Me.tbaSuc.TabIndex = 0
+        Me.tbaSuc.Text = "Sucursales"
+        Me.tbaSuc.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Yellow
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(130, 295)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(315, 13)
+        Me.Label4.TabIndex = 19
+        Me.Label4.Text = "Doble Click para enviar la Sucursal a la Empresa CRM"
+        '
         'dgempresas
         '
         Me.dgempresas.AllowUserToAddRows = False
@@ -119,7 +153,7 @@ Partial Class frmConfigDigital
         Me.dgempresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgempresas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.digidadw, Me.digidempresacont, Me.digidempresacrm, Me.digruta, Me.digidsuc, Me.dignombreadw, Me.digsucursal, Me.digempresacrm, Me.bddCont})
         Me.dgempresas.GridColor = System.Drawing.SystemColors.ControlLightLight
-        Me.dgempresas.Location = New System.Drawing.Point(6, 19)
+        Me.dgempresas.Location = New System.Drawing.Point(3, 19)
         Me.dgempresas.MultiSelect = False
         Me.dgempresas.Name = "dgempresas"
         Me.dgempresas.RowHeadersVisible = False
@@ -183,40 +217,6 @@ Partial Class frmConfigDigital
         Me.bddCont.Name = "bddCont"
         Me.bddCont.ReadOnly = True
         Me.bddCont.Visible = False
-        '
-        'TabConfig
-        '
-        Me.TabConfig.Controls.Add(Me.tbaSuc)
-        Me.TabConfig.Controls.Add(Me.TabRubros)
-        Me.TabConfig.Location = New System.Drawing.Point(15, 101)
-        Me.TabConfig.Name = "TabConfig"
-        Me.TabConfig.SelectedIndex = 0
-        Me.TabConfig.Size = New System.Drawing.Size(453, 337)
-        Me.TabConfig.TabIndex = 19
-        '
-        'tbaSuc
-        '
-        Me.tbaSuc.Controls.Add(Me.Label4)
-        Me.tbaSuc.Controls.Add(Me.dgempresas)
-        Me.tbaSuc.Controls.Add(Me.Label1)
-        Me.tbaSuc.Location = New System.Drawing.Point(4, 22)
-        Me.tbaSuc.Name = "tbaSuc"
-        Me.tbaSuc.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbaSuc.Size = New System.Drawing.Size(445, 311)
-        Me.tbaSuc.TabIndex = 0
-        Me.tbaSuc.Text = "Sucursales"
-        Me.tbaSuc.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Yellow
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(130, 295)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(315, 13)
-        Me.Label4.TabIndex = 19
-        Me.Label4.Text = "Doble Click para enviar la Sucursal a la Empresa CRM"
         '
         'TabRubros
         '
@@ -431,10 +431,10 @@ Partial Class frmConfigDigital
         Me.Name = "frmConfigDigital"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Configuración Digital"
-        CType(Me.dgempresas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabConfig.ResumeLayout(False)
         Me.tbaSuc.ResumeLayout(False)
         Me.tbaSuc.PerformLayout()
+        CType(Me.dgempresas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabRubros.ResumeLayout(False)
         Me.TabRubros.PerformLayout()
         CType(Me.dgDocModelos, System.ComponentModel.ISupportInitialize).EndInit()
@@ -448,7 +448,6 @@ Partial Class frmConfigDigital
     Friend WithEvents cbempresa As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents dgempresas As DataGridView
     Friend WithEvents TabConfig As TabControl
     Friend WithEvents tbaSuc As TabPage
     Friend WithEvents TabRubros As TabPage
@@ -458,15 +457,6 @@ Partial Class frmConfigDigital
     Friend WithEvents Label6 As Label
     Friend WithEvents dgConceptos As DataGridView
     Friend WithEvents Label7 As Label
-    Friend WithEvents digidadw As DataGridViewTextBoxColumn
-    Friend WithEvents digidempresacont As DataGridViewTextBoxColumn
-    Friend WithEvents digidempresacrm As DataGridViewTextBoxColumn
-    Friend WithEvents digruta As DataGridViewTextBoxColumn
-    Friend WithEvents digidsuc As DataGridViewTextBoxColumn
-    Friend WithEvents dignombreadw As DataGridViewTextBoxColumn
-    Friend WithEvents digsucursal As DataGridViewTextBoxColumn
-    Friend WithEvents digempresacrm As DataGridViewTextBoxColumn
-    Friend WithEvents bddCont As DataGridViewTextBoxColumn
     Friend WithEvents digclave As DataGridViewTextBoxColumn
     Friend WithEvents digidmenu As DataGridViewTextBoxColumn
     Friend WithEvents digidsubmenu As DataGridViewTextBoxColumn
@@ -484,4 +474,14 @@ Partial Class frmConfigDigital
     Friend WithEvents digconEnvia As DataGridViewCheckBoxColumn
     Friend WithEvents digconclave As DataGridViewTextBoxColumn
     Friend WithEvents plan As DataGridViewComboBoxColumn
+    Friend WithEvents dgempresas As DataGridView
+    Friend WithEvents digidadw As DataGridViewTextBoxColumn
+    Friend WithEvents digidempresacont As DataGridViewTextBoxColumn
+    Friend WithEvents digidempresacrm As DataGridViewTextBoxColumn
+    Friend WithEvents digruta As DataGridViewTextBoxColumn
+    Friend WithEvents digidsuc As DataGridViewTextBoxColumn
+    Friend WithEvents dignombreadw As DataGridViewTextBoxColumn
+    Friend WithEvents digsucursal As DataGridViewTextBoxColumn
+    Friend WithEvents digempresacrm As DataGridViewTextBoxColumn
+    Friend WithEvents bddCont As DataGridViewTextBoxColumn
 End Class

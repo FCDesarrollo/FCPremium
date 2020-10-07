@@ -16,9 +16,6 @@ Public Class frmdigital
         sBandLoad = False
     End Sub
 
-
-
-
     Private Sub Cbempresa_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbempresa.SelectedIndexChanged
         Dim idEmp As Integer
         If sBandLoad = True Then Exit Sub
@@ -55,7 +52,7 @@ Public Class frmdigital
             txtasoc.Text = 0
             txtpendientes.Text = 0
             _rfcEmpresa = Obtener_RFC(idEmp)
-            Carga_Permisos(idEmp, Me.cboperacion)
+            Carga_Permisos(idEmp, Me.cboperacion, Menu_Digital_Operacion)
             Carga_sucursales(idEmp, cbsucursal)
         Catch ex As Exception
             MsgBox("Erro al cambiar de Empresa." & vbCrLf & ex.Message, vbExclamation, "Validación")
@@ -1060,6 +1057,22 @@ BuscaInicio:
     End Sub
 
     Private Sub txtBus_TextChanged(sender As Object, e As EventArgs) Handles txtBus.TextChanged
+
+    End Sub
+
+    Private Sub txtEjercicio_TextChanged(sender As Object, e As EventArgs) Handles txtEjercicio.TextChanged
+
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub txtpendientes_TextChanged(sender As Object, e As EventArgs) Handles txtpendientes.TextChanged
+
+    End Sub
+
+    Private Sub btnUser_Click(sender As Object, e As EventArgs) Handles btnUser.Click
 
     End Sub
 End Class
