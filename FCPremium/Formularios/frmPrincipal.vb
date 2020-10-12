@@ -195,7 +195,9 @@ RegresaMenu:
 
     End Sub
 
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+
+
+    Private Sub MExpedientes_Click(sender As Object, e As EventArgs) Handles MExpedientes.Click
         Dim hijo As New frmClipExp
         hijo.MdiParent = Me
         If Inicio_UserAPI() = False Then
@@ -212,5 +214,13 @@ RegresaMenu:
                 hijo.Show()
             End If
         End If
+    End Sub
+
+    Private Sub MEntregas_Click(sender As Object, e As EventArgs) Handles MEntregas.Click
+        Dim proces As New Process()
+
+        proces.StartInfo.FileName = My.Computer.FileSystem.CurrentDirectory & "\Entregas\FCDeliver.exe"
+
+        proces.Start()
     End Sub
 End Class

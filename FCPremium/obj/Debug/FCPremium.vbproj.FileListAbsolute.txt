@@ -89,3 +89,11 @@ C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmGeneraDoctos.resources
 C:\GitProjects\FCPremium\obj\Debug\Interop.AdobePDFMakerForOffice.dll
 C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmEjerciciosBan.resources
 C:\GitProjects\FCPremium\obj\Debug\Interop.MSXML2.dll
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\Interop.AdobePDFMakerForOffice.dll
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\Interop.MSXML2.dll
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmClipExp.resources
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmConfigEmpresasEmp.resources
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmConfigExpedientes.resources
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmConfigTiposDocto.resources
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmEjerciciosBan.resources
+C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmGeneraDoctos.resources
