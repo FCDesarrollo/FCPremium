@@ -128,7 +128,11 @@ Module ModFC_Premium
         Dim postdatabytes As Byte()
 
         Try
-            s = HttpWebRequest.Create(aAPi & aMetodo)
+            If sMe = "POST" Then
+                s = HttpWebRequest.Create(aAPi & aMetodo)
+            Else
+                s = HttpWebRequest.Create(aAPi & aMetodo & aDatos)
+            End If
             enc = New System.Text.UTF8Encoding()
             If sMe = "POST" Then
                 postdata = aDatos
@@ -320,7 +324,7 @@ Module ModFC_Premium
 
     Public Function GetSerialDisco() As String
         Dim serialDD As New ManagementObject("Win32_PhysicalMedia='\\.\PHYSICALDRIVE0'")
-        GetSerialDisco = Trim(serialDD.Properties("SerialNumber").Value.ToString)
+            GetSerialDisco = Trim(serialDD.Properties("SerialNumber").Value.ToString)
     End Function
 
 

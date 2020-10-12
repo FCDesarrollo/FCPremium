@@ -296,4 +296,8 @@ Public Class frmConfig
             MsgBox("El Modulo no tiene ficha.", vbExclamation + vbInformation, "Validación")
         End If
     End Sub
+
+    Private Sub tabModulos_Click(sender As Object, e As EventArgs) Handles tabModulos.Click
+
+    End Sub
 End Class

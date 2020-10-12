@@ -6,6 +6,7 @@
     Private _estatus As Integer
     Private _descripcion As String
     Private _iddocadw As Integer
+    Private _download As String
 
     Public Property Id As Integer
         Get
@@ -67,6 +68,15 @@
         End Get
         Set(value As Integer)
             _iddocadw = value
+        End Set
+    End Property
+
+    Public Property Download As String
+        Get
+            Return _download
+        End Get
+        Set(value As String)
+            _download = value
         End Set
     End Property
 End Class

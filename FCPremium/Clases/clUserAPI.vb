@@ -10,6 +10,8 @@
     Private _correo As String
     Private _contra As String
 
+    Private _pwd As String
+
     Private _mEmpresas As New Collection
 
     Public Property Correo As String
@@ -27,6 +29,15 @@
         End Get
         Set(value As String)
             _contra = value
+        End Set
+    End Property
+
+    Public Property EncryptedContra As String
+        Get
+            Return _pwd
+        End Get
+        Set(value As String)
+            _pwd = value
         End Set
     End Property
 

@@ -42,6 +42,7 @@ Partial Class frmPrincipal
         Me.MDigital = New System.Windows.Forms.ToolStripButton()
         Me.MSep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MConfig = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.PMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -52,7 +53,7 @@ Partial Class frmPrincipal
         Me.PMenu.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle))
         Me.PMenu.GripMargin = New System.Windows.Forms.Padding(3)
         Me.PMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.MSep3, Me.MConfig})
+        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.ToolStripButton1, Me.MSep3, Me.MConfig})
         Me.PMenu.Location = New System.Drawing.Point(0, 0)
         Me.PMenu.Name = "PMenu"
         Me.PMenu.Size = New System.Drawing.Size(902, 60)
@@ -208,9 +209,9 @@ Partial Class frmPrincipal
         Me.MDigital.Image = CType(resources.GetObject("MDigital.Image"), System.Drawing.Image)
         Me.MDigital.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.MDigital.Name = "MDigital"
-        Me.MDigital.Size = New System.Drawing.Size(115, 57)
+        Me.MDigital.Size = New System.Drawing.Size(106, 57)
         Me.MDigital.Tag = "9"
-        Me.MDigital.Text = "Asociación Digital"
+        Me.MDigital.Text = "Clip Operaciones"
         Me.MDigital.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'MSep3
@@ -230,6 +231,16 @@ Partial Class frmPrincipal
         Me.MConfig.Tag = "-1"
         Me.MConfig.Text = "Configuración"
         Me.MConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'ToolStripButton1
+        '
+        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
+        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton1.Name = "ToolStripButton1"
+        Me.ToolStripButton1.Size = New System.Drawing.Size(103, 57)
+        Me.ToolStripButton1.Tag = "9"
+        Me.ToolStripButton1.Text = "Clip Expedientes"
+        Me.ToolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'frmPrincipal
         '
@@ -268,4 +279,5 @@ Partial Class frmPrincipal
     Friend WithEvents MActivos As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents MDigital As ToolStripButton
+    Friend WithEvents ToolStripButton1 As ToolStripButton
 End Class

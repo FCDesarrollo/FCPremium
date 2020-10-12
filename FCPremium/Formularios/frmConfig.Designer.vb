@@ -23,8 +23,8 @@ Partial Class frmConfig
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConfig))
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabParam = New System.Windows.Forms.TabPage()
         Me.btnActiva = New System.Windows.Forms.Button()
         Me.txtRazon = New System.Windows.Forms.TextBox()
@@ -56,7 +56,6 @@ Partial Class frmConfig
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnCargar = New System.Windows.Forms.Button()
         Me.dgModulos = New System.Windows.Forms.DataGridView()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -66,6 +65,7 @@ Partial Class frmConfig
         Me.Download = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.fichaver = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.ficha = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.tabParam.SuspendLayout()
         Me.tabGen.SuspendLayout()
         Me.mpConfig.SuspendLayout()
@@ -385,16 +385,6 @@ Partial Class frmConfig
         Me.dgModulos.Size = New System.Drawing.Size(532, 226)
         Me.dgModulos.TabIndex = 12
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(6, 25)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(127, 13)
-        Me.Label8.TabIndex = 11
-        Me.Label8.Text = "Modulos Disponibles." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.HeaderText = "IDModulo"
@@ -409,8 +399,8 @@ Partial Class frmConfig
         '
         'DataGridViewTextBoxColumn3
         '
-        DataGridViewCellStyle3.Format = "0.##"
-        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Format = "0.##"
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridViewTextBoxColumn3.HeaderText = "Versión"
         Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
         Me.DataGridViewTextBoxColumn3.Width = 45
@@ -430,8 +420,8 @@ Partial Class frmConfig
         '
         'versiones
         '
-        DataGridViewCellStyle4.Format = "0.##"
-        Me.versiones.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Format = "0.##"
+        Me.versiones.DefaultCellStyle = DataGridViewCellStyle2
         Me.versiones.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
         Me.versiones.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.versiones.HeaderText = "Versiones"
@@ -462,6 +452,16 @@ Partial Class frmConfig
         Me.ficha.ReadOnly = True
         Me.ficha.ToolTipText = "Ficha Tecnica del Modulo"
         Me.ficha.Width = 70
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(6, 25)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(127, 13)
+        Me.Label8.TabIndex = 11
+        Me.Label8.Text = "Modulos Disponibles." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'frmConfig
         '

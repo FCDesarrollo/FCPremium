@@ -29,6 +29,7 @@ Module modGlobales
 
     Public Const Menu_Digital_Operacion As Integer = 5
     Public Const Menu_Recepcion_Lotes As Integer = 6
+    Public Const Menu_Digital_Expedientes As Integer = 10
 
     Public G_claRubroNew As String
     Public G_carFin As String
@@ -228,7 +229,7 @@ Module modGlobales
         cb.DisplayMember = "Nombre"
     End Sub
 
-    Public Sub Carga_Permisos(ByVal cIDEmpresa As Integer, ByVal cb As ComboBox)
+    Public Sub Carga_Permisos(ByVal cIDEmpresa As Integer, ByVal cb As ComboBox, ByVal cIDMenu As Integer)
         Dim dMetodo As String, dFiltro As String = ""
         Dim jsonMod As String, subM As clSubMenu
         Dim dt As DataTable
@@ -242,10 +243,8 @@ Module modGlobales
         dr(1) = "SELECCIONAR OPERACIÓN"
         dt.Rows.Add(dr)
 
-
-
         dMetodo = "PermisoSubMenus?idusuario=" & GL_cUsuarioAPI.Iduser &
-                    "&idempresa=" & cIDEmpresa & "&idmenu=" & Menu_Digital_Operacion
+                    "&idempresa=" & cIDEmpresa & "&idmenu=" & cIDMenu
         jsonMod = ConsumeAPI(mApi, dMetodo, dFiltro, "GET")
         If jsonMod <> "" Then
             jsonMod = "{ ""permiso"":" & jsonMod & "}"
@@ -324,6 +323,24 @@ Module modGlobales
         Get_IDs_cModulos = IDs
     End Function
 
+    Public Function Get_NomCarpeta_Menu(ByVal cIdMen As Integer) As String
+        Dim NomCarp As String
+        NomCarp = ""
+        Select Case cIdMen
+            Case 11
+                NomCarp = "AutorizacionesGastos"
+            Case 12
+                NomCarp = "FinanzasTesoreria"
+            Case 13
+                NomCarp = "GestionEmpresarial"
+            Case 14
+                NomCarp = "ExpedientesDigitales"
+            Case 15
+                NomCarp = "Publicaciones"
+        End Select
+        Get_NomCarpeta_Menu = NomCarp
+    End Function
+
     Public Function Get_NomCarpeta_SubMenu(ByVal cIdSub As Integer) As String
         Dim NomCarp As String
 
@@ -341,6 +358,64 @@ Module modGlobales
                 NomCarp = "Produccion"
             Case 26
                 NomCarp = "Inventarios"
+            Case 31
+                NomCarp = "Gobierno"
+            Case 32
+                NomCarp = "Bancos"
+            Case 33
+                NomCarp = "RecursosHumanos"
+            Case 34
+                NomCarp = "Clientes"
+            Case 35
+                NomCarp = "Proveedores"
+            Case 36
+                NomCarp = "Constitucion"
+            Case 37
+                NomCarp = "Activos"
+            Case 38
+                NomCarp = "Publicaciones"
+            Case 44
+                NomCarp = "Gastos"
+            Case 45
+                NomCarp = "ConfiguraPermisos"
+            Case 46
+                NomCarp = "Flujos"
+            Case 47
+                NomCarp = "Analisis"
+            Case 48
+                NomCarp = "Minuta"
+            Case 49
+                NomCarp = "Planes"
+            Case 50
+                NomCarp = "Consultor"
+            Case 51
+                NomCarp = "Estatutos"
+            Case 52
+                NomCarp = "Gobierno"
+            Case 53
+                NomCarp = "Bancos"
+            Case 54
+                NomCarp = "RecursosHumanos"
+            Case 55
+                NomCarp = "Clientes"
+            Case 56
+                NomCarp = "Proveedores"
+            Case 57
+                NomCarp = "Activos"
+            Case 58
+                NomCarp = "FoliosOficiales"
+            Case 59
+                NomCarp = "Biblioteca"
+            Case 60
+                NomCarp = "Mural"
+            Case 67
+                NomCarp = "Impuestos"
+            Case 68
+                NomCarp = "Compras"
+            Case 69
+                NomCarp = "Ventas"
+            Case 70
+                NomCarp = "Pagos"
         End Select
 
         Get_NomCarpeta_SubMenu = NomCarp
@@ -414,8 +489,9 @@ Module modGlobales
 
     End Function
 
+
     Public Function Get_ConceptoBancos(ByVal dTipoBan As Integer) As String
-        Dim nomCon As String
+        Dim nomCon As String = ""
         Select Case dTipoBan
             Case 3
                 nomCon = "TRASPASO ENTRE CUENTAS"
@@ -428,4 +504,64 @@ Module modGlobales
         End Select
         Get_ConceptoBancos = nomCon
     End Function
+
+    Public Sub getEmpresas(ByVal cb As ComboBox)
+        Dim dt As DataTable
+        Dim dr As DataRow
+        Dim cQue As String
+
+        dt = New DataTable("Empresas")
+        dt.Columns.Add("id")
+        dt.Columns.Add("Nombre")
+
+        dr = dt.NewRow
+        dr(0) = 0
+        dr(1) = "SELECCIONAR EMPRESA"
+        dt.Rows.Add(dr)
+
+        GL_cUsuarioAPI.lista_empresas()
+
+        cQue = "SELECT * FROM XMLDigSucursal"
+        Using cCom = New SqlCommand(cQue, FC_Con)
+            Using cRs = cCom.ExecuteReader()
+                Do While cRs.Read()
+                    dr = dt.NewRow
+                    dr(0) = Trim(cRs("idempresacrm"))
+                    dr(1) = Trim(cRs("nombrecrm"))
+                    dt.Rows.Add(dr)
+                Loop
+            End Using
+        End Using
+
+        cb.DataSource = dt
+        cb.ValueMember = "id"
+        cb.DisplayMember = "Nombre"
+    End Sub
+
+    Public Sub ConEmpresaSQL(ByVal idEmp As Integer)
+        Dim cQue As String
+        cQue = "SELECT d.rutaadw,x.ctBDD FROM XMLDigSucursal d
+                    INNER JOIN XMLEmpresas x ON d.idempresacont=x.IdEmpresa 
+                        WHERE d.idempresacrm=" & idEmp & ""
+        Using cCom2 = New SqlCommand(cQue, FC_Con)
+            Using cRsAux = cCom2.ExecuteReader()
+                cRsAux.Read()
+                If cRsAux.HasRows Then
+                    If FC_ConexionSQL(cRsAux("ctBDD")) <> 0 Then Exit Sub
+                End If
+            End Using
+        End Using
+    End Sub
+    Public Sub ConEmpresaNom(ByVal idEmp As Integer)
+        Dim cQue As String
+        cQue = "SELECT ctBDDNom FROM CEXEmpresas WHERE idempresacrm=" & idEmp
+        Using cCom = New SqlCommand(cQue, FC_Con)
+            Using cRsAux = cCom.ExecuteReader()
+                cRsAux.Read()
+                If cRsAux.HasRows Then
+                    If FC_ConexionNom(cRsAux("ctBDDNom")) <> 0 Then Exit Sub
+                End If
+            End Using
+        End Using
+    End Sub
 End Module

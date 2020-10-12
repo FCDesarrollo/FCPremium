@@ -39,14 +39,14 @@ Partial Class frmLogin
         '
         Me.TBUser.Location = New System.Drawing.Point(27, 31)
         Me.TBUser.Name = "TBUser"
-        Me.TBUser.Size = New System.Drawing.Size(207, 20)
+        Me.TBUser.Size = New System.Drawing.Size(197, 20)
         Me.TBUser.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 16)
+        Me.Label1.Location = New System.Drawing.Point(24, 15)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 13)
         Me.Label1.TabIndex = 1
@@ -56,7 +56,7 @@ Partial Class frmLogin
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(15, 60)
+        Me.Label2.Location = New System.Drawing.Point(24, 60)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(71, 13)
         Me.Label2.TabIndex = 3
@@ -67,13 +67,13 @@ Partial Class frmLogin
         Me.TBPass.Location = New System.Drawing.Point(27, 76)
         Me.TBPass.Name = "TBPass"
         Me.TBPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TBPass.Size = New System.Drawing.Size(207, 20)
+        Me.TBPass.Size = New System.Drawing.Size(197, 20)
         Me.TBPass.TabIndex = 2
         '
         'btnEntrar
         '
         Me.btnEntrar.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnEntrar.Location = New System.Drawing.Point(18, 116)
+        Me.btnEntrar.Location = New System.Drawing.Point(27, 116)
         Me.btnEntrar.Name = "btnEntrar"
         Me.btnEntrar.Size = New System.Drawing.Size(91, 26)
         Me.btnEntrar.TabIndex = 4
@@ -103,7 +103,7 @@ Partial Class frmLogin
         'btnSalir
         '
         Me.btnSalir.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnSalir.Location = New System.Drawing.Point(124, 116)
+        Me.btnSalir.Location = New System.Drawing.Point(133, 116)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(91, 26)
         Me.btnSalir.TabIndex = 7
