@@ -8,7 +8,7 @@ Public Class frmConfigExpedientes
     Private Sub cargaEmpresasConfig()
         Dim emp As clEmpresa
         Dim cbc As New DataGridViewComboBoxColumn()
-        Dim i As Integer
+        'Dim i As Integer
         Dim cQue As String
         Dim idEmpCon As Integer
         Dim idEmpNom As Integer

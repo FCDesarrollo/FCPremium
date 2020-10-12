@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class frmConfigEmpresasEmp
     Private Sub frmConfigEmpresasEmp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim fm As frmConfigExpedientes
+        'Dim fm As frmConfigExpedientes
         Dim dt As DataTable
         Dim dr As DataRow
 
@@ -110,7 +110,7 @@ Public Class frmConfigEmpresasEmp
         Dim Query As String
         Dim dt As DataTable
         Dim dr As DataRow
-        Dim cQue As String
+        'Dim cQue As String
 
         dt = New DataTable("Empresas")
         dt.Columns.Add("id")

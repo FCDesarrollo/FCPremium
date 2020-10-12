@@ -1004,7 +1004,7 @@ Public Class frmClipExp
     End Sub
 
     Private Sub btGenera_Click(sender As Object, e As EventArgs) Handles btGenera.Click
-        Dim IdSer As Integer
+        Dim idMod As Integer
         Dim Query As String
         If cbempresa.SelectedIndex = 0 Then
             MsgBox("Seleccione una empresa.")
@@ -1017,10 +1017,11 @@ Public Class frmClipExp
         frmGeneraDoctos.ShowDialog()
 
         For Each Fila As DataGridViewRow In dgServicios.Rows
-            IdSer = Fila.Cells(0).Value
+            idMod = Fila.Cells(10).Value
             'Query = "SELECT sum(doctos_pendientes) as pendientes FROM XMLDigTiposDoctoConfig WHERE id_serviciocrm = " & IdSer
             'Query = "SELECT sum(doctos_pendientes) as pendientes FROM zCEXTiposDocto WHERE id_serviciocrm = " & IdSer
-            Query = "SELECT count(e.id) AS pendientes FROM zClipExped e INNER JOIN zCEXTiposDocto t ON t.id = e.tipo WHERE t.id_serviciocrm =" & IdSer & " and e.procesado = 0"
+            'Query = "SELECT count(e.id) AS pendientes FROM zClipExped e INNER JOIN zCEXTiposDocto t ON t.id = e.tipo WHERE t.id_serviciocrm =" & IdSer & " and e.procesado = 0"
+            Query = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo =" & idMod & " and e.procesado = 0"
             Using cCom = New SqlCommand(Query, FC_SQL)
                 Using Rs = cCom.ExecuteReader()
                     Rs.Read()

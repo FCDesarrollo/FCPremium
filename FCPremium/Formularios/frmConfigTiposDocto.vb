@@ -39,7 +39,7 @@ Public Class frmConfigTiposDocto
     Private Sub cargaTiposDocto()
         Dim idEmp As Integer
         Dim cQue As String
-        Dim sEstatus As String
+        'Dim sEstatus As String
         Dim s As clServicios
         idEmp = CInt(CBEmpresas.SelectedValue)
         If idEmp > 0 Then

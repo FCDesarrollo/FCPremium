@@ -11,7 +11,7 @@ Public Class frmGeneraDoctos
         bLoaded = True
     End Sub
     Private Sub cargaDoctosPendientes()
-        Dim cQue As String
+        'Dim cQue As String
         Dim objList As New ListViewItem
         Dim s As clServicios
 
@@ -169,7 +169,6 @@ Public Class frmGeneraDoctos
             'exApp.Visible = True
             CrearPDF(exApp, RutaDestino & ".pdf")
         End If
-
 
         wb.Close()
         exApp.Quit()

@@ -150,7 +150,7 @@ Public Class frmdigital
 
     Private Sub Buscar_documentos()
         Dim idEmp As Integer, dEjercicio As Integer, dPeriodo As Integer
-        Dim dSucursal As String, Idmodulo As Integer, dRuta As String, idDocModelo As Integer
+        Dim dSucursal As String, Idmodulo As Integer, dRuta As String ', idDocModelo As Integer
 
         idEmp = CInt(cbempresa.SelectedValue)
         dPeriodo = CInt(cbPeriodo.SelectedIndex) + 1

@@ -12,6 +12,7 @@ Module modClipExped
     Public idAdw As Integer
     Public cServicios As Collection
     Public cDocDig As Collection
+    Public Const G_ServerCloud As String = "cloud.dublock.com"
 
     Private Sub getDocumentosCRM(ByVal eID As Integer, ByVal eEjercicio As Integer)
         Dim dMetodo As String, dFiltro As String = ""
@@ -79,6 +80,7 @@ Module modClipExped
         Fila = 5
         With wb.ActiveSheet
             If idSer = 21 Then 'Empleados
+                ColIni = 6
                 .Cells(Fila, 1) = "ID"
                 .Cells(Fila, 2) = "Codigo"
                 .Cells(Fila, 3) = "NSS"
@@ -88,14 +90,16 @@ Module modClipExped
                 .Range("C" & Fila).ColumnWidth = 12
                 .Range("D" & Fila).ColumnWidth = 16
                 .Range("E" & Fila).ColumnWidth = 35
-                ColIni = 6
+                InsertaLogoEmp(wb, idEmp, .range("F1"))
             ElseIf idSer = 22 Then 'Periodos
+                ColIni = 6
                 .Cells(Fila, 1) = "ID"
                 .Cells(Fila, 2) = "Periodo"
                 .Range("B" & Fila).ColumnWidth = 15
                 .Range("E" & Fila).ColumnWidth = 35
-                ColIni = 6
+                InsertaLogoEmp(wb, idEmp, .range("F1"))
             ElseIf idSer = 23 Then 'Activos Fijos
+                ColIni = 7
                 .Cells(Fila, 1) = "ID"
                 .Cells(Fila, 2) = "Tipo Activo"
                 .Cells(Fila, 3) = "Fecha Adq"
@@ -107,10 +111,10 @@ Module modClipExped
                 .Range("D" & Fila).ColumnWidth = 12
                 .Range("E" & Fila).ColumnWidth = 12
                 .Range("F" & Fila).ColumnWidth = 40
-                ColIni = 7
+                InsertaLogoEmp(wb, idEmp, .range("G1"))
             ElseIf idSer = 25 Then 'Bancos
-                .Cells(2, 2) = "Expediente de Bancos a 12 Meses"
                 .Cells(1, 14) = "Expediente de Bancos"
+                .Cells(2, 2) = "Expediente de Bancos a 12 Meses"
                 .Cells(Fila, 2) = Ejercicio
                 .Cells(Fila, 3) = "Ene"
                 .Cells(Fila, 4) = "Feb"
@@ -125,6 +129,7 @@ Module modClipExped
                 .Cells(Fila, 13) = "Nov"
                 .Cells(Fila, 14) = "Dic"
                 .Cells(Fila, 15) = "Fijo"
+                InsertaLogoEmp(wb, idEmp, .range("C1"))
                 .Range("B" & Fila).ColumnWidth = 30
                 .Range("C" & Fila & ":O" & Fila).ColumnWidth = 7
                 .Range("B5:O5").HorizontalAlignment = Excel.Constants.xlCenter
@@ -204,7 +209,30 @@ Module modClipExped
         wb.Application.ScreenUpdating = True
     End Sub
 
+    Public Sub InsertaLogoEmp(wb As Excel.Workbook, idEmp As Integer, Rango As Excel.Range)
+        Dim dMetodo As String, dFiltro As String = "", jsonMod As String, download As String
+
+        dFiltro = "{" & Chr(34) & "rfc" & Chr(34) & ": " & Chr(34) & Obtener_RFC(idEmp) & Chr(34) & ", " &
+                    Chr(34) & "usuario" & Chr(34) & ": " & Chr(34) & GL_cUsuarioAPI.Correo & Chr(34) & "," &
+                    Chr(34) & "pwd" & Chr(34) & ": " & Chr(34) & GL_cUsuarioAPI.EncryptedContra & Chr(34) & "}"
+        dMetodo = "getLogosEmpresa"
+        jsonMod = ConsumeAPI(mApi, dMetodo, dFiltro, "POST", "JSON")
+        jsonObject = Newtonsoft.Json.Linq.JObject.Parse(jsonMod)
+        If CInt(jsonObject("error")) = 0 Then
+            If Not jsonObject("logos") Is Nothing Then
+                download = jsonObject("logos")(0)("download")
+                download = download & "/download"
+                With Rango.Parent
+                    .Pictures.Insert(download)
+                    .Shapes(.Shapes.Count).Left = Rango.Left
+                    .Shapes(.Shapes.Count).Top = Rango.Top
+                End With
+            End If
+        End If
+    End Sub
+
     Public Function Col_Letter(lngCol As Integer) As String
+        Col_Letter = ""
         Select Case lngCol
             Case Is = 1
                 Col_Letter = "A"
@@ -515,7 +543,8 @@ Module modClipExped
                         .Cells(Fila, 6) = Trim(aCr("activofijo"))
 
                         'Query = "SELECT fecha, nombrearchivo, ruta_cloud, idtipodocto FROM XMLDigAsocExped WHERE idelemento = " & aCr("Id") & " and idservicio = " & idSer
-                        Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("Id") & " and idservicio = " & idSer
+                        'Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("Id") & " and idservicio = " & idSer
+                        Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("Id") & " and idmodulo = 11 and not iddigital is null ORDER BY fecha DESC"
                         Using cCom2 = New SqlCommand(Query, FC_SQL)
                             Using Rs = cCom2.ExecuteReader()
                                 Do While Rs.Read()
@@ -646,7 +675,7 @@ Module modClipExped
                         .Cells(Fila, 2) = Trim(aCr("nombretipoperiodo") & " " & aCr("diasdelperiodo") & " del " & Format(aCr("fechainicio"), "dd-MM-yyyy") & " al " & Format(aCr("fechafin"), "dd-MM-yyyy"))
 
                         'Query = "SELECT fecha, nombrearchivo, ruta_cloud, idtipodocto FROM XMLDigAsocExped WHERE idelemento = " & aCr("idperiodo") & " and idservicio = " & idSer
-                        Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("idperiodo") & " and idservicio = " & idSer
+                        Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("idperiodo") & " and idmodulo = 14 ORDER BY Fecha DESC"
                         Using cCom2 = New SqlCommand(Query, FC_SQL)
                             Using Rs = cCom2.ExecuteReader()
                                 Do While Rs.Read()
@@ -780,7 +809,7 @@ Module modClipExped
                         .Cells(Fila, 5) = Trim(aCr("nombrelargo"))
 
                         'Query = "SELECT fecha, nombrearchivo, ruta_cloud, idtipodocto FROM XMLDigAsocExped WHERE idelemento = " & aCr("idempleado") & " and idservicio = " & idSer
-                        Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("idempleado") & " and idservicio = " & idSer
+                        Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital FROM zClipExped WHERE idcuenta = " & aCr("idempleado") & " and idmodulo = 13 ORDER BY Fecha DESC"
                         Using cCom2 = New SqlCommand(Query, FC_SQL)
                             Using Rs = cCom2.ExecuteReader()
                                 Do While Rs.Read()
@@ -1204,6 +1233,85 @@ Module modClipExped
             resp = True
         End If
         ClipMarcadoCRM = resp
+    End Function
+
+    Public Function GetLink_Compartido(ByVal gArchivo As String, ByVal userCRM As String, ByVal passCRM As String) As String
+        Dim sURL As String
+        Dim idEmp As Integer
+        Dim strJson As String
+        Dim objJson As Object
+        Dim hReq As Object, JSON As Object
+        Dim sServidor As String, dpath As String
+
+        sURL = "http://" & userCRM & ":" & passCRM & "@" & G_ServerCloud & "/ocs/v2.php/apps/files_sharing/api/v1/shares"
+        dpath = "path=CRM/" & userCRM & "/" & gArchivo & "&shareType=3"
+
+        hReq = CreateObject("MSXML2.ServerXMLHTTP")
+        With hReq
+            .Open("POST", sURL, False)
+            .setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            .setRequestHeader("OCS-APIREQUEST", "true")
+            .setRequestHeader("Authorization", "Basic " & EncodeBase64(userCRM & ":" & passCRM))
+            .send(dpath)
+            If .Status <> 200 Then
+                Select Case .Status
+                    Case 500 'Error Interno
+                        MsgBox("Internal Server Error(500).", vbCritical)
+                    Case 403 'Prohibido
+                        MsgBox("Error al intentar marcar el lote como procesado." & vbCrLf & "El servidor prohibió el acceso al recurso.", vbCritical)
+                    Case 401 'Falló autenticación
+                        MsgBox("Solicitud rechazada por el servidor. Revise que el usuario y contraseña sean correctos y vuelva a intentar.", vbExclamation)
+                End Select
+                GetLink_Compartido = ""
+                Exit Function
+            End If
+        End With
+
+        strJson = hReq.responseText
+        If strJson <> "" Then
+            GetLink_Compartido = Extraer_Link(strJson)
+        Else
+            GetLink_Compartido = ""
+        End If
+
+        On Error GoTo Err_Update
+
+        Exit Function
+Err_Update:
+        GetLink_Compartido = ""
+        End
+    End Function
+
+    Function EncodeBase64(text As String) As String
+        Dim base64Decoded As String = text
+        Dim base64Encoded As String
+        Dim data As Byte()
+        data = System.Text.ASCIIEncoding.ASCII.GetBytes(base64Decoded)
+        base64Encoded = System.Convert.ToBase64String(data)
+    End Function
+
+    Public Function Extraer_Link(ByVal XmlString As String) As String
+        Dim objDOMDoc As New MSXML2.DOMDocument40
+        Dim Dato As MSXML2.IXMLDOMNodeList
+        Dim dLink As String
+
+        objDOMDoc.async = False
+
+        Call objDOMDoc.load(XmlString)
+
+        dLink = ""
+
+        If objDOMDoc.parseError.reason <> "" Then
+            MsgBox(objDOMDoc.parseError.reason)
+            Exit Function
+        End If
+
+        Dato = objDOMDoc.getElementsByTagName("url")
+        dLink = Dato.item(0).nodeTypedValue
+
+        objDOMDoc = Nothing
+
+        Extraer_Link = dLink
     End Function
 
 End Module

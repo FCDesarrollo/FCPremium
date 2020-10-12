@@ -88,3 +88,4 @@ C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmConfigEmpresasEmp.resources
 C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmGeneraDoctos.resources
 C:\GitProjects\FCPremium\obj\Debug\Interop.AdobePDFMakerForOffice.dll
 C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmEjerciciosBan.resources
+C:\GitProjects\FCPremium\obj\Debug\Interop.MSXML2.dll
