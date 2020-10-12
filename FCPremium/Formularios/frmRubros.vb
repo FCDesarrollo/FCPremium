@@ -12,7 +12,7 @@
 
     Private Sub frmRubros_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _sBandLoad = True
-        Carga_Permisos(_rIDEmpresa, Me.cboperacion)
+        Carga_Permisos(_rIDEmpresa, Me.cboperacion, Menu_Digital_Operacion)
         _sBandLoad = False
     End Sub
 

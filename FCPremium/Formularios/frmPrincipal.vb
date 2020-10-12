@@ -56,7 +56,7 @@ RegresaMenu:
 
     Private Sub BloqueaMenu()
         For Each oToolStripButton In PMenu.Items
-            oToolStripButton.enabled = False
+            'oToolStripButton.enabled = False
         Next
         MUser.Enabled = True
         MuserADD.Enabled = False
@@ -193,5 +193,24 @@ RegresaMenu:
             End If
         End If
 
+    End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        Dim hijo As New frmClipExp
+        hijo.MdiParent = Me
+        If Inicio_UserAPI() = False Then
+            frmLoginAPI.ShowDialog()
+            If Inicio_UserAPI() = True Then
+                If CheckForm(hijo) Is Nothing Then
+                    hijo.Show()
+                End If
+            Else
+                MsgBox("No se inicio sesión en el CRM.", vbInformation, "Validación")
+            End If
+        Else
+            If CheckForm(hijo) Is Nothing Then
+                hijo.Show()
+            End If
+        End If
     End Sub
 End Class

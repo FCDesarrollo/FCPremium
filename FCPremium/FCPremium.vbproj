@@ -107,6 +107,7 @@
     <Compile Include="Clases\clModulos.vb" />
     <Compile Include="Clases\clParametros.vb" />
     <Compile Include="Clases\clRubro.vb" />
+    <Compile Include="Clases\clServicios.vb" />
     <Compile Include="Clases\clSubMenu.vb" />
     <Compile Include="Clases\clUserAPI.vb" />
     <Compile Include="Clases\clUsuario.vb" />
@@ -122,6 +123,12 @@
     <Compile Include="Formularios\frmAddDoc.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\frmClipExp.Designer.vb">
+      <DependentUpon>frmClipExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmClipExp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\frmConfig.Designer.vb">
       <DependentUpon>frmConfig.vb</DependentUpon>
     </Compile>
@@ -134,10 +141,40 @@
     <Compile Include="Formularios\frmConfigDigital.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\frmConfigEmpresasEmp.Designer.vb">
+      <DependentUpon>frmConfigEmpresasEmp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmConfigEmpresasEmp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmConfigExpedientes.Designer.vb">
+      <DependentUpon>frmConfigExpedientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmConfigExpedientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmConfigTiposDocto.Designer.vb">
+      <DependentUpon>frmConfigTiposDocto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmConfigTiposDocto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\frmdigital.Designer.vb">
       <DependentUpon>frmdigital.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmdigital.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmEjerciciosBan.Designer.vb">
+      <DependentUpon>frmEjerciciosBan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmEjerciciosBan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmGeneraDoctos.Designer.vb">
+      <DependentUpon>frmGeneraDoctos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmGeneraDoctos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\frmLogin.Designer.vb">
@@ -170,6 +207,7 @@
     <Compile Include="Formularios\frmUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos\modClipExped.vb" />
     <Compile Include="Modulos\ModFC_Premium.vb" />
     <Compile Include="Modulos\GeneralFC.vb" />
     <Compile Include="Modulos\modGlobales.vb" />
@@ -198,14 +236,32 @@
     <EmbeddedResource Include="Formularios\frmAddDoc.resx">
       <DependentUpon>frmAddDoc.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmClipExp.resx">
+      <DependentUpon>frmClipExp.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmConfig.resx">
       <DependentUpon>frmConfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmConfigDigital.resx">
       <DependentUpon>frmConfigDigital.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmConfigEmpresasEmp.resx">
+      <DependentUpon>frmConfigEmpresasEmp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmConfigExpedientes.resx">
+      <DependentUpon>frmConfigExpedientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmConfigTiposDocto.resx">
+      <DependentUpon>frmConfigTiposDocto.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmdigital.resx">
       <DependentUpon>frmdigital.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmEjerciciosBan.resx">
+      <DependentUpon>frmEjerciciosBan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmGeneraDoctos.resx">
+      <DependentUpon>frmGeneraDoctos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
@@ -243,6 +299,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="AdobePDFMakerForOffice">
+      <Guid>{EA8D486A-09E6-411F-B452-78F075ACC8CC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -258,6 +323,15 @@
       <VersionMinor>8</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MSXML2">
+      <Guid>{F5078F18-C551-11D3-89B9-0000F81FE221}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
@@ -282,6 +356,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

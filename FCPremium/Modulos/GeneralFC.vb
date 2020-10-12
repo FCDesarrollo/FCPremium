@@ -11,6 +11,7 @@ Module GeneralFC
     Public DConexiones As Dictionary(Of String, SqlConnection)
     Public FC_Con As New SqlConnection
     Public FC_SQL As New SqlConnection
+    Public FC_Nom As New SqlConnection
     Public FC_CONFOX As New OdbcConnection
     ''VARIABLES PARA CONSULTAS
     Public Rs As SqlDataReader
@@ -83,6 +84,24 @@ ERR_CON:
 ERR_CON:
         MsgBox("Error al conectar base SQL." & vbCrLf & Err.Description, vbCritical, "Validación")
         FC_ConexionSQL = Err.Number
+    End Function
+
+    Public Function FC_ConexionNom(ByVal BaseSQL As String) As Long
+        Dim conData() As String
+        On Error GoTo ERR_CON
+
+        If FC_Nom.State = ConnectionState.Connecting Then FC_Nom.Close()
+        conData = FC_GetDatos()
+        FC_Nom = New SqlConnection()
+        FC_Nom.ConnectionString = "Data Source=" + conData(0) + " ;" &
+                         "Initial Catalog=" + BaseSQL + ";" &
+                         "User Id=" + conData(1) + ";Password=" + conData(2) + ";MultipleActiveResultSets=True"
+        FC_Nom.Open()
+        FC_ConexionNom = 0
+        Exit Function
+ERR_CON:
+        MsgBox("Error al conectar base SQL." & vbCrLf & Err.Description, vbCritical, "Validación")
+        FC_ConexionNom = Err.Number
     End Function
 
     Public Function FC_ConexionFOX(foxRuta As String) As Long
