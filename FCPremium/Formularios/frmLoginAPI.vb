@@ -46,7 +46,7 @@
     End Function
 
     Private Sub FrmLoginAPI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TBPass.Text = "jfranco@2019"
-        'TBUser.Text = "miconsultormx@gmail.com"
+        TBPass.Text = "miconsultor@2020"
+        TBUser.Text = "miconsultormx@gmail.com"
     End Sub
 End Class
