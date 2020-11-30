@@ -56,7 +56,7 @@ RegresaMenu:
 
     Private Sub BloqueaMenu()
         For Each oToolStripButton In PMenu.Items
-            'oToolStripButton.enabled = False
+            oToolStripButton.enabled = False
         Next
         MUser.Enabled = True
         MuserADD.Enabled = False
@@ -172,7 +172,9 @@ RegresaMenu:
     End Sub
 
     Private Sub MActivos_Click(sender As Object, e As EventArgs) Handles MActivos.Click
-
+        Dim mIDModulo As Integer
+        mIDModulo = MActivos.Tag
+        OpenModulo(mIDModulo)
     End Sub
 
     Private Sub MDigital_Click(sender As Object, e As EventArgs) Handles MDigital.Click

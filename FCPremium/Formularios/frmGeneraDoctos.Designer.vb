@@ -26,8 +26,6 @@ Partial Class frmGeneraDoctos
         Me.btGenera = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.dgServicios = New System.Windows.Forms.DataGridView()
-        Me.LCargando = New System.Windows.Forms.Label()
-        Me.pr = New System.Windows.Forms.ProgressBar()
         Me.seleccion = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.idservicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.codser = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -35,6 +33,8 @@ Partial Class frmGeneraDoctos
         Me.pendiente = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ejercicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.idfcmodulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LCargando = New System.Windows.Forms.Label()
+        Me.pr = New System.Windows.Forms.ProgressBar()
         CType(Me.dgServicios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -50,7 +50,7 @@ Partial Class frmGeneraDoctos
         '
         'btGenera
         '
-        Me.btGenera.Location = New System.Drawing.Point(340, 169)
+        Me.btGenera.Location = New System.Drawing.Point(338, 209)
         Me.btGenera.Name = "btGenera"
         Me.btGenera.Size = New System.Drawing.Size(75, 23)
         Me.btGenera.TabIndex = 2
@@ -60,7 +60,7 @@ Partial Class frmGeneraDoctos
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.Button2.Location = New System.Drawing.Point(421, 169)
+        Me.Button2.Location = New System.Drawing.Point(419, 209)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 3
@@ -79,10 +79,59 @@ Partial Class frmGeneraDoctos
         Me.dgServicios.Location = New System.Drawing.Point(12, 48)
         Me.dgServicios.MultiSelect = False
         Me.dgServicios.Name = "dgServicios"
+        Me.dgServicios.ReadOnly = True
         Me.dgServicios.RowHeadersVisible = False
         Me.dgServicios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgServicios.Size = New System.Drawing.Size(484, 115)
+        Me.dgServicios.Size = New System.Drawing.Size(484, 155)
         Me.dgServicios.TabIndex = 74
+        '
+        'seleccion
+        '
+        Me.seleccion.HeaderText = ""
+        Me.seleccion.Name = "seleccion"
+        Me.seleccion.ReadOnly = True
+        Me.seleccion.Width = 30
+        '
+        'idservicio
+        '
+        Me.idservicio.HeaderText = "idservicio"
+        Me.idservicio.Name = "idservicio"
+        Me.idservicio.ReadOnly = True
+        Me.idservicio.Visible = False
+        '
+        'codser
+        '
+        Me.codser.HeaderText = "codigo servicio"
+        Me.codser.Name = "codser"
+        Me.codser.ReadOnly = True
+        Me.codser.Visible = False
+        '
+        'servicio
+        '
+        Me.servicio.HeaderText = "Servicio"
+        Me.servicio.Name = "servicio"
+        Me.servicio.ReadOnly = True
+        Me.servicio.Width = 350
+        '
+        'pendiente
+        '
+        Me.pendiente.HeaderText = "Pendientes"
+        Me.pendiente.Name = "pendiente"
+        Me.pendiente.ReadOnly = True
+        '
+        'ejercicio
+        '
+        Me.ejercicio.HeaderText = "Ejercicio"
+        Me.ejercicio.Name = "ejercicio"
+        Me.ejercicio.ReadOnly = True
+        Me.ejercicio.Visible = False
+        '
+        'idfcmodulo
+        '
+        Me.idfcmodulo.HeaderText = "idfcmodulo"
+        Me.idfcmodulo.Name = "idfcmodulo"
+        Me.idfcmodulo.ReadOnly = True
+        Me.idfcmodulo.Visible = False
         '
         'LCargando
         '
@@ -104,52 +153,11 @@ Partial Class frmGeneraDoctos
         Me.pr.TabIndex = 75
         Me.pr.Visible = False
         '
-        'seleccion
-        '
-        Me.seleccion.HeaderText = ""
-        Me.seleccion.Name = "seleccion"
-        Me.seleccion.Width = 30
-        '
-        'idservicio
-        '
-        Me.idservicio.HeaderText = "idservicio"
-        Me.idservicio.Name = "idservicio"
-        Me.idservicio.Visible = False
-        '
-        'codser
-        '
-        Me.codser.HeaderText = "codigo servicio"
-        Me.codser.Name = "codser"
-        Me.codser.Visible = False
-        '
-        'servicio
-        '
-        Me.servicio.HeaderText = "Servicio"
-        Me.servicio.Name = "servicio"
-        Me.servicio.Width = 350
-        '
-        'pendiente
-        '
-        Me.pendiente.HeaderText = "Pendientes"
-        Me.pendiente.Name = "pendiente"
-        '
-        'ejercicio
-        '
-        Me.ejercicio.HeaderText = "Ejercicio"
-        Me.ejercicio.Name = "ejercicio"
-        Me.ejercicio.Visible = False
-        '
-        'idfcmodulo
-        '
-        Me.idfcmodulo.HeaderText = "idfcmodulo"
-        Me.idfcmodulo.Name = "idfcmodulo"
-        Me.idfcmodulo.Visible = False
-        '
         'frmGeneraDoctos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(506, 204)
+        Me.ClientSize = New System.Drawing.Size(506, 244)
         Me.Controls.Add(Me.LCargando)
         Me.Controls.Add(Me.pr)
         Me.Controls.Add(Me.dgServicios)

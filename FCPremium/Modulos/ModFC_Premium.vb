@@ -82,6 +82,43 @@ Module ModFC_Premium
         cpCom.Dispose()
 
 
+        cQue = "IF OBJECT_ID('dbo.CEXDependencias') IS NULL " &
+                "Begin CREATE TABLE [dbo].[CEXDependencias](
+	                [id] [int] IDENTITY(1,1) NOT NULL,
+	                [dependencia] [varchar](150) NULL
+                ) ON [PRIMARY] END"
+        cpCom = New SqlCommand(cQue, FC_Con)
+        cpCom.ExecuteNonQuery()
+        cpCom.Dispose()
+
+        cQue = "IF OBJECT_ID('dbo.CEXEmpresas') IS NULL " &
+                "Begin CREATE TABLE [dbo].[CEXEmpresas](
+	                [idempresacrm] [int] NULL,
+	                [empresacrm] [nvarchar](250) NULL,
+	                [idsucursalcrm] [int] NULL,
+	                [idempresanom] [int] NULL,
+	                [ctBDDNom] [nvarchar](250) NULL,
+	                [idempresacon] [int] NULL,
+	                [ctBDDCon] [nvarchar](250) NULL,
+	                [idempresaadw] [int] NULL,
+	                [RutaADW] [nvarchar](250) NULL
+                ) ON [PRIMARY] END"
+        cpCom = New SqlCommand(cQue, FC_Con)
+        cpCom.ExecuteNonQuery()
+        cpCom.Dispose()
+
+        cQue = "IF OBJECT_ID('dbo.CEXDependencias') IS NULL " &
+                "Begin CREATE TABLE [dbo].[CEXTiposDocto](
+	                [id] [int] IDENTITY(1,1) NOT NULL,
+	                [tipo_docto] [nvarchar](150) NULL,
+	                [id_modulo] [int] NULL,
+	                [id_serviciocrm] [int] NULL,
+	                [clave] [nvarchar](20) NULL
+                ) ON [PRIMARY] END"
+        cpCom = New SqlCommand(cQue, FC_Con)
+        cpCom.ExecuteNonQuery()
+        cpCom.Dispose()
+
     End Sub
 
     Public Function VerificaTablas() As Boolean

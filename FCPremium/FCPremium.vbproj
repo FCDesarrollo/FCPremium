@@ -104,11 +104,16 @@
   <ItemGroup>
     <Compile Include="Clases\clDocDigital.vb" />
     <Compile Include="Clases\clEmpresa.vb" />
+    <Compile Include="Clases\clMenusCRM.vb" />
     <Compile Include="Clases\clModulos.vb" />
+    <Compile Include="Clases\clModulosCRM.vb" />
+    <Compile Include="Clases\clObligaciones.vb" />
     <Compile Include="Clases\clParametros.vb" />
     <Compile Include="Clases\clRubro.vb" />
     <Compile Include="Clases\clServicios.vb" />
     <Compile Include="Clases\clSubMenu.vb" />
+    <Compile Include="Clases\clSubMenusCRM.vb" />
+    <Compile Include="Clases\clSucursalesCRM.vb" />
     <Compile Include="Clases\clUserAPI.vb" />
     <Compile Include="Clases\clUsuario.vb" />
     <Compile Include="Formularios\frmActivador.Designer.vb">
@@ -121,6 +126,12 @@
       <DependentUpon>frmAddDoc.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmAddDoc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmAddEmpresa.Designer.vb">
+      <DependentUpon>frmAddEmpresa.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmAddEmpresa.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\frmClipExp.Designer.vb">
@@ -157,6 +168,12 @@
       <DependentUpon>frmConfigTiposDocto.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmConfigTiposDocto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmDependencias.Designer.vb">
+      <DependentUpon>frmDependencias.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmDependencias.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\frmdigital.Designer.vb">
@@ -236,6 +253,9 @@
     <EmbeddedResource Include="Formularios\frmAddDoc.resx">
       <DependentUpon>frmAddDoc.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmAddEmpresa.resx">
+      <DependentUpon>frmAddEmpresa.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmClipExp.resx">
       <DependentUpon>frmClipExp.vb</DependentUpon>
     </EmbeddedResource>
@@ -253,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmConfigTiposDocto.resx">
       <DependentUpon>frmConfigTiposDocto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmDependencias.resx">
+      <DependentUpon>frmDependencias.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmdigital.resx">
       <DependentUpon>frmdigital.vb</DependentUpon>

@@ -96,6 +96,10 @@ Module modGlobales
     Public Sub Carga_sucursales(ByVal cIDEmp As Integer, ByVal cb As ComboBox)
         Dim dt As DataTable, tieneSuc As Boolean
         Dim dr As DataRow
+        Dim Suc As clSucursalesCRM
+
+        cSucursalesCRM = New Collection
+
         dt = New DataTable("Sucursal")
         dt.Columns.Add("Ruta")
         dt.Columns.Add("Nombre")
@@ -125,6 +129,14 @@ Module modGlobales
                     dr(0) = Row("rutaadw")
                     dr(1) = Row("sucursal")
                     dt.Rows.Add(dr)
+
+                    Suc = New clSucursalesCRM
+                    Suc.IDSucursal = Row("idsucursal")
+                    Suc.Sucursal = Row("sucursal")
+                    Suc.RutaADW = Row("rutaadw")
+                    Suc.IDAdw = Row("idadw")
+                    Suc.Predeterminada = Row("default")
+                    cSucursalesCRM.Add(Suc)
                 Next
             End If
         End If
@@ -323,10 +335,32 @@ Module modGlobales
         Get_IDs_cModulos = IDs
     End Function
 
+    Public Function Get_NomCarpeta_Modulo(ByVal cIdMod As Integer) As String
+        Dim NomCarp As String
+        NomCarp = ""
+        Select Case cIdMod
+            Case 1
+                NomCarp = "Contabilidad"
+            Case 2
+                NomCarp = "Entrada"
+            Case 3
+                NomCarp = "Cuenta"
+            Case 4
+                NomCarp = "Administracion"
+        End Select
+        Get_NomCarpeta_Modulo = NomCarp
+    End Function
+
     Public Function Get_NomCarpeta_Menu(ByVal cIdMen As Integer) As String
         Dim NomCarp As String
         NomCarp = ""
         Select Case cIdMen
+            Case 1
+                NomCarp = "Contabilidad"
+            Case 2
+                NomCarp = "ProcesoFiscal"
+            Case 3
+                NomCarp = "Finanzas"
             Case 11
                 NomCarp = "AutorizacionesGastos"
             Case 12
@@ -346,6 +380,28 @@ Module modGlobales
 
         NomCarp = ""
         Select Case cIdSub
+            Case 1
+                NomCarp = "EstadosFinancieros"
+            Case 2
+                NomCarp = "ContabilidadElectronica"
+            Case 3
+                NomCarp = "ExpedientesAdministrativos"
+            Case 4
+                NomCarp = "ExpedientesContables"
+            Case 5
+                NomCarp = "PagoProvisionales"
+            Case 6
+                NomCarp = "PagosMensuales"
+            Case 7
+                NomCarp = "DeclaracionesAnuales"
+            Case 8
+                NomCarp = "ExpedientesFiscales"
+            Case 9
+                NomCarp = "IndicadoresFinancieros"
+            Case 10
+                NomCarp = "AsesordeFlujosdeEfectivo"
+            Case 11
+                NomCarp = "AnálisisdeProyectos"
             Case 15
                 NomCarp = "Compras"
             Case 16
@@ -408,6 +464,18 @@ Module modGlobales
                 NomCarp = "Biblioteca"
             Case 60
                 NomCarp = "Mural"
+            Case 61
+                NomCarp = "POL"
+            Case 62
+                NomCarp = "COM"
+            Case 63
+                NomCarp = "Bal"
+            Case 64
+                NomCarp = "Estados12"
+            Case 65
+                NomCarp = "EstadosDia"
+            Case 66
+                NomCarp = "EstadosBancos"
             Case 67
                 NomCarp = "Impuestos"
             Case 68

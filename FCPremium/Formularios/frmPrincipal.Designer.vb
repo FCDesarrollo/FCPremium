@@ -191,7 +191,9 @@ Partial Class frmPrincipal
         '
         'MActivos
         '
+        Me.MActivos.AutoSize = False
         Me.MActivos.Image = CType(resources.GetObject("MActivos.Image"), System.Drawing.Image)
+        Me.MActivos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MActivos.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.MActivos.Name = "MActivos"
         Me.MActivos.Size = New System.Drawing.Size(52, 57)
@@ -221,7 +223,7 @@ Partial Class frmPrincipal
         Me.MExpedientes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.MExpedientes.Name = "MExpedientes"
         Me.MExpedientes.Size = New System.Drawing.Size(103, 57)
-        Me.MExpedientes.Tag = "9"
+        Me.MExpedientes.Tag = "10"
         Me.MExpedientes.Text = "Clip Expedientes"
         Me.MExpedientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -231,7 +233,7 @@ Partial Class frmPrincipal
         Me.MEntregas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.MEntregas.Name = "MEntregas"
         Me.MEntregas.Size = New System.Drawing.Size(59, 57)
-        Me.MEntregas.Tag = "9"
+        Me.MEntregas.Tag = "11"
         Me.MEntregas.Text = "Entregas"
         Me.MEntregas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '

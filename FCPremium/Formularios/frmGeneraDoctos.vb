@@ -19,7 +19,7 @@ Public Class frmGeneraDoctos
         Me.dgServicios.Rows.Clear()
         For Each s In cServicios
             'dgServicios.Rows.Add(True, aCr("id_serviciocrm"), aCr("codigo_serviciocrm"), aCr("serviciocrm"), aCr("pendientes"), 0)
-            dgServicios.Rows.Add(True, s.Idservicio, s.CodigoServicio, s.Servicio, getPendientesSer(s.Idfcmodulo), 0, s.Idfcmodulo)
+            dgServicios.Rows.Add(True, s.Idservicio, s.CodigoServicio, s.Servicio, getPendientesSer(s.Idfcmodulo, s.Idservicio), 0, s.Idfcmodulo)
         Next
 
         'cQue = "SELECT id_serviciocrm, codigo_serviciocrm, serviciocrm, sum(doctos_pendientes) as pendientes " &
@@ -51,126 +51,148 @@ Public Class frmGeneraDoctos
         Dim count As Integer
         Dim IDSubM As Integer
         Dim idModulo As Integer
+        Dim Que As String
         'Dim aRut As String
 
         pr.Visible = True
         pr.Maximum = 1000
         pr.Minimum = 0
 
-        EjercicioExpBancos = Year(Now)
-        For Each Fila As DataGridViewRow In dgServicios.Rows
-            NomArc = ""
-            aRut = ""
-            barCount = 0
-            IDSubM = 0
-            fecMayor = "#1/1/0001 12:00:00 AM#"
-            respSincro = False
-            pr.Value = barCount
-            pr.Refresh()
+        Try
+            EjercicioExpBancos = Year(Now)
+            For Each Fila As DataGridViewRow In dgServicios.Rows
+                NomArc = ""
+                aRut = ""
+                barCount = 0
+                IDSubM = 0
+                fecMayor = "#1/1/0001 12:00:00 AM#"
+                respSincro = False
+                pr.Value = barCount
+                pr.Refresh()
 
-            'If Fila.Cells(0).Value = True And Fila.Cells(4).Value <> 0 Then
-            If Fila.Cells(0).Value = True Then
-                idServicio = Fila.Cells(1).Value
-                idModulo = Fila.Cells(6).Value
-                If idModulo = 3 Then 'Bancos
-                    'Using cCon = New SqlCommand("SELECT ejercicio FROM XMLDigAsocExped WHERE procesado = 0 GROUP BY ejercicio", FC_SQL)
-                    Using cCon = New SqlCommand("SELECT ejercicio FROM zClipExped WHERE procesado = 0 GROUP BY ejercicio", FC_SQL)
-                        count = 0
-                        Using Rs = cCon.ExecuteReader()
-                            Do While Rs.Read()
-                                EjercicioExpBancos = Rs("ejercicio")
-                                count += 1
-                            Loop
-                            If count > 1 Then
-                                frmEjerciciosBan.ShowDialog()
-                            End If
-                        End Using
-                    End Using
-                    crearDocumentoPDF(idServicio, EjercicioExpBancos)
-                Else
-                    crearDocumentoPDF(idServicio)
-                End If
-
-                If NomArc <> "" Then
-                    nomArch = NomArc
-                    If idModulo = 3 Then
-                        IDSubM = Guarda_Doc(nomArch, fecMayor, idServicio, EjercicioExpBancos)
-                        Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo & " and ejercicio = " & EjercicioExpBancos, FC_SQL)
-                            cCom.ExecuteNonQuery()
-                        End Using
+                'If Fila.Cells(0).Value = True And Fila.Cells(4).Value <> 0 Then
+                If Fila.Cells(0).Value = True Then
+                    idServicio = Fila.Cells(1).Value
+                    idModulo = Fila.Cells(6).Value
+                    If idModulo = ModExped_Bancos Or idModulo = ModExped_Fiscales Or (idModulo = ModExped_Activos And idServicio = SerCalculosActivos) Then
+                        If idModulo = ModExped_Bancos Then
+                            Que = "SELECT ejercicio FROM zClipExped WHERE idmodulo = " & idModulo & " and procesado = 0 GROUP BY ejercicio"
+                        ElseIf idModulo = ModExped_Activos Then
+                            Que = "SELECT ejercicio FROM zClipExped WHERE idmodulo = " & idModulo & " and numero1 = " & SerCalculosActivos & " and procesado = 0 GROUP BY ejercicio"
+                        Else
+                            Que = "SELECT ejercicio FROM zClipExped WHERE idmodulo = " & idModulo & " and idcuenta = " & getIDTax(Obtener_RFC(IDEmp)) & " and procesado = 0 GROUP BY ejercicio"
+                        End If
+                        If idServicio <> SerExped_Permanente Then
+                            Using cCon = New SqlCommand(Que, FC_SQL)
+                                count = 0
+                                Using Rs = cCon.ExecuteReader()
+                                    Do While Rs.Read()
+                                        EjercicioExpBancos = Rs("ejercicio")
+                                        count += 1
+                                    Loop
+                                    If count > 1 Then
+                                        frmEjerciciosBan.idMod = idModulo
+                                        frmEjerciciosBan.ShowDialog()
+                                    End If
+                                End Using
+                            End Using
+                        End If
+                        crearDocumentoPDF(idServicio, idModulo, EjercicioExpBancos)
                     Else
-                        IDSubM = Guarda_Doc(nomArch, fecMayor, idServicio)
-                        Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo, FC_SQL)
-                            cCom.ExecuteNonQuery()
-                        End Using
+                        crearDocumentoPDF(idServicio, idModulo)
                     End If
-                    BuscaNoSincronizado(Obtener_RFC(IDEmp), getCodServicio(idServicio), Year(fecMayor), Format(Month(fecMayor), "00"), aRut, IDSubM)
-                    Fila.Cells(4).Value = 0
+
+                    If NomArc <> "" Then
+                        nomArch = NomArc
+                        If idModulo = ModExped_Bancos Then
+                            IDSubM = Guarda_Doc(nomArch, Now(), idServicio, EjercicioExpBancos)
+                            Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo & " and ejercicio = " & EjercicioExpBancos, FC_SQL)
+                                cCom.ExecuteNonQuery()
+                            End Using
+                        ElseIf idModulo = ModExped_Fiscales Then
+                            IDSubM = Guarda_Doc(nomArch, Now(), idServicio, EjercicioExpBancos)
+                            If idServicio <> SerExped_Permanente Then
+                                Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo & " and idcuenta = " & getIDTax(Obtener_RFC(IDEmp)) & " and periodo <> 0 and ejercicio = " & EjercicioExpBancos, FC_SQL)
+                                    cCom.ExecuteNonQuery()
+                                End Using
+                            Else
+                                Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo & " and idcuenta = " & getIDTax(Obtener_RFC(IDEmp)) & " and periodo = 0", FC_SQL)
+                                    cCom.ExecuteNonQuery()
+                                End Using
+                            End If
+                        ElseIf idModulo = ModExped_Activos Then
+                            IDSubM = Guarda_Doc(nomArch, Now(), idServicio)
+                            If idServicio = SerCalculosActivos Then
+                                Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo & " and numero1 = " & idServicio & " And ejercicio = " & EjercicioExpBancos, FC_SQL)
+                                    cCom.ExecuteNonQuery()
+                                End Using
+                            Else
+                                Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo & " and (numero1 = " & idServicio & " or numero1 is null)", FC_SQL)
+                                    cCom.ExecuteNonQuery()
+                                End Using
+                            End If
+                        Else
+                            IDSubM = Guarda_Doc(nomArch, Now(), idServicio)
+                            Using cCom = New SqlCommand("UPDATE zClipExped SET procesado = 1 WHERE idmodulo = " & idModulo, FC_SQL)
+                                cCom.ExecuteNonQuery()
+                            End Using
+                        End If
+                        BuscaNoSincronizado(Obtener_RFC(IDEmp), getCodServicio(idServicio), Year(Now), Format(Month(Now), "00"), aRut, IDSubM)
+                        Fila.Cells(4).Value = 0
+                    End If
                 End If
-            End If
-        Next
-        pr.Value = 1000
-        pr.Refresh()
-        System.Threading.Thread.Sleep(1000)
-        pr.Visible = False
+            Next
+            pr.Value = 1000
+            pr.Refresh()
+            System.Threading.Thread.Sleep(1000)
+            pr.Visible = False
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+
         'LCargando.Visible = False
 
     End Sub
     '    Private Function crearDocumentoPDF(idSer As Integer, idEmp As Integer, Periodo As Integer, Ejercicio As Integer) As String
-    Private Sub crearDocumentoPDF(idSer As Integer, Optional Ejercicio As Integer = 0)
+    Private Sub crearDocumentoPDF(idSer As Integer, idMod As Integer, Optional Ejercicio As Integer = 0)
         Dim exApp As New Excel.Application
         Dim wb As Excel.Workbook
         Dim RutaDestino As String = ""
         Dim cQue As String = ""
-        ' Dim idmoddestino As Integer, idmenudestino As Integer, idsubdestino As Integer
 
-
-        'exApp = New Excel.Application
         exApp.Visible = False
         exApp.DisplayAlerts = False
 
         wb = exApp.Workbooks.Add
 
-        exApp.ScreenUpdating = False
-        wb.ActiveSheet.Cells(1, 2) = UCase(getNombreEmpresa(IDEmp))
-        'wb.ActiveSheet.Cells(2, 2) = getTipoDocto(IDEmp, idSer)
-        wb.ActiveSheet.Cells(2, 2) = getNombreServicio(idSer)
-        exApp.ScreenUpdating = True
+        exApp.Visible = True
 
-        If idSer = 25 Then
-            imprimeEncabezado(wb, IDEmp, idSer, Ejercicio)
-            imprimeDatosRelacionados(wb, IDEmp, idSer, Ejercicio)
+        If idMod = ModExped_Bancos Or idMod = ModExped_Fiscales Or (idMod = ModExped_Activos And idSer = SerCalculosActivos) Then
+            imprimeEncabezado(wb, IDEmp, idSer, idMod, Ejercicio)
+            imprimeDatosRelacionados(wb, IDEmp, idSer, idMod, Ejercicio)
         Else
-            imprimeEncabezado(wb, IDEmp, idSer)
-            imprimeDatosRelacionados(wb, IDEmp, idSer)
+            imprimeEncabezado(wb, IDEmp, idSer, idMod)
+            imprimeDatosRelacionados(wb, IDEmp, idSer, idMod)
         End If
 
-
         If NomArc <> "" Then
-            'cQue = "SELECT Top 1 idmodulo_destino, idmenu_destino, idsubmenu_destino FROM XMLDigAsocExped WHERE idservicio = " & idSer
-            'Using cCom = New SqlCommand(cQue, FC_SQL)
-            '    Using Rs = cCom.ExecuteReader()
-            '        Rs.Read()
-            '        If Rs.HasRows Then
-            '            idmoddestino = Rs("idmodulo_destino")
-            '            idmenudestino = Rs("idmenu_destino")
-            '            idsubdestino = Rs("idsubmenu_destino")
-            '        End If
-            '    End Using
-            'End Using
-
             barCount = 750
             pr.Value = barCount
             pr.Refresh()
 
             RutaDestino = FC_RutaSincronizada & "\" & Obtener_RFC(IDEmp) &
-                    "\Administracion\" & Get_NomCarpeta_Menu(getIDMenu(idSer)) & "\" & Get_NomCarpeta_SubMenu(getIDSubMenu(idSer)) & "\" & NomArc
-            aRut = Obtener_RFC(IDEmp) & "\Administracion\" & Get_NomCarpeta_Menu(getIDMenu(idSer)) & "\" & Get_NomCarpeta_SubMenu(getIDSubMenu(idSer))
+                    "\" & Get_NomCarpeta_Modulo(getIDModulo(idSer)) & "\" & Get_NomCarpeta_Menu(getIDMenu(idSer)) & "\" & Get_NomCarpeta_SubMenu(getIDSubMenu(idSer)) & "\" & NomArc
+            aRut = Obtener_RFC(IDEmp) & "\" & Get_NomCarpeta_Modulo(getIDModulo(idSer)) & "\" & Get_NomCarpeta_Menu(getIDMenu(idSer)) & "\" & Get_NomCarpeta_SubMenu(getIDSubMenu(idSer))
             'exApp.Visible = True
             CrearPDF(exApp, RutaDestino & ".pdf")
+
+            'Exit Sub
         End If
 
         wb.Close()
+        exApp.DisplayAlerts = True
         exApp.Quit()
 
         releaseObject(wb)
@@ -264,4 +286,26 @@ ErrHandler:
         Err.Clear()
     End Sub
 
+    Private Sub dgServicios_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgServicios.CellClick
+        bLoaded = False
+
+        If dgServicios.Item(0, dgServicios.CurrentRow.Index).Value = True Then
+            dgServicios.Item(0, dgServicios.CurrentRow.Index).Value = False
+            ckTodos.Checked = False
+        Else
+            ckTodos.Checked = True
+            dgServicios.Item(0, dgServicios.CurrentRow.Index).Value = True
+            For Each Fila As DataGridViewRow In dgServicios.Rows
+                If Fila.Cells(0).Value = False Then
+                    ckTodos.Checked = False
+                End If
+            Next
+        End If
+
+        bLoaded = True
+    End Sub
+
+    Private Sub dgServicios_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgServicios.CellContentClick
+
+    End Sub
 End Class

@@ -8,8 +8,8 @@ Public Class frmLogin
         Dim arrDatos() As String
         Dim vectoraux() As String
         Dim jsonMod As String, dFiltro As String
-        Me.TBUser.Text = "FCPREMIUM"
-        Me.TBPass.Text = "FC2019"
+        'Me.TBUser.Text = "FCPREMIUM"
+        'Me.TBPass.Text = "FC2019"
 
 
         menUser = False
