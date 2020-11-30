@@ -107,7 +107,7 @@ ERR_CON:
     Public Function FC_ConexionFOX(foxRuta As String) As Long
         Dim sConn As String
         On Error GoTo ERR_CON
-        If FC_CONFOX.State = ConnectionState.Connecting Then FC_CONFOX.Close()
+        If FC_CONFOX.State = ConnectionState.Open Then FC_CONFOX.Close()
         sConn = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=" &
                 foxRuta & ";"
         FC_CONFOX = New OdbcConnection(sConn)

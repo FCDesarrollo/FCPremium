@@ -97,7 +97,7 @@ RegresaMenu:
         End If
     End Sub
 
-    Private Sub OpenModulo(ByVal gIDModulo)
+    Private Sub OpenModulo(ByVal gIDModulo As Integer, Optional param As Boolean = False)
         Dim sExiste As Boolean
         sExiste = False
 
@@ -113,7 +113,9 @@ RegresaMenu:
                     modu.XlBook = modu.XlApp.Workbooks.Open(cParam.RDescarga & "\archivos\" & modu.Nombrearchivo)
                     modu.XlApp.Visible = True
                     modu.XlApp.ActiveWindow.WindowState = XlWindowState.xlMaximized
-
+                    If param = True Then
+                        modu.XlApp.Run("Inicializa_User", cUsuario.Iduser)
+                    End If
                     sExiste = True
                 End If
                 Exit For
@@ -222,5 +224,11 @@ RegresaMenu:
         proces.StartInfo.FileName = My.Computer.FileSystem.CurrentDirectory & "\Entregas\FCDeliver.exe"
 
         proces.Start()
+    End Sub
+
+    Private Sub MLayouts_Click(sender As Object, e As EventArgs) Handles MLayouts.Click
+        Dim mIDModulo As Integer
+        mIDModulo = MLayouts.Tag
+        OpenModulo(mIDModulo, True)
     End Sub
 End Class

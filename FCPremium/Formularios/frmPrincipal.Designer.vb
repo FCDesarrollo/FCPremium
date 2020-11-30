@@ -44,6 +44,8 @@ Partial Class frmPrincipal
         Me.MEntregas = New System.Windows.Forms.ToolStripButton()
         Me.MSep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MConfig = New System.Windows.Forms.ToolStripButton()
+        Me.MLayouts = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.PMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,10 +56,10 @@ Partial Class frmPrincipal
         Me.PMenu.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle))
         Me.PMenu.GripMargin = New System.Windows.Forms.Padding(3)
         Me.PMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.MExpedientes, Me.MEntregas, Me.MSep3, Me.MConfig})
+        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.MExpedientes, Me.MEntregas, Me.ToolStripSeparator2, Me.MLayouts, Me.MSep3, Me.MConfig})
         Me.PMenu.Location = New System.Drawing.Point(0, 0)
         Me.PMenu.Name = "PMenu"
-        Me.PMenu.Size = New System.Drawing.Size(1021, 60)
+        Me.PMenu.Size = New System.Drawing.Size(1102, 60)
         Me.PMenu.TabIndex = 0
         Me.PMenu.Text = "ToolStrip1"
         '
@@ -253,12 +255,28 @@ Partial Class frmPrincipal
         Me.MConfig.Text = "Configuración"
         Me.MConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'MLayouts
+        '
+        Me.MLayouts.Image = CType(resources.GetObject("MLayouts.Image"), System.Drawing.Image)
+        Me.MLayouts.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.MLayouts.Name = "MLayouts"
+        Me.MLayouts.Size = New System.Drawing.Size(103, 57)
+        Me.MLayouts.Tag = "19"
+        Me.MLayouts.Text = "Layouts Nomina"
+        Me.MLayouts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 60)
+        Me.ToolStripSeparator2.Tag = "0"
+        '
         'frmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(1021, 450)
+        Me.ClientSize = New System.Drawing.Size(1102, 450)
         Me.Controls.Add(Me.PMenu)
         Me.IsMdiContainer = True
         Me.Name = "frmPrincipal"
@@ -292,4 +310,6 @@ Partial Class frmPrincipal
     Friend WithEvents MDigital As ToolStripButton
     Friend WithEvents MEntregas As ToolStripButton
     Friend WithEvents MExpedientes As ToolStripButton
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents MLayouts As ToolStripButton
 End Class
