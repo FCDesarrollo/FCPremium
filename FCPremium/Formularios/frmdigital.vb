@@ -311,7 +311,8 @@ Public Class frmdigital
         Dim idDocModelo As Integer, nomDocModelo As String
 
         nomSuc = cbsucursal.Text
-        If FC_ConexionFOX(cRut) <> 0 Then Exit Sub
+        FC_ConexionFOX(cRut)
+        'If FC_ConexionFOX(cRut) <> 0 Then Exit Sub
         dAll = False
         If cbdocmodelo.SelectedValue = "0" Or cbdocmodelo.SelectedValue = "-1" Then
             If cbdocmodelo.Items.Count >= 2 Then
@@ -336,8 +337,8 @@ Public Class frmdigital
         fechaI = txtEjercicio.Text & "-" & Format(sMes, "00") & "-01"
         fechaF = Format(ObtenerUltimoDia(CDate(fechaI)), "yyyy-MM-dd")
 
-        Try
-            For Each item As Object In cbdocmodelo.Items
+        'Try
+        For Each item As Object In cbdocmodelo.Items
                 If (cbdocmodelo.SelectedValue = CStr(item("iddoc")) And dAll = False) Or (dAll = True And (CStr(item("iddoc")) <> "0" And CStr(item("iddoc")) <> "-1")) Then
                     dDatos = Split(item("iddoc"), "|")
                     idRubro = dDatos(0)
@@ -363,45 +364,48 @@ Public Class frmdigital
                         WHERE CIDDOCUM02=" & idDocModelo & " AND CFECHA 
                         BETWEEN {d '" & fechaI & "'} AND {d '" & fechaF & "'} ORDER BY CFECHA DESC"
                     Using fCom = New Odbc.OdbcCommand(fQue, FC_CONFOX)
-                        Using fRs = fCom.ExecuteReader()
-                            pr.Visible = True
-                            pr.Location = New Point(705, 158)
-                            LCargando.Visible = True
-                            LCargando.Location = New Point(630, 165)
-                            LCargando.Refresh()
-                            pr.Maximum = 1000
-                            pr.Minimum = 0
-                            cuenta = 0
+                    Using aRs = fCom.ExecuteReader()
+                        pr.Visible = True
+                        pr.Location = New Point(705, 158)
+                        LCargando.Visible = True
+                        LCargando.Location = New Point(630, 165)
+                        LCargando.Refresh()
+                        pr.Maximum = 1000
+                        pr.Minimum = 0
+                        cuenta = 0
+                        pr.Value = cuenta
+                        pr.Refresh()
+                        'Application.DoEvents()
+                        Do While aRs.Read
                             pr.Value = cuenta
                             pr.Refresh()
+                            If aRs("CIDDOCUM01") = 9704 Then
+                                Debug.Print(aRs("CIDDOCUM01"))
+                            End If
                             'Application.DoEvents()
-                            Do While fRs.Read
-                                pr.Value = cuenta
-                                pr.Refresh()
-                                'Application.DoEvents()
-                                If Not dDocExclu.ContainsKey(Trim(fRs("CCODIGOC01"))) Then
-                                    num = Get_NumArchivos(fRs("CIDDOCUM01"), nomSuc)
-                                    dgDocAdw.Rows.Add(fRs("CIDDOCUM01"), num, nomDocModelo, Trim(fRs("CNOMBREC01")),
-                                                      Format(fRs("CFECHA"), "yyyy-MM-dd"), Trim(fRs("CSERIEDO01")), fRs("CFOLIO"),
-                                                      Trim(fRs("CRAZONSO01")), fRs("CTOTAL"),
-                                                      Trim(fRs("CREFEREN01")), Trim(fRs("CPLURAL")), idRubro, idDocModelo)
-                                    If num > 0 Then
-                                        dgDocAdw.Rows(dgDocAdw.Rows.Count - 1).DefaultCellStyle.BackColor = Color.CadetBlue
-                                    End If
-
+                            If Not dDocExclu.ContainsKey(Trim(aRs("CCODIGOC01"))) Then
+                                num = Get_NumArchivos(aRs("CIDDOCUM01"), nomSuc)
+                                dgDocAdw.Rows.Add(aRs("CIDDOCUM01"), num, nomDocModelo, Trim(aRs("CNOMBREC01")),
+                                                      Format(aRs("CFECHA"), "yyyy-MM-dd"), Trim(aRs("CSERIEDO01")), aRs("CFOLIO"),
+                                                      Trim(aRs("CRAZONSO01")), aRs("CTOTAL"),
+                                                      Trim(aRs("CREFEREN01")), Trim(aRs("CPLURAL")), idRubro, idDocModelo)
+                                If num > 0 Then
+                                    dgDocAdw.Rows(dgDocAdw.Rows.Count - 1).DefaultCellStyle.BackColor = Color.CadetBlue
                                 End If
 
-                                cuenta += 1
-                                If cuenta > 1000 Then cuenta = 1000
-                            Loop
-                            pr.Value = 1000
-                            pr.Refresh()
-                            'Application.DoEvents()
-                            System.Threading.Thread.Sleep(1000)
-                            pr.Visible = False
-                            LCargando.Visible = False
-                        End Using
+                            End If
+
+                            cuenta += 1
+                            If cuenta > 1000 Then cuenta = 1000
+                        Loop
+                        pr.Value = 1000
+                        pr.Refresh()
+                        'Application.DoEvents()
+                        System.Threading.Thread.Sleep(1000)
+                        pr.Visible = False
+                        LCargando.Visible = False
                     End Using
+                End Using
                 End If
             Next
 
@@ -411,9 +415,9 @@ Public Class frmdigital
 
 
 
-        Catch ex As Exception
-            MsgBox("Error al cargar Documentos AdminPAQ." & vbCrLf & ex.Message, vbInformation, "Validación")
-        End Try
+        'Catch ex As Exception
+        '    MsgBox("Error al cargar Documentos AdminPAQ." & vbCrLf & ex.Message, vbInformation, "Validación")
+        'End Try
 
     End Sub
 
@@ -997,7 +1001,8 @@ BuscaInicio:
         GL_cUsuarioAPI.Correo = "marina.valdez@dublock.com"
         GL_cUsuarioAPI.Contra = "DURANGO"
         cRut = cbsucursal.SelectedValue
-        If FC_ConexionFOX(cRut) <> 0 Then Exit Sub
+        FC_ConexionFOX(cRut)
+        'If FC_ConexionFOX(cRut) <> 0 Then Exit Sub
         con = 0
         mQue = "SELECT iddocdig,iddocADW FROM XMLDigAsoc ORDER BY iddocdig"
         Using mCom = New SqlCommand(mQue, FC_SQL)
