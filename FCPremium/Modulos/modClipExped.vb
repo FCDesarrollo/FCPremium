@@ -33,6 +33,40 @@ Module modClipExped
     Public Const SerExped_Permanente As Integer = 27
     Public Const SerCalculosActivos As Integer = 31
 
+    Public Sub getEmpresasExpedientes(ByVal cb As ComboBox)
+        Dim dt As DataTable
+        Dim dr As DataRow
+        Dim cQue As String
+
+
+        dt = New DataTable("Empresas")
+        dt.Columns.Add("id")
+        dt.Columns.Add("Nombre")
+
+        dr = dt.NewRow
+        dr(0) = 0
+        dr(1) = "SELECCIONAR EMPRESA"
+        dt.Rows.Add(dr)
+
+        GL_cUsuarioAPI.lista_empresas()
+
+        cQue = "SELECT DISTINCT idempresacrm, empresacrm FROM CEXEmpresas"
+        Using cCom = New SqlCommand(cQue, FC_Con)
+            Using cRs = cCom.ExecuteReader()
+                Do While cRs.Read()
+                    dr = dt.NewRow
+                    dr(0) = Trim(cRs("idempresacrm"))
+                    dr(1) = Trim(cRs("empresacrm"))
+                    dt.Rows.Add(dr)
+                Loop
+            End Using
+        End Using
+
+        cb.DataSource = dt
+        cb.ValueMember = "id"
+        cb.DisplayMember = "Nombre"
+    End Sub
+
     Public Sub crearTablasExpedientes()
         Dim cQue As String
         Dim cpCom As SqlCommand

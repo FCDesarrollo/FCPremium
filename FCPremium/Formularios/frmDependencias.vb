@@ -3,7 +3,7 @@ Public Class frmDependencias
     Private idDep As Integer
     Private Sub frmDependencias_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim TL(4) As ToolTip
-        getEmpresas(Me.CBEmpresas)
+        getEmpresasExpedientes(Me.CBEmpresas)
         CargaDependenciasGenerales()
 
         TL(0) = New ToolTip

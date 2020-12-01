@@ -16,7 +16,7 @@ Public Class frmClipExp
         cbPeriodo.SelectedIndex = Month(Now) - 1
         Carga_submenus(Menu_Digital_Expedientes)
         sBandLoad = True
-        getEmpresas(Me.cbempresa)
+        getEmpresasExpedientes(Me.cbempresa)
         getEncryptedPass()
         'getModulosCRM()
         'getMenusCRM()

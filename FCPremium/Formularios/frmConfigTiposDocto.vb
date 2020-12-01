@@ -9,7 +9,7 @@ Public Class frmConfigTiposDocto
         dgServiciosEmpresa.Rows.Clear()
         'Carga_Empresas(Me.CBEmpresas)
         GL_cUsuarioAPI.lista_empresas()
-        getEmpresas(Me.CBEmpresas)
+        getEmpresasExpedientes(Me.CBEmpresas)
         'Carga_ServiciosGenerales()
         iTipoDocto = 0
         getServicios()
