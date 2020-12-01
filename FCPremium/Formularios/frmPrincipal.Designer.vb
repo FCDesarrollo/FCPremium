@@ -42,10 +42,10 @@ Partial Class frmPrincipal
         Me.MDigital = New System.Windows.Forms.ToolStripButton()
         Me.MExpedientes = New System.Windows.Forms.ToolStripButton()
         Me.MEntregas = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MLayouts = New System.Windows.Forms.ToolStripButton()
         Me.MSep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MConfig = New System.Windows.Forms.ToolStripButton()
-        Me.MLayouts = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.PMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -228,6 +228,7 @@ Partial Class frmPrincipal
         Me.MExpedientes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MExpedientes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.MExpedientes.Name = "MExpedientes"
+        Me.MExpedientes.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.MExpedientes.Size = New System.Drawing.Size(103, 57)
         Me.MExpedientes.Tag = "18"
         Me.MExpedientes.Text = "Clip Expedientes"
@@ -244,6 +245,22 @@ Partial Class frmPrincipal
         Me.MEntregas.Tag = "20"
         Me.MEntregas.Text = "Entregas"
         Me.MEntregas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 60)
+        Me.ToolStripSeparator2.Tag = "0"
+        '
+        'MLayouts
+        '
+        Me.MLayouts.Image = CType(resources.GetObject("MLayouts.Image"), System.Drawing.Image)
+        Me.MLayouts.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.MLayouts.Name = "MLayouts"
+        Me.MLayouts.Size = New System.Drawing.Size(103, 57)
+        Me.MLayouts.Tag = "19"
+        Me.MLayouts.Text = "Layouts Nomina"
+        Me.MLayouts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'MSep3
         '
@@ -262,22 +279,6 @@ Partial Class frmPrincipal
         Me.MConfig.Tag = "-1"
         Me.MConfig.Text = "Configuración"
         Me.MConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'MLayouts
-        '
-        Me.MLayouts.Image = CType(resources.GetObject("MLayouts.Image"), System.Drawing.Image)
-        Me.MLayouts.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.MLayouts.Name = "MLayouts"
-        Me.MLayouts.Size = New System.Drawing.Size(103, 57)
-        Me.MLayouts.Tag = "19"
-        Me.MLayouts.Text = "Layouts Nomina"
-        Me.MLayouts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 60)
-        Me.ToolStripSeparator2.Tag = "0"
         '
         'frmPrincipal
         '
