@@ -254,7 +254,9 @@ Partial Class frmPrincipal
         '
         'MLayouts
         '
+        Me.MLayouts.AutoSize = False
         Me.MLayouts.Image = CType(resources.GetObject("MLayouts.Image"), System.Drawing.Image)
+        Me.MLayouts.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MLayouts.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.MLayouts.Name = "MLayouts"
         Me.MLayouts.Size = New System.Drawing.Size(103, 57)
