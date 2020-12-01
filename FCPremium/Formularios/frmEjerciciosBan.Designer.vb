@@ -74,7 +74,7 @@ Partial Class frmEjerciciosBan
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cbEjercicio)
         Me.Name = "frmEjerciciosBan"
-        Me.Text = "Expediente de Bancos"
+        Me.Text = "Procesar Ejercicio"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

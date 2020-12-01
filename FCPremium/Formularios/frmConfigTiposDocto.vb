@@ -9,7 +9,7 @@ Public Class frmConfigTiposDocto
         dgServiciosEmpresa.Rows.Clear()
         'Carga_Empresas(Me.CBEmpresas)
         GL_cUsuarioAPI.lista_empresas()
-        getEmpresas(Me.CBEmpresas)
+        getEmpresasExpedientes(Me.CBEmpresas)
         'Carga_ServiciosGenerales()
         iTipoDocto = 0
         getServicios()
@@ -40,25 +40,13 @@ Public Class frmConfigTiposDocto
         Dim idEmp As Integer
         Dim cQue As String
         'Dim sEstatus As String
-        Dim s As clServicios
+        'Dim s As clServicios
         idEmp = CInt(CBEmpresas.SelectedValue)
         If idEmp > 0 Then
             Try
                 ConEmpresaSQL(idEmp)
 
-                cQue = "IF OBJECT_ID('zCEXTiposDocto') IS NULL
-	                        BEGIN
-		                        CREATE TABLE [dbo].[zCEXTiposDocto](
-			                        [id] [int] IDENTITY(1,1) NOT NULL,
-			                        [tipo_docto] [nvarchar](150) NULL,
-                                    [id_modulo] [int] NULL,
-                                    [id_serviciocrm] [int] NULL,
-                                    [clave] [nvarchar](50) NULL
-		                        ) ON [PRIMARY]
-                        END"
-                Using dCom = New SqlCommand(cQue, FC_SQL)
-                    dCom.ExecuteNonQuery()
-                End Using
+                crearTablasExpedientes()
 
                 dgServiciosEmpresa.Rows.Clear()
 
@@ -185,7 +173,7 @@ Public Class frmConfigTiposDocto
             End Using
         End Using
 
-        Dim sEstatus As String
+        'Dim sEstatus As String
         'cQue = "SELECT * FROM XMLDigTiposDoctoConfig"
         cQue = "SELECT * FROM zCEXTiposDocto"
         Using dCom = New SqlCommand(cQue, FC_SQL)
@@ -208,6 +196,7 @@ Public Class frmConfigTiposDocto
         TBFiltro.Clear()
         CBServicios.SelectedIndex = 0
         iTipoDocto = 0
+        tbClave.Clear()
     End Sub
     Private Sub BTNuevog_Click(sender As Object, e As EventArgs) Handles BTNuevog.Click
         LimpiaForm2()
@@ -220,6 +209,7 @@ Public Class frmConfigTiposDocto
         TBFiltrog.Clear()
         CBServiciosg.SelectedIndex = 0
         iTipoDocto = 0
+        tbClaveg.Clear()
     End Sub
 
     Private Sub showServicios(ByVal cb As ComboBox)
@@ -355,8 +345,12 @@ Public Class frmConfigTiposDocto
         dr = dt.Rows(CBServicios.SelectedIndex)
         idmod = dr("idfcmodulo")
 
-        If idmod = 3 Then
+        If idmod = ModExped_Bancos Then
             If tbClave.Text = "" Then MsgBox("Campo de clave vacio", vbInformation) : Exit Sub
+        ElseIf idmod = ModExped_Activos Then
+            If dr("id") = SerCalculosActivos Then
+                If tbClave.Text = "" Then MsgBox("Campo de clave vacio", vbInformation) : Exit Sub
+            End If
         End If
 
         TipoDocto = TBDocto.Text
@@ -467,8 +461,12 @@ Public Class frmConfigTiposDocto
         idmod = dr("idfcmodulo")
 
 
-        If idmod = 3 Then
+        If idmod = ModExped_Bancos Then
             If tbClaveg.Text = "" Then MsgBox("Campo de clave vacio", vbInformation) : Exit Sub
+        ElseIf idmod = ModExped_Activos Then
+            If dr("id") = SerCalculosActivos Then
+                If tbClave.Text = "" Then MsgBox("Campo de clave vacio", vbInformation) : Exit Sub
+            End If
         End If
 
         TipoDocto = TbDoctog.Text
@@ -534,7 +532,9 @@ Public Class frmConfigTiposDocto
 
         dt = CBServicios.DataSource
         dr = dt.Rows(CBServicios.SelectedIndex)
-        If dr("idfcmodulo") = 3 Then
+        If dr("idfcmodulo") = ModExped_Bancos Then
+            tbClave.Enabled = True
+        ElseIf dr("idfcmodulo") = ModExped_Activos And SerCalculosActivos = dr("id") Then
             tbClave.Enabled = True
         Else
             tbClave.Enabled = False
@@ -582,14 +582,20 @@ Public Class frmConfigTiposDocto
 
         dt = CBServiciosg.DataSource
         dr = dt.Rows(CBServiciosg.SelectedIndex)
-        If dr("idfcmodulo") = 3 Then
+        If dr("idfcmodulo") = ModExped_Bancos Then
             tbClaveg.Enabled = True
+        ElseIf dr("idfcmodulo") = ModExped_Activos And SerCalculosActivos = dr("id") Then
+            tbClave.Enabled = True
         Else
             tbClaveg.Enabled = False
         End If
     End Sub
 
     Private Sub TPTipos_Click(sender As Object, e As EventArgs) Handles TPTipos.Click
+
+    End Sub
+
+    Private Sub dgServiciosEmpresa_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgServiciosEmpresa.CellContentClick
 
     End Sub
 End Class

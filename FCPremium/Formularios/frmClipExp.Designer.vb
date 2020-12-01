@@ -58,6 +58,17 @@ Partial Class frmClipExp
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cbsucursal = New System.Windows.Forms.ComboBox()
         Me.dgServicios = New System.Windows.Forms.DataGridView()
+        Me.IDServ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodServ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Servicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.idmodulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Modulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.idmenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Menu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.idsubmenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SubMenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pendientes = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.idfcmod = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TBFiltro = New System.Windows.Forms.TextBox()
         Me.CBMenus = New System.Windows.Forms.ComboBox()
@@ -75,6 +86,7 @@ Partial Class frmClipExp
         Me.dgTiposDocto = New System.Windows.Forms.DataGridView()
         Me.idtipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tipodocto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TbFiltroEle = New System.Windows.Forms.TextBox()
         Me.LInfo = New System.Windows.Forms.Label()
         Me.btGenera = New System.Windows.Forms.Button()
@@ -82,17 +94,7 @@ Partial Class frmClipExp
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.cbMonth = New System.Windows.Forms.ComboBox()
-        Me.IDServ = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodServ = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Servicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.idmodulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Modulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.idmenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Menu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.idsubmenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SubMenu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pendientes = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.idfcmod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btDependencias = New System.Windows.Forms.ToolStripButton()
         Me.MDigital.SuspendLayout()
         CType(Me.dgDocDigitales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -105,7 +107,7 @@ Partial Class frmClipExp
         '
         Me.MDigital.AutoSize = False
         Me.MDigital.BackColor = System.Drawing.Color.Teal
-        Me.MDigital.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTConfigEmpresas, Me.BTConfig, Me.BTCerrar})
+        Me.MDigital.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTConfigEmpresas, Me.BTConfig, Me.btDependencias, Me.BTCerrar})
         Me.MDigital.Location = New System.Drawing.Point(0, 0)
         Me.MDigital.Name = "MDigital"
         Me.MDigital.Size = New System.Drawing.Size(1163, 51)
@@ -207,6 +209,7 @@ Partial Class frmClipExp
         Me.dgDocDigitales.GridColor = System.Drawing.SystemColors.ControlLightLight
         Me.dgDocDigitales.Location = New System.Drawing.Point(12, 209)
         Me.dgDocDigitales.Name = "dgDocDigitales"
+        Me.dgDocDigitales.ReadOnly = True
         Me.dgDocDigitales.RowHeadersVisible = False
         Me.dgDocDigitales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgDocDigitales.Size = New System.Drawing.Size(357, 306)
@@ -216,6 +219,7 @@ Partial Class frmClipExp
         '
         Me.iddocdig.HeaderText = "iddocdig"
         Me.iddocdig.Name = "iddocdig"
+        Me.iddocdig.ReadOnly = True
         Me.iddocdig.Visible = False
         '
         'dgdocAsoc
@@ -244,12 +248,14 @@ Partial Class frmClipExp
         '
         Me.dgdocdes.HeaderText = "Descripcion"
         Me.dgdocdes.Name = "dgdocdes"
+        Me.dgdocdes.ReadOnly = True
         Me.dgdocdes.Visible = False
         '
         'download
         '
         Me.download.HeaderText = "Download"
         Me.download.Name = "download"
+        Me.download.ReadOnly = True
         Me.download.Visible = False
         '
         'Label3
@@ -439,10 +445,92 @@ Partial Class frmClipExp
         Me.dgServicios.Location = New System.Drawing.Point(398, 115)
         Me.dgServicios.MultiSelect = False
         Me.dgServicios.Name = "dgServicios"
+        Me.dgServicios.ReadOnly = True
         Me.dgServicios.RowHeadersVisible = False
         Me.dgServicios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgServicios.Size = New System.Drawing.Size(753, 92)
+        Me.dgServicios.Size = New System.Drawing.Size(751, 92)
         Me.dgServicios.TabIndex = 60
+        '
+        'IDServ
+        '
+        Me.IDServ.HeaderText = "idservicio"
+        Me.IDServ.Name = "IDServ"
+        Me.IDServ.ReadOnly = True
+        Me.IDServ.Visible = False
+        '
+        'CodServ
+        '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CodServ.DefaultCellStyle = DataGridViewCellStyle2
+        Me.CodServ.HeaderText = "Cod."
+        Me.CodServ.Name = "CodServ"
+        Me.CodServ.ReadOnly = True
+        Me.CodServ.ToolTipText = "Codigo del Servicio"
+        Me.CodServ.Width = 80
+        '
+        'Servicio
+        '
+        Me.Servicio.HeaderText = "Nombre Servicio"
+        Me.Servicio.Name = "Servicio"
+        Me.Servicio.ReadOnly = True
+        Me.Servicio.ToolTipText = "Nombre Servicio"
+        Me.Servicio.Width = 240
+        '
+        'idmodulo
+        '
+        Me.idmodulo.HeaderText = "idmodulo"
+        Me.idmodulo.Name = "idmodulo"
+        Me.idmodulo.ReadOnly = True
+        Me.idmodulo.Visible = False
+        '
+        'Modulo
+        '
+        Me.Modulo.HeaderText = "Modulo"
+        Me.Modulo.Name = "Modulo"
+        Me.Modulo.ReadOnly = True
+        Me.Modulo.Width = 120
+        '
+        'idmenu
+        '
+        Me.idmenu.HeaderText = "idmenu"
+        Me.idmenu.Name = "idmenu"
+        Me.idmenu.ReadOnly = True
+        Me.idmenu.Visible = False
+        '
+        'Menu
+        '
+        Me.Menu.HeaderText = "Menu"
+        Me.Menu.Name = "Menu"
+        Me.Menu.ReadOnly = True
+        Me.Menu.Width = 120
+        '
+        'idsubmenu
+        '
+        Me.idsubmenu.HeaderText = "idsubmenu"
+        Me.idsubmenu.Name = "idsubmenu"
+        Me.idsubmenu.ReadOnly = True
+        Me.idsubmenu.Visible = False
+        '
+        'SubMenu
+        '
+        Me.SubMenu.HeaderText = "SubMenu"
+        Me.SubMenu.Name = "SubMenu"
+        Me.SubMenu.ReadOnly = True
+        Me.SubMenu.Width = 120
+        '
+        'pendientes
+        '
+        Me.pendientes.HeaderText = "Pendientes"
+        Me.pendientes.Name = "pendientes"
+        Me.pendientes.ReadOnly = True
+        Me.pendientes.Width = 65
+        '
+        'idfcmod
+        '
+        Me.idfcmod.HeaderText = "idfcmodulo"
+        Me.idfcmod.Name = "idfcmod"
+        Me.idfcmod.ReadOnly = True
+        Me.idfcmod.Visible = False
         '
         'Label4
         '
@@ -580,11 +668,12 @@ Partial Class frmClipExp
         Me.dgTiposDocto.AllowUserToResizeRows = False
         Me.dgTiposDocto.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.dgTiposDocto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgTiposDocto.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.idtipo, Me.tipodocto})
+        Me.dgTiposDocto.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.idtipo, Me.tipodocto, Me.t})
         Me.dgTiposDocto.GridColor = System.Drawing.SystemColors.ControlLightLight
         Me.dgTiposDocto.Location = New System.Drawing.Point(912, 232)
         Me.dgTiposDocto.MultiSelect = False
         Me.dgTiposDocto.Name = "dgTiposDocto"
+        Me.dgTiposDocto.ReadOnly = True
         Me.dgTiposDocto.RowHeadersVisible = False
         Me.dgTiposDocto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgTiposDocto.Size = New System.Drawing.Size(239, 237)
@@ -594,6 +683,7 @@ Partial Class frmClipExp
         '
         Me.idtipo.HeaderText = "idtipo"
         Me.idtipo.Name = "idtipo"
+        Me.idtipo.ReadOnly = True
         Me.idtipo.Visible = False
         Me.idtipo.Width = 10
         '
@@ -601,7 +691,15 @@ Partial Class frmClipExp
         '
         Me.tipodocto.HeaderText = "Tipo de Documento"
         Me.tipodocto.Name = "tipodocto"
+        Me.tipodocto.ReadOnly = True
         Me.tipodocto.Width = 240
+        '
+        't
+        '
+        Me.t.HeaderText = "t"
+        Me.t.Name = "t"
+        Me.t.ReadOnly = True
+        Me.t.Visible = False
         '
         'TbFiltroEle
         '
@@ -668,81 +766,18 @@ Partial Class frmClipExp
         Me.cbMonth.Size = New System.Drawing.Size(148, 21)
         Me.cbMonth.TabIndex = 79
         '
-        'IDServ
+        'btDependencias
         '
-        Me.IDServ.HeaderText = "idservicio"
-        Me.IDServ.Name = "IDServ"
-        Me.IDServ.ReadOnly = True
-        Me.IDServ.Visible = False
-        '
-        'CodServ
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CodServ.DefaultCellStyle = DataGridViewCellStyle2
-        Me.CodServ.HeaderText = "Cod."
-        Me.CodServ.Name = "CodServ"
-        Me.CodServ.ReadOnly = True
-        Me.CodServ.ToolTipText = "Codigo del Servicio"
-        Me.CodServ.Width = 80
-        '
-        'Servicio
-        '
-        Me.Servicio.HeaderText = "Nombre Servicio"
-        Me.Servicio.Name = "Servicio"
-        Me.Servicio.ReadOnly = True
-        Me.Servicio.ToolTipText = "Nombre Servicio"
-        Me.Servicio.Width = 240
-        '
-        'idmodulo
-        '
-        Me.idmodulo.HeaderText = "idmodulo"
-        Me.idmodulo.Name = "idmodulo"
-        Me.idmodulo.Visible = False
-        '
-        'Modulo
-        '
-        Me.Modulo.HeaderText = "Modulo"
-        Me.Modulo.Name = "Modulo"
-        Me.Modulo.ReadOnly = True
-        Me.Modulo.Width = 120
-        '
-        'idmenu
-        '
-        Me.idmenu.HeaderText = "idmenu"
-        Me.idmenu.Name = "idmenu"
-        Me.idmenu.Visible = False
-        '
-        'Menu
-        '
-        Me.Menu.HeaderText = "Menu"
-        Me.Menu.Name = "Menu"
-        Me.Menu.ReadOnly = True
-        Me.Menu.Width = 120
-        '
-        'idsubmenu
-        '
-        Me.idsubmenu.HeaderText = "idsubmenu"
-        Me.idsubmenu.Name = "idsubmenu"
-        Me.idsubmenu.Visible = False
-        '
-        'SubMenu
-        '
-        Me.SubMenu.HeaderText = "SubMenu"
-        Me.SubMenu.Name = "SubMenu"
-        Me.SubMenu.ReadOnly = True
-        Me.SubMenu.Width = 120
-        '
-        'pendientes
-        '
-        Me.pendientes.HeaderText = "Pendientes"
-        Me.pendientes.Name = "pendientes"
-        Me.pendientes.Width = 70
-        '
-        'idfcmod
-        '
-        Me.idfcmod.HeaderText = "idfcmodulo"
-        Me.idfcmod.Name = "idfcmod"
-        Me.idfcmod.Visible = False
+        Me.btDependencias.AutoSize = False
+        Me.btDependencias.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btDependencias.Image = CType(resources.GetObject("btDependencias.Image"), System.Drawing.Image)
+        Me.btDependencias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.btDependencias.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btDependencias.Name = "btDependencias"
+        Me.btDependencias.Size = New System.Drawing.Size(120, 48)
+        Me.btDependencias.Text = "Dependencias"
+        Me.btDependencias.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btDependencias.ToolTipText = "Configuracion de Tipos de Documento"
         '
         'frmClipExp
         '
@@ -842,8 +877,6 @@ Partial Class frmClipExp
     Friend WithEvents dgElementos As DataGridView
     Friend WithEvents dgTiposDocto As DataGridView
     Friend WithEvents TbFiltroEle As TextBox
-    Friend WithEvents idtipo As DataGridViewTextBoxColumn
-    Friend WithEvents tipodocto As DataGridViewTextBoxColumn
     Friend WithEvents idelemento As DataGridViewTextBoxColumn
     Friend WithEvents elemento1 As DataGridViewTextBoxColumn
     Friend WithEvents elemento2 As DataGridViewTextBoxColumn
@@ -860,6 +893,9 @@ Partial Class frmClipExp
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents cbMonth As ComboBox
+    Friend WithEvents idtipo As DataGridViewTextBoxColumn
+    Friend WithEvents tipodocto As DataGridViewTextBoxColumn
+    Friend WithEvents t As DataGridViewTextBoxColumn
     Friend WithEvents IDServ As DataGridViewTextBoxColumn
     Friend WithEvents CodServ As DataGridViewTextBoxColumn
     Friend WithEvents Servicio As DataGridViewTextBoxColumn
@@ -871,4 +907,5 @@ Partial Class frmClipExp
     Friend WithEvents SubMenu As DataGridViewTextBoxColumn
     Friend WithEvents pendientes As DataGridViewTextBoxColumn
     Friend WithEvents idfcmod As DataGridViewTextBoxColumn
+    Friend WithEvents btDependencias As ToolStripButton
 End Class

@@ -63,7 +63,6 @@ Partial Class frmConfigTiposDocto
         Me.BTAgregag = New System.Windows.Forms.Button()
         Me.BTNuevog = New System.Windows.Forms.Button()
         Me.dgServiciosGenerales = New System.Windows.Forms.DataGridView()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -72,6 +71,7 @@ Partial Class frmConfigTiposDocto
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.claveg = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.idmodulog = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TPServicios.SuspendLayout()
         Me.TPTipos.SuspendLayout()
         CType(Me.dgServiciosEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -478,16 +478,6 @@ Partial Class frmConfigTiposDocto
         Me.dgServiciosGenerales.Size = New System.Drawing.Size(578, 236)
         Me.dgServiciosGenerales.TabIndex = 22
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(6, 47)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(226, 16)
-        Me.Label2.TabIndex = 21
-        Me.Label2.Text = "Listado de servicios generales."
-        '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.HeaderText = "idtipodocto"
@@ -535,6 +525,16 @@ Partial Class frmConfigTiposDocto
         Me.idmodulog.HeaderText = "idmodulog"
         Me.idmodulog.Name = "idmodulog"
         Me.idmodulog.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(6, 47)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(226, 16)
+        Me.Label2.TabIndex = 21
+        Me.Label2.Text = "Listado de servicios generales."
         '
         'frmConfigTiposDocto
         '

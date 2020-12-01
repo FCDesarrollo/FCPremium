@@ -6,6 +6,8 @@ Public Class frmConfigEmpresasEmp
         Dim dt As DataTable
         Dim dr As DataRow
 
+        Carga_sucursales(IDEmp, Me.cbSucursales)
+
         cargaEmpresasCon(Me.cbCon)
         dt = cbCon.DataSource
         For i As Integer = 0 To cbCon.Items.Count - 1
@@ -26,15 +28,15 @@ Public Class frmConfigEmpresasEmp
             End If
         Next
 
-        cargaEmpresasADW(Me.cbADW)
-        dt = cbADW.DataSource
-        For i As Integer = 0 To cbADW.Items.Count - 1
-            dr = dt.Rows(i)
-            If dr("id") = idAdw Then
-                cbADW.SelectedIndex = i
-                Exit For
-            End If
-        Next
+        cargaEmpresasADW()
+        'dt = cbADW.DataSource
+        'For i As Integer = 0 To cbADW.Items.Count - 1
+        '    dr = dt.Rows(i)
+        '    If dr("id") = idAdw Then
+        '        cbADW.SelectedIndex = i
+        '        Exit For
+        '    End If
+        'Next
     End Sub
     Private Sub cargaEmpresasCon(ByVal cb As ComboBox)
         Dim dt As DataTable
@@ -45,11 +47,13 @@ Public Class frmConfigEmpresasEmp
         dt.Columns.Add("id")
         dt.Columns.Add("Nombre")
         dt.Columns.Add("AliasBDD")
+        'dt.Columns.Add("idAdw")
 
         dr = dt.NewRow
         dr(0) = 0
         dr(1) = "SELECCIONAR EMPRESA"
         dr(2) = ""
+        'dr(3) = ""
         dt.Rows.Add(dr)
 
         FC_ConexionSQL("GeneralesSQL")
@@ -62,6 +66,8 @@ Public Class frmConfigEmpresasEmp
                     dr(0) = Trim(cRs("Id"))
                     dr(1) = Trim(cRs("Nombre"))
                     dr(2) = Trim(cRs("AliasBDD"))
+                    'dr(3) = getIDSucConfig(cRs("Id"))
+                    'dr(3) = getIDSucConfig(cRs("Id"))
                     dt.Rows.Add(dr)
                 Loop
             End Using
@@ -71,6 +77,39 @@ Public Class frmConfigEmpresasEmp
         cb.ValueMember = "id"
         cb.DisplayMember = "Nombre"
     End Sub
+    Private Function getNombreSucConfig(idAdw As Integer)
+        Dim Nombre As String = ""
+        Dim s As clSucursalesCRM
+
+        For Each s In cSucursalesCRM
+            If s.IDAdw = idAdw Then
+                Nombre = s.Sucursal
+                Exit For
+            End If
+        Next
+        getNombreSucConfig = Nombre
+    End Function
+    Private Function getIDSucConfig(idAdw As Integer)
+        Dim Id As Integer
+        Dim s As clSucursalesCRM
+        Id = 0
+        For Each s In cSucursalesCRM
+            If s.IDAdw = idAdw Then
+                Id = s.IDSucursal
+                Exit For
+            End If
+        Next
+
+        'Using Con = New SqlCommand("SELECT idsucursalcrm FROM CEXEmpresas WHERE idempresaadw = " & idAdw & " and idempresacrm = " & IDEmp, FC_Con)
+        '    Using Rs = Con.ExecuteReader()
+        '        If Rs.HasRows Then
+        '            Rs.Read()
+        '            Id = IIf(IsDBNull(Rs("idsucursalcrm")), Id, Rs("idsucursalcrm"))
+        '        End If
+        '    End Using
+        'End Using
+        getIDSucConfig = Id
+    End Function
     Private Sub cargaEmpresasNom(ByVal cb As ComboBox)
         Dim dt As DataTable
         Dim dr As DataRow
@@ -106,42 +145,35 @@ Public Class frmConfigEmpresasEmp
         cb.ValueMember = "id"
         cb.DisplayMember = "Nombre"
     End Sub
-    Private Sub cargaEmpresasADW(ByVal cb As ComboBox)
+    Private Sub cargaEmpresasADW()
         Dim Query As String
-        Dim dt As DataTable
-        Dim dr As DataRow
-        'Dim cQue As String
-
-        dt = New DataTable("Empresas")
-        dt.Columns.Add("id")
-        dt.Columns.Add("Nombre")
-        dt.Columns.Add("RutaADW")
-
-        dr = dt.NewRow
-        dr(0) = 0
-        dr(1) = "SELECCIONAR EMPRESA"
-        dr(2) = ""
-        dt.Rows.Add(dr)
 
         If FC_ConexionFOX(FC_RutaEmpresasAdmin) <> 0 Then Exit Sub
+
+        dgEmpresasADW.Rows.Clear()
+
         Query = "SELECT cidempresa, cnombree01, crutadatos FROM MGW00001 WHERE cidempresa <> 1"
         Using fCom = New Odbc.OdbcCommand(Query, FC_CONFOX)
             Using cRs = fCom.ExecuteReader()
                 Do While cRs.Read()
-                    dr = dt.NewRow
-                    dr(0) = Trim(cRs("cidempresa"))
-                    dr(1) = Trim(cRs("cnombree01"))
-                    dr(2) = Trim(cRs("crutadatos"))
-                    dt.Rows.Add(dr)
+                    dgEmpresasADW.Rows.Add(checkEmpresa(IDEmp, cRs("cidempresa")), Trim(cRs("cidempresa")), Trim(cRs("cnombree01")), Trim(cRs("crutadatos")), getIDSucConfig(cRs("cidempresa")), getNombreSucConfig(cRs("cidempresa")))
                 Loop
             End Using
         End Using
 
-        cb.DataSource = dt
-        cb.ValueMember = "id"
-        cb.DisplayMember = "Nombre"
     End Sub
-
+    Private Function checkEmpresa(idempresacrm As Integer, idadw As Integer)
+        Dim exist As Boolean
+        exist = False
+        Using Con = New SqlCommand("SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idempresacrm & " and idempresaadw = " & idadw, FC_Con)
+            Using Rs = Con.ExecuteReader()
+                If Rs.HasRows Then
+                    exist = True
+                End If
+            End Using
+        End Using
+        checkEmpresa = exist
+    End Function
     Private Sub btCerrar_Click(sender As Object, e As EventArgs) Handles btCerrar.Click
         Me.Close()
     End Sub
@@ -150,12 +182,27 @@ Public Class frmConfigEmpresasEmp
         Dim empCon As String = ""
         Dim empNom As String = ""
         Dim empAdw As String = ""
+        Dim nomEmp As String = ""
         Dim Query As String
         Dim dt As DataTable, dr As DataRow
+        Dim cont As Integer
+        Dim idSuc As Integer
+
+        If cbCon.SelectedValue = 0 Then
+            MsgBox("Seleccione una empresa de ContPAQ i Contabilidad", vbInformation)
+            Exit Sub
+        End If
+        If cbNom.SelectedValue = 0 Then
+            MsgBox("Seleccione una empresa de ContPAQ i Nominas", vbInformation)
+            Exit Sub
+        End If
+
+
         idCon = cbCon.SelectedValue
         idNom = cbNom.SelectedValue
-        idAdw = cbADW.SelectedValue
+        'idAdw = cbADW.SelectedValue
 
+        cont = 0
         If idCon <> 0 Then
             dt = cbCon.DataSource
             dr = dt.Rows(cbCon.SelectedIndex)
@@ -166,29 +213,90 @@ Public Class frmConfigEmpresasEmp
             dr = dt.Rows(cbNom.SelectedIndex)
             empNom = dr("AliasBDD")
         End If
-        If idAdw <> 0 Then
-            dt = cbADW.DataSource
-            dr = dt.Rows(cbADW.SelectedIndex)
-            empAdw = dr("RutaADw")
+        'If idAdw <> 0 Then
+        '    dt = cbADW.DataSource
+        '    dr = dt.Rows(cbADW.SelectedIndex)
+        '    empAdw = dr("RutaADw")
+        'End If
+
+        For Each Fila As DataGridViewRow In dgEmpresasADW.Rows
+            If Fila.Cells(0).Value = True Then
+                idAdw = Fila.Cells(1).Value
+                empAdw = Fila.Cells(2).Value
+                idSuc = Fila.Cells(4).Value
+
+                If idSuc <> 0 Then
+                    Using Con = New SqlCommand("SELECT * FROM CEXEmpresas WHERE idempresacrm = " & IDEmp & " And idempresaadw =" & idAdw, FC_Con)
+                        Using Rs = Con.ExecuteReader()
+                            If Rs.HasRows Then
+                                Rs.Read()
+                                Query = "UPDATE CEXEmpresas " &
+                                        "SET idempresanom=@idempnom, idsucursalcrm=@idsuccrm, idempresacon=@idempcon, idempresaadw=@idempadw, ctBDDNom=@ctNom, ctBDDCon=@ctCon, RutaADW=@ctAdw " &
+                                        "WHERE idempresacrm=@idempcrm"
+                                nomEmp = Trim(Rs("empresacrm"))
+                            Else
+                                For Each emp In GL_cUsuarioAPI.MEmpresas
+                                    If emp.Idempresa = IDEmp Then
+                                        nomEmp = emp.Nombreempresa
+                                        Exit For
+                                    End If
+                                Next
+                                Query = "INSERT INTO CEXEmpresas(idempresacrm, idsucursalcrm, empresacrm, idempresanom, idempresacon, idempresaadw,ctBDDNom,ctBDDCon,RutaADW) " &
+                                        "VALUES(@idempcrm, @idsuccrm, @nomemp, @idempnom, @idempcon, @idempadw, @ctNom, @ctCon, @ctAdw)"
+                            End If
+                        End Using
+                    End Using
+
+                    Using cCom = New SqlCommand(Query, FC_Con)
+                        cCom.Parameters.AddWithValue("@idempcrm", IDEmp)
+                        cCom.Parameters.AddWithValue("@idsuccrm", idSuc)
+                        cCom.Parameters.AddWithValue("@nomemp", nomEmp)
+                        cCom.Parameters.AddWithValue("@idempcon", idCon)
+                        cCom.Parameters.AddWithValue("@idempnom", idNom)
+                        cCom.Parameters.AddWithValue("@idempadw", idAdw)
+                        cCom.Parameters.AddWithValue("@ctCon", empCon)
+                        cCom.Parameters.AddWithValue("@ctNom", empNom)
+                        cCom.Parameters.AddWithValue("@ctAdw", empAdw)
+                        cCom.ExecuteNonQuery()
+                    End Using
+                    cont = cont + 1
+                Else
+                    MsgBox("La empresa de AdminPAQ (" & empAdw & ") no se ha configurado a una sucursal en el CRM.", vbInformation)
+                End If
+
+            End If
+        Next
+
+        Using Con = New SqlCommand("IF EXISTS (SELECT * FROM CEXEmpresas WHERE idempresacrm = " & IDEmp & " And idempresaadw is null) 
+	                                BEGIN DELETE FROM CEXEmpresas WHERE idempresacrm = " & IDEmp & " And idempresaadw is null END", FC_Con)
+            Con.ExecuteNonQuery()
+        End Using
+
+        If cont = 0 Then
+            MsgBox("Seleccione una empresa de AdminPAQ.", vbInformation)
+            Exit Sub
         End If
 
-        Query = "UPDATE CEXEmpresas " &
-                    "SET idempresanom=@idempnom, idempresacon=@idempcon, idempresaadw=@idempadw, ctBDDNom=@ctNom, ctBDDCon=@ctCon, RutaADW=@ctAdw " &
-                "WHERE idempresacrm=@idempcrm"
-        Using cCom = New SqlCommand(Query, FC_Con)
-            cCom.Parameters.AddWithValue("@idempcrm", IDEmp)
-            cCom.Parameters.AddWithValue("@idempcon", idCon)
-            cCom.Parameters.AddWithValue("@idempnom", idNom)
-            cCom.Parameters.AddWithValue("@idempadw", idAdw)
-            cCom.Parameters.AddWithValue("@ctCon", empCon)
-            cCom.Parameters.AddWithValue("@ctNom", empNom)
-            cCom.Parameters.AddWithValue("@ctAdw", empAdw)
-            cCom.ExecuteNonQuery()
-        End Using
 
         MsgBox("Guardado correctamente", vbInformation)
 
         Me.Close()
 
+    End Sub
+
+    Private Sub dgEmpresasADW_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgEmpresasADW.CellContentClick
+
+    End Sub
+
+    Private Sub dgEmpresasADW_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgEmpresasADW.CellClick
+        If dgEmpresasADW.CurrentCell.ColumnIndex <> 0 Then Exit Sub
+        If dgEmpresasADW.Item(0, dgEmpresasADW.CurrentRow.Index).Value = True Then
+            dgEmpresasADW.Item(0, dgEmpresasADW.CurrentRow.Index).Value = False
+            Using Con = New SqlCommand("DELETE FROM CEXEmpresas WHERE idempresacrm = " & IDEmp & " and idempresaadw = " & dgEmpresasADW.Item(1, dgEmpresasADW.CurrentRow.Index).Value, FC_Con)
+                Con.ExecuteNonQuery()
+            End Using
+        Else
+            dgEmpresasADW.Item(0, dgEmpresasADW.CurrentRow.Index).Value = True
+        End If
     End Sub
 End Class

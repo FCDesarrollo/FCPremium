@@ -32,6 +32,8 @@ Partial Class frmConfigExpedientes
         Me.idempresaadw = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.empresaadw = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LInfo = New System.Windows.Forms.Label()
+        Me.btnAgregaEmp = New System.Windows.Forms.Button()
+        Me.btnEliminaEmp = New System.Windows.Forms.Button()
         CType(Me.dgEmpresas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -44,13 +46,13 @@ Partial Class frmConfigExpedientes
         Me.dgEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgEmpresas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.idempresacrm, Me.empresacrm, Me.idempresacon, Me.empresacon, Me.idempresanom, Me.empresanom, Me.idempresaadw, Me.empresaadw})
         Me.dgEmpresas.GridColor = System.Drawing.SystemColors.ControlLightLight
-        Me.dgEmpresas.Location = New System.Drawing.Point(12, 12)
+        Me.dgEmpresas.Location = New System.Drawing.Point(15, 34)
         Me.dgEmpresas.MultiSelect = False
         Me.dgEmpresas.Name = "dgEmpresas"
         Me.dgEmpresas.ReadOnly = True
         Me.dgEmpresas.RowHeadersVisible = False
         Me.dgEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgEmpresas.Size = New System.Drawing.Size(906, 207)
+        Me.dgEmpresas.Size = New System.Drawing.Size(652, 207)
         Me.dgEmpresas.TabIndex = 74
         '
         'idempresacrm
@@ -80,7 +82,7 @@ Partial Class frmConfigExpedientes
         Me.empresacon.Name = "empresacon"
         Me.empresacon.ReadOnly = True
         Me.empresacon.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.empresacon.Width = 200
+        Me.empresacon.Width = 140
         '
         'idempresanom
         '
@@ -95,7 +97,7 @@ Partial Class frmConfigExpedientes
         Me.empresanom.Name = "empresanom"
         Me.empresanom.ReadOnly = True
         Me.empresanom.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.empresanom.Width = 200
+        Me.empresanom.Width = 140
         '
         'idempresaadw
         '
@@ -110,23 +112,45 @@ Partial Class frmConfigExpedientes
         Me.empresaadw.Name = "empresaadw"
         Me.empresaadw.ReadOnly = True
         Me.empresaadw.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.empresaadw.Width = 200
+        Me.empresaadw.Width = 65
         '
         'LInfo
         '
         Me.LInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.LInfo.Location = New System.Drawing.Point(12, 222)
+        Me.LInfo.Location = New System.Drawing.Point(12, 244)
         Me.LInfo.Name = "LInfo"
         Me.LInfo.Size = New System.Drawing.Size(304, 32)
         Me.LInfo.TabIndex = 77
         Me.LInfo.Text = "Doble click para configurar las empresas de Contabilidad, Nominas y AdminPAQ a la" &
     " empresa del CRM."
         '
+        'btnAgregaEmp
+        '
+        Me.btnAgregaEmp.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.btnAgregaEmp.Location = New System.Drawing.Point(587, 5)
+        Me.btnAgregaEmp.Name = "btnAgregaEmp"
+        Me.btnAgregaEmp.Size = New System.Drawing.Size(37, 23)
+        Me.btnAgregaEmp.TabIndex = 78
+        Me.btnAgregaEmp.Text = "+"
+        Me.btnAgregaEmp.UseVisualStyleBackColor = False
+        '
+        'btnEliminaEmp
+        '
+        Me.btnEliminaEmp.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.btnEliminaEmp.Location = New System.Drawing.Point(630, 5)
+        Me.btnEliminaEmp.Name = "btnEliminaEmp"
+        Me.btnEliminaEmp.Size = New System.Drawing.Size(37, 23)
+        Me.btnEliminaEmp.TabIndex = 79
+        Me.btnEliminaEmp.Text = "-"
+        Me.btnEliminaEmp.UseVisualStyleBackColor = False
+        '
         'frmConfigExpedientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(932, 263)
+        Me.ClientSize = New System.Drawing.Size(682, 285)
+        Me.Controls.Add(Me.btnEliminaEmp)
+        Me.Controls.Add(Me.btnAgregaEmp)
         Me.Controls.Add(Me.LInfo)
         Me.Controls.Add(Me.dgEmpresas)
         Me.Name = "frmConfigExpedientes"
@@ -138,6 +162,8 @@ Partial Class frmConfigExpedientes
 
     Friend WithEvents dgEmpresas As DataGridView
     Friend WithEvents LInfo As Label
+    Friend WithEvents btnAgregaEmp As Button
+    Friend WithEvents btnEliminaEmp As Button
     Friend WithEvents idempresacrm As DataGridViewTextBoxColumn
     Friend WithEvents empresacrm As DataGridViewTextBoxColumn
     Friend WithEvents idempresacon As DataGridViewTextBoxColumn
