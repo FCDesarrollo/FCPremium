@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Win32
 Imports System.Data.SqlClient
 Imports System.Data.Odbc
+Imports System.IO
 Module GeneralFC
     ''VARIABLES PARA REGISTRO EN REGEEDIT
     Public Const FC_REGKEY As String = "HKEY_LOCAL_MACHINE\SOFTWARE\FCModulos\"
@@ -131,9 +132,18 @@ ERR_CON:
     End Property
 
     Public Sub FC_SetDatos(ByVal Inst As String, ByVal Uid As String, ByVal Pwd As String)
+        Dim ruta As String
+
         WriteToRegistry("Instancia", Inst)
         WriteToRegistry("Password", Pwd)
         WriteToRegistry("Uid", Uid)
+
+        '08/12/2020
+        ruta = Directory.GetCurrentDirectory() & "\Complementos"
+        If (Not System.IO.Directory.Exists(ruta)) Then
+            System.IO.Directory.CreateDirectory(ruta)
+        End If
+        WriteToRegistry("RutaComplementos", ruta)
     End Sub
 
     Public Property FC_RutaSDKAdmin() As String
