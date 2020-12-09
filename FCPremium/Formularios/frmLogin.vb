@@ -15,7 +15,8 @@ Public Class frmLogin
         menUser = False
         mUserNube = "admindublock"
         mPassNube = "4u1B6nyy3W"
-        mLinkNube = "https://" & mUserNube & ":" & mPassNube & "@cloud.dublock.com/ocs/v2.php/apps/files_sharing/api/v1/shares"
+        'mLinkNube = "https://" & mUserNube & ":" & mPassNube & "@cloud.dublock.com/ocs/v2.php/apps/files_sharing/api/v1/shares"
+        mLinkNube = "https://cloud.dublock.com/ocs/v2.php/apps/files_sharing/api/v1/shares"
 
         'My.Settings.Reset()
         arrDatos = FC_GetDatos()
