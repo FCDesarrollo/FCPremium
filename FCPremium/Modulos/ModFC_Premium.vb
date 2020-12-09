@@ -250,6 +250,7 @@ Module ModFC_Premium
                         CStr(Row("nomdes"))
                 dUrl = ConsumeAPI(cParam.Api, "linkArchivo", dArchivo & dDatosLink)
                 If dUrl <> "" Then
+                    dUrl = IIf(Left(dUrl, 5) = "https", dUrl.Replace("https", "http"), dUrl)
                     My.Computer.Network.DownloadFile(dUrl & "/download",
                          FC_RutaModulos & "\archivos\" & CStr(Row("nomfin")), "", "", True, 900, True)
 
