@@ -167,7 +167,7 @@ Public Class frmGeneraDoctos
 
         wb = exApp.Workbooks.Add
 
-        exApp.Visible = True
+        'exApp.Visible = True
 
         If idMod = ModExped_Bancos Or idMod = ModExped_Fiscales Or (idMod = ModExped_Activos And idSer = SerCalculosActivos) Then
             imprimeEncabezado(wb, IDEmp, idSer, idMod, Ejercicio)

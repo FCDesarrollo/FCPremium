@@ -27,6 +27,7 @@ Partial Class frmClipExp
         Me.MDigital = New System.Windows.Forms.ToolStrip()
         Me.BTConfigEmpresas = New System.Windows.Forms.ToolStripButton()
         Me.BTConfig = New System.Windows.Forms.ToolStripButton()
+        Me.btDependencias = New System.Windows.Forms.ToolStripButton()
         Me.BTCerrar = New System.Windows.Forms.ToolStripButton()
         Me.btnDel = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -94,7 +95,6 @@ Partial Class frmClipExp
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.cbMonth = New System.Windows.Forms.ComboBox()
-        Me.btDependencias = New System.Windows.Forms.ToolStripButton()
         Me.MDigital.SuspendLayout()
         CType(Me.dgDocDigitales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -139,6 +139,19 @@ Partial Class frmClipExp
         Me.BTConfig.Text = "Tipos de documento"
         Me.BTConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.BTConfig.ToolTipText = "Configuracion de Tipos de Documento"
+        '
+        'btDependencias
+        '
+        Me.btDependencias.AutoSize = False
+        Me.btDependencias.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btDependencias.Image = CType(resources.GetObject("btDependencias.Image"), System.Drawing.Image)
+        Me.btDependencias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.btDependencias.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btDependencias.Name = "btDependencias"
+        Me.btDependencias.Size = New System.Drawing.Size(120, 48)
+        Me.btDependencias.Text = "Dependencias"
+        Me.btDependencias.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btDependencias.ToolTipText = "Configuracion de Tipos de Documento"
         '
         'BTCerrar
         '
@@ -765,19 +778,6 @@ Partial Class frmClipExp
         Me.cbMonth.Name = "cbMonth"
         Me.cbMonth.Size = New System.Drawing.Size(148, 21)
         Me.cbMonth.TabIndex = 79
-        '
-        'btDependencias
-        '
-        Me.btDependencias.AutoSize = False
-        Me.btDependencias.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btDependencias.Image = CType(resources.GetObject("btDependencias.Image"), System.Drawing.Image)
-        Me.btDependencias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.btDependencias.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btDependencias.Name = "btDependencias"
-        Me.btDependencias.Size = New System.Drawing.Size(120, 48)
-        Me.btDependencias.Text = "Dependencias"
-        Me.btDependencias.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btDependencias.ToolTipText = "Configuracion de Tipos de Documento"
         '
         'frmClipExp
         '
