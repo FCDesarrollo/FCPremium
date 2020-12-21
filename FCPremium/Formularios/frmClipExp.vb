@@ -690,7 +690,7 @@ Public Class frmClipExp
                             resp = Vincular_DocumentosExpedActivos(idFCMod, idelemento, aIDDoc, Month(aFecha), Year(aFecha), idtipodocto, aFecha, oRut, RutaO(0), idservicio)
                         End If
                     ElseIf idFCMod = ModExped_Proveedores Or idFCMod = ModExped_Clientes Then 'Proveedores y Clientes
-                        idSuc = CInt(getIDSucCRM(cbsucursal.SelectedText))
+                        idSuc = CInt(getIDSucCRM(cbsucursal.Text))
                         resp = Vincular_DocumentosProvCli(idFCMod, idelemento, aIDDoc, idtipodocto, aFecha, oRut, RutaO(0), idSuc)
                     Else
                         resp = Vincular_DocumentosExped(idFCMod, idelemento, aIDDoc, idtipodocto, aFecha, oRut, RutaO(0))

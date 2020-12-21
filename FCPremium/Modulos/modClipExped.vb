@@ -762,7 +762,7 @@ Module modClipExped
         'Col_Letter = vArr(0)
     End Function
 
-    Public Sub imprimeDatosRelacionados(wb As Excel.Workbook, idEmp As Integer, idSer As Integer, idMod As Integer, Optional Ejercicio As Integer = 0)
+    Public Sub imprimeDatosRelacionados(wb As Excel.Workbook, idEmp As Integer, idSer As Integer, idMod As Integer, Optional Ejercicio As Integer = 0, Optional idSuc As Integer = 0)
 
         getDocumentosCRM(idEmp, Ejercicio)
 
@@ -784,9 +784,9 @@ Module modClipExped
             Case Is = ModExped_Gobierno 'Expediente Gobierno
                 ImprimeDependenciasGob(wb, idEmp, idSer)
             Case Is = ModExped_Proveedores  'Expediente de Proveedores Credito
-                ImprimeExpedienteProveedores(wb, idEmp, idSer)
+                ImprimeExpedienteProveedores(wb, idEmp, idSer, idSuc)
             Case Is = ModExped_Clientes  'Expediente de Clientes Credito
-                ImprimeExpedienteClientes(wb, idEmp, idSer)
+                ImprimeExpedienteClientes(wb, idEmp, idSer, idSuc)
         End Select
     End Sub
 
@@ -1307,7 +1307,7 @@ Module modClipExped
 
     End Sub
 
-    Public Sub ImprimeExpedienteProveedores(wb As Excel.Workbook, idEmp As Integer, idSer As Integer)
+    Public Sub ImprimeExpedienteProveedores(wb As Excel.Workbook, idEmp As Integer, idSer As Integer, idSucCrm As Integer)
         Dim Query As String
         Dim Fila As Integer, c As Integer, i As Integer, reg As Integer, Col As Integer
         Dim vMatriz(10000, 8)
@@ -1326,23 +1326,16 @@ Module modClipExped
         Fila = 6
         With wb.ActiveSheet
             'ConEmpresaSQL(idEmp)
-            Query = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp
+            Query = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp & " AND idsucursalcrm =" & idSucCrm
             Using Con = New SqlCommand(Query, FC_Con)
                 Using RsGen = Con.ExecuteReader()
                     Do While RsGen.Read()
                         FC_ConexionFOX(RsGen("RutaADW"))
-
                         Query = "SELECT CIDCLIEN01, CRFC, CRAZONSO01 FROM MGW10002 WHERE CTIPOCLI01 <> 1 And CIDCLIEN01 <> 0"
                         Using cCom = New Odbc.OdbcCommand(Query, FC_CONFOX)
                             Using aCr = cCom.ExecuteReader()
                                 Do While aCr.Read()
-                                    'fec = aCr("fechanacimiento")
-                                    '.Cells(Fila, 1).value = Trim(aCr("CIDCLIEN01"))
-                                    '.Cells(Fila, 2) = Trim(aCr("CRFC"))
-                                    '.Cells(Fila, 3) = "'" & Trim(aCr("CRAZONSO01"))
-
-                                    'Query = "SELECT fecha, nombrearchivo, ruta_cloud, idtipodocto FROM XMLDigAsocExped WHERE idelemento = " & aCr("idempleado") & " and idservicio = " & idSer
-                                    Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital, numero1 FROM zClipExped WHERE idcuenta = " & Trim(aCr("CIDCLIEN01")) & " and numero1 = " & RsGen("idsucursalcrm") & " and idmodulo = " & ModExped_Proveedores & ""
+                                    Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital, numero1 FROM zClipExped WHERE idcuenta = " & Trim(aCr("CIDCLIEN01")) & " and numero1 = " & idSucCrm & " and idmodulo = " & ModExped_Proveedores & ""
                                     Using cCom2 = New SqlCommand(Query, FC_SQL)
                                         Using Rs = cCom2.ExecuteReader()
                                             If Rs.HasRows Then
@@ -1436,7 +1429,7 @@ Module modClipExped
         NomArc = Obtener_RFC(idEmp) & "_" & Trim(getCodServicio(idSer))
     End Sub
 
-    Public Sub ImprimeExpedienteClientes(wb As Excel.Workbook, idEmp As Integer, idSer As Integer)
+    Public Sub ImprimeExpedienteClientes(wb As Excel.Workbook, idEmp As Integer, idSer As Integer, idSucCrm As Integer)
         Dim Query As String
         Dim Fila As Integer, c As Integer, i As Integer, reg As Integer, Col As Integer
         Dim vMatriz(10000, 8)
@@ -1455,7 +1448,7 @@ Module modClipExped
         Fila = 6
         With wb.ActiveSheet
             'ConEmpresaSQL(idEmp)
-            Query = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp
+            Query = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp & " AND idsucursalcrm =" & idSucCrm
             Using Con = New SqlCommand(Query, FC_Con)
                 Using RsGen = Con.ExecuteReader()
                     Do While RsGen.Read()
@@ -1471,7 +1464,7 @@ Module modClipExped
                                     '.Cells(Fila, 3) = "'" & Trim(aCr("CRAZONSO01"))
 
                                     'Query = "SELECT fecha, nombrearchivo, ruta_cloud, idtipodocto FROM XMLDigAsocExped WHERE idelemento = " & aCr("idempleado") & " and idservicio = " & idSer
-                                    Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital, numero1 FROM zClipExped WHERE idcuenta = " & Trim(aCr("CIDCLIEN01")) & " and numero1 = " & RsGen("idsucursalcrm") & " and idmodulo = " & ModExped_Clientes & ""
+                                    Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital, numero1 FROM zClipExped WHERE idcuenta = " & Trim(aCr("CIDCLIEN01")) & " and numero1 = " & idSucCrm & " and idmodulo = " & ModExped_Clientes & ""
                                     Using cCom2 = New SqlCommand(Query, FC_SQL)
                                         Using Rs = cCom2.ExecuteReader()
                                             If Rs.HasRows Then
@@ -2830,14 +2823,16 @@ Err_Update:
         'End With
 
 
+
+
         'Procedimiento para ajustar formatos superindices
         If SuperIndices Then
             'Hoja = ActiveSheet.Name
             'UltF = wb.ActiveSheet.Range("b65000").End(Excel.XlDirection.xlUp).Row
             For F = 6 To UltF
                 Col = 3
-                Do While CStr(wb.ActiveSheet.Cells(5, Col).value) <> ""
-                    If CStr(wb.ActiveSheet.Cells(F, Col).value) <> "" Then
+                Do While wb.ActiveSheet.Cells(5, Col).value <> ""
+                    If wb.ActiveSheet.Cells(F, Col).value <> "" Then
                         FormatoSuperIndice(wb, F, Col, idSer)
                     End If
                     Col = Col + 1
@@ -2928,8 +2923,8 @@ Err_Update:
         IdObligacion = wb.ActiveSheet.Cells(Fila, 1).value
 
         If idSer <> SerExped_Permanente Then
-            periodo = wb.ActiveSheet.Cells(3, Columna).value
-            ejercicio = CLng(Replace(wb.ActiveSheet.Range("b3").value, "Ejercicio ", ""))
+            periodo = wb.ActiveSheet.Cells(5, Columna).value
+            ejercicio = CLng(Replace(wb.ActiveSheet.Range("b5").value, "Ejercicio ", ""))
         Else
             ejercicio = wb.ActiveSheet.Cells(4, Columna).value
             periodo = ""
