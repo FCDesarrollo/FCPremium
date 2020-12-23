@@ -160,7 +160,7 @@ Public Class frmClipExp
                         'cQue = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo = " & s.idfcmodulo & " and numero1 = " & SerCalculosActivos & " and e.procesado = 0"
                     Else
                         'cQue = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo = " & s.idfcmodulo & " and numero1 <> " & SerCalculosActivos & " and e.procesado = 0"
-                        cQue = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & s.idfcmodulo & " and procesado = 0 and (numero1 = " & SerCalculosActivos & " or numero1 is null)"
+                        cQue = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & s.idfcmodulo & " and procesado = 0 and (numero1 <> " & SerCalculosActivos & " or numero1 is null)"
                     End If
                 Else
                     cQue = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo = " & s.idfcmodulo & " and e.procesado = 0"
@@ -1216,7 +1216,12 @@ Public Class frmClipExp
                 Else
                     Query = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo =" & idMod & " and idcuenta = " & getIDTax(Obtener_RFC(IDEmp)) & " and periodo <> 0 and e.procesado = 0"
                 End If
-
+            ElseIf idMod = ModExped_Activos Then
+                If idSer = SerCalculosActivos Then
+                    Query = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & idMod & " and procesado = 0 and numero1 = " & SerCalculosActivos
+                Else
+                    Query = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & idMod & " and procesado = 0 and (numero1 <> " & SerCalculosActivos & " or numero1 is null)"
+                End If
             Else
                 Query = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo =" & idMod & " and e.procesado = 0"
             End If
