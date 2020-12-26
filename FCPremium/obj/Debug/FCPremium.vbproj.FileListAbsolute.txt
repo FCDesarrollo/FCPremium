@@ -99,3 +99,5 @@ C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmEjercici
 C:\Users\Arturo\source\repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmGeneraDoctos.resources
 C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmDependencias.resources
 C:\GitProjects\FCPremium\obj\Debug\FCPremium.frmAddEmpresa.resources
+C:\Users\Arturo\Source\Repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmAddEmpresa.resources
+C:\Users\Arturo\Source\Repos\FCPremium\FCPremium\obj\Debug\FCPremium.frmDependencias.resources

@@ -39,6 +39,9 @@ Public Class frmActivador
                 MsgBox("Producto Activado.", vbInformation, "Validación")
                 Me.Close()
             Else
+                My.Settings.ProductoRegistrado = False
+                My.Settings.Serial = ""
+                My.Settings.Save()
                 MsgBox(vectoraux(0), vbInformation + vbExclamation, "Validación")
             End If
         End If

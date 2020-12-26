@@ -46,6 +46,7 @@ Partial Class frmPrincipal
         Me.MLayouts = New System.Windows.Forms.ToolStripButton()
         Me.MSep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MConfig = New System.Windows.Forms.ToolStripButton()
+        Me.MDigitalizar = New System.Windows.Forms.ToolStripButton()
         Me.PMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -56,10 +57,10 @@ Partial Class frmPrincipal
         Me.PMenu.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle))
         Me.PMenu.GripMargin = New System.Windows.Forms.Padding(3)
         Me.PMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.MExpedientes, Me.MEntregas, Me.ToolStripSeparator2, Me.MLayouts, Me.MSep3, Me.MConfig})
+        Me.PMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MUser, Me.MSep1, Me.MXml, Me.MPolizas, Me.MBancos, Me.MCaja, Me.MNomina, Me.Msep2, Me.MConcilia, Me.MEstados, Me.MActivos, Me.ToolStripSeparator1, Me.MDigital, Me.MExpedientes, Me.MDigitalizar, Me.MEntregas, Me.ToolStripSeparator2, Me.MLayouts, Me.MSep3, Me.MConfig})
         Me.PMenu.Location = New System.Drawing.Point(0, 0)
         Me.PMenu.Name = "PMenu"
-        Me.PMenu.Size = New System.Drawing.Size(1102, 60)
+        Me.PMenu.Size = New System.Drawing.Size(1131, 60)
         Me.PMenu.TabIndex = 0
         Me.PMenu.Text = "ToolStrip1"
         '
@@ -282,12 +283,27 @@ Partial Class frmPrincipal
         Me.MConfig.Text = "Configuración"
         Me.MConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'MDigitalizar
+        '
+        Me.MDigitalizar.AutoSize = False
+        Me.MDigitalizar.Font = New System.Drawing.Font("Segoe UI", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MDigitalizar.Image = CType(resources.GetObject("MDigitalizar.Image"), System.Drawing.Image)
+        Me.MDigitalizar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.MDigitalizar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.MDigitalizar.Name = "MDigitalizar"
+        Me.MDigitalizar.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.MDigitalizar.Size = New System.Drawing.Size(105, 57)
+        Me.MDigitalizar.Tag = "21"
+        Me.MDigitalizar.Text = "Digitalizar Pólizas"
+        Me.MDigitalizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.MDigitalizar.ToolTipText = "Digitalizar Pólizas"
+        '
         'frmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(1102, 450)
+        Me.ClientSize = New System.Drawing.Size(1131, 450)
         Me.Controls.Add(Me.PMenu)
         Me.IsMdiContainer = True
         Me.Name = "frmPrincipal"
@@ -323,4 +339,5 @@ Partial Class frmPrincipal
     Friend WithEvents MExpedientes As ToolStripButton
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents MLayouts As ToolStripButton
+    Friend WithEvents MDigitalizar As ToolStripButton
 End Class
