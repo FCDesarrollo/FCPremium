@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Win32
 Imports System.Data.SqlClient
 Imports System.Data.Odbc
+Imports System.IO
 Module GeneralFC
     ''VARIABLES PARA REGISTRO EN REGEEDIT
     Public Const FC_REGKEY As String = "HKEY_LOCAL_MACHINE\SOFTWARE\FCModulos\"
@@ -131,9 +132,29 @@ ERR_CON:
     End Property
 
     Public Sub FC_SetDatos(ByVal Inst As String, ByVal Uid As String, ByVal Pwd As String)
+        Dim ruta As String
+        Dim dArchivo As String, dUrl As String, dDatosLink As String
+
         WriteToRegistry("Instancia", Inst)
         WriteToRegistry("Password", Pwd)
         WriteToRegistry("Uid", Uid)
+
+        '09/12/2020
+        dDatosLink = "{""link"":""" & mLinkNube & """, ""archivo"":""FCPremium/Complementos/ConsumoAPI.xlam"", ""user"":""" & mUserNube & """, ""pass"":""" & mPassNube & """}"
+
+        ruta = Directory.GetCurrentDirectory() & "\Complementos"
+        If (Not System.IO.Directory.Exists(ruta)) Then
+            System.IO.Directory.CreateDirectory(ruta)
+        End If
+        WriteToRegistry("RutaComplementos", ruta)
+
+        dUrl = ConsumeAPI(cParam.Api, "linkArchivo", dDatosLink, "POST", "JSON")
+        If dUrl <> "" Then
+            dUrl = IIf(Left(dUrl, 5) = "https", dUrl.Replace("https", "http"), dUrl)
+            My.Computer.Network.DownloadFile(dUrl & "/download",
+                 FC_RutaComplementos & "\ConsumoAPI.xlam", "", "", False, 900, True)
+        End If
+
     End Sub
 
     Public Property FC_RutaSDKAdmin() As String
@@ -157,6 +178,18 @@ ERR_CON:
             WriteToRegistry("RutaModulos", val)
         End Set
     End Property
+
+    Public Property FC_RutaComplementos() As String
+        Get
+            On Error Resume Next
+            FC_RutaComplementos = My.Computer.Registry.GetValue(FC_REGKEY, "RutaComplementos", Nothing)
+        End Get
+        Set(ByVal val As String)
+            On Error Resume Next
+            WriteToRegistry("RutaComplementos", val)
+        End Set
+    End Property
+
 
     Public Property FC_RutaSincronizada() As String
         Get

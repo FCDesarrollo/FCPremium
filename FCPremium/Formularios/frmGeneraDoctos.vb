@@ -8,6 +8,7 @@ Public Class frmGeneraDoctos
         bLoaded = False
         ckTodos.Checked = True
         cargaDoctosPendientes()
+        Carga_sucursales(IDEmp, Me.cbSucursales)
         bLoaded = True
     End Sub
     Private Sub cargaDoctosPendientes()
@@ -58,9 +59,22 @@ Public Class frmGeneraDoctos
         pr.Maximum = 1000
         pr.Minimum = 0
 
+        'validacion for solo para los expedientes de proveedores y clientes, debe seleccionar una sucursal
+        For Each Fila As DataGridViewRow In dgServicios.Rows
+            If Fila.Cells(0).Value = True Then
+                If Fila.Cells(6).Value = ModExped_Proveedores Or Fila.Cells(6).Value = ModExped_Clientes Then
+                    If cbSucursales.SelectedIndex = 0 Then
+                        MsgBox("Para generar el documento de Expedientes de Proveedores o Clientes es necesario seleccionar una sucursal.", vbInformation)
+                        Exit Sub
+                    End If
+                End If
+            End If
+        Next
+
         Try
             EjercicioExpBancos = Year(Now)
             For Each Fila As DataGridViewRow In dgServicios.Rows
+
                 NomArc = ""
                 aRut = ""
                 barCount = 0
@@ -161,6 +175,7 @@ Public Class frmGeneraDoctos
         Dim wb As Excel.Workbook
         Dim RutaDestino As String = ""
         Dim cQue As String = ""
+        Dim idSuc As Integer
 
         exApp.Visible = False
         exApp.DisplayAlerts = False
@@ -172,6 +187,10 @@ Public Class frmGeneraDoctos
         If idMod = ModExped_Bancos Or idMod = ModExped_Fiscales Or (idMod = ModExped_Activos And idSer = SerCalculosActivos) Then
             imprimeEncabezado(wb, IDEmp, idSer, idMod, Ejercicio)
             imprimeDatosRelacionados(wb, IDEmp, idSer, idMod, Ejercicio)
+        ElseIf idMod = ModExped_Proveedores Or idMod = ModExped_Clientes Then
+            idSuc = getIDSucCRM(CStr(cbSucursales.Text))
+            imprimeEncabezado(wb, IDEmp, idSer, idMod)
+            imprimeDatosRelacionados(wb, IDEmp, idSer, idMod, 0, idSuc)
         Else
             imprimeEncabezado(wb, IDEmp, idSer, idMod)
             imprimeDatosRelacionados(wb, IDEmp, idSer, idMod)
@@ -188,7 +207,7 @@ Public Class frmGeneraDoctos
             'exApp.Visible = True
             CrearPDF(exApp, RutaDestino & ".pdf")
 
-            'Exit Sub
+            Exit Sub
         End If
 
         wb.Close()

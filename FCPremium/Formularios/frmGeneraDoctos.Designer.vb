@@ -35,6 +35,8 @@ Partial Class frmGeneraDoctos
         Me.idfcmodulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LCargando = New System.Windows.Forms.Label()
         Me.pr = New System.Windows.Forms.ProgressBar()
+        Me.cbSucursales = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.dgServicios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -137,7 +139,7 @@ Partial Class frmGeneraDoctos
         '
         Me.LCargando.AutoSize = True
         Me.LCargando.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LCargando.Location = New System.Drawing.Point(333, 9)
+        Me.LCargando.Location = New System.Drawing.Point(178, 213)
         Me.LCargando.Name = "LCargando"
         Me.LCargando.Size = New System.Drawing.Size(69, 13)
         Me.LCargando.TabIndex = 76
@@ -146,18 +148,39 @@ Partial Class frmGeneraDoctos
         '
         'pr
         '
-        Me.pr.Location = New System.Drawing.Point(336, 25)
+        Me.pr.Location = New System.Drawing.Point(12, 209)
         Me.pr.Name = "pr"
         Me.pr.Size = New System.Drawing.Size(160, 17)
         Me.pr.Step = 20
         Me.pr.TabIndex = 75
         Me.pr.Visible = False
         '
+        'cbSucursales
+        '
+        Me.cbSucursales.FormattingEnabled = True
+        Me.cbSucursales.Location = New System.Drawing.Point(338, 21)
+        Me.cbSucursales.Name = "cbSucursales"
+        Me.cbSucursales.Size = New System.Drawing.Size(158, 21)
+        Me.cbSucursales.TabIndex = 77
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(335, 5)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(69, 13)
+        Me.Label1.TabIndex = 78
+        Me.Label1.Text = "Sucursales"
+        Me.Label1.Visible = False
+        '
         'frmGeneraDoctos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(506, 244)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.cbSucursales)
         Me.Controls.Add(Me.LCargando)
         Me.Controls.Add(Me.pr)
         Me.Controls.Add(Me.dgServicios)
@@ -184,4 +207,6 @@ Partial Class frmGeneraDoctos
     Friend WithEvents pendiente As DataGridViewTextBoxColumn
     Friend WithEvents ejercicio As DataGridViewTextBoxColumn
     Friend WithEvents idfcmodulo As DataGridViewTextBoxColumn
+    Friend WithEvents cbSucursales As ComboBox
+    Friend WithEvents Label1 As Label
 End Class

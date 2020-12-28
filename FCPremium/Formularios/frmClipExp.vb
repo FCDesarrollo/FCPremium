@@ -160,7 +160,7 @@ Public Class frmClipExp
                         'cQue = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo = " & s.idfcmodulo & " and numero1 = " & SerCalculosActivos & " and e.procesado = 0"
                     Else
                         'cQue = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo = " & s.idfcmodulo & " and numero1 <> " & SerCalculosActivos & " and e.procesado = 0"
-                        cQue = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & s.idfcmodulo & " and procesado = 0 and (numero1 = " & SerCalculosActivos & " or numero1 is null)"
+                        cQue = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & s.idfcmodulo & " and procesado = 0 and (numero1 <> " & SerCalculosActivos & " or numero1 is null)"
                     End If
                 Else
                     cQue = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo = " & s.idfcmodulo & " and e.procesado = 0"
@@ -367,6 +367,9 @@ Public Class frmClipExp
         Dim bddFox As String
         If sBandLoad = True Then Exit Sub
         bddFox = CStr(cbsucursal.SelectedValue)
+        dgServicios.ClearSelection()
+        dgElementos.Rows.Clear()
+        dgTiposDocto.Rows.Clear()
         Buscar_documentos()
     End Sub
 
@@ -687,7 +690,7 @@ Public Class frmClipExp
                             resp = Vincular_DocumentosExpedActivos(idFCMod, idelemento, aIDDoc, Month(aFecha), Year(aFecha), idtipodocto, aFecha, oRut, RutaO(0), idservicio)
                         End If
                     ElseIf idFCMod = ModExped_Proveedores Or idFCMod = ModExped_Clientes Then 'Proveedores y Clientes
-                        idSuc = CInt(getIDSucCRM(cbsucursal.SelectedText))
+                        idSuc = CInt(getIDSucCRM(cbsucursal.Text))
                         resp = Vincular_DocumentosProvCli(idFCMod, idelemento, aIDDoc, idtipodocto, aFecha, oRut, RutaO(0), idSuc)
                     Else
                         resp = Vincular_DocumentosExped(idFCMod, idelemento, aIDDoc, idtipodocto, aFecha, oRut, RutaO(0))
@@ -795,7 +798,11 @@ Public Class frmClipExp
             Exit Sub
         Else
             'cQue = "SELECT * FROM XMLDigEmpresas WHERE idempresacrm = " & idEmp
-            cQue = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp
+            If idMod = ModExped_Proveedores Or idMod = ModExped_Clientes Then
+                cQue = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp & " AND idsucursalcrm = " & getIDSucCRM(CStr(cbsucursal.Text))
+            Else
+                cQue = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & idEmp
+            End If
             Using cCom = New SqlCommand(cQue, FC_Con)
                 Using cRs = cCom.ExecuteReader()
                     cRs.Read()
@@ -831,6 +838,7 @@ Public Class frmClipExp
                                 Exit Sub
 
                             End If
+
                         Next
                     End If
                 End Using
@@ -838,9 +846,6 @@ Public Class frmClipExp
         End If
 
         If query = "" Then Exit Sub
-
-
-
 
         Using cCom = New SqlCommand(query, FC_SQL)
             Using aCr = cCom.ExecuteReader()
@@ -979,12 +984,8 @@ Public Class frmClipExp
 
         'cQue = "SELECT * FROM XMLDigTiposDoctoConfig WHERE id_serviciocrm = " & idser
         If idMod = ModExped_Activos Then
-            'If idSer = SerCalculosActivos Then
             cQue = "SELECT * FROM zCEXTiposDocto WHERE id_modulo = " & idMod & " and id_serviciocrm = " & idSer
-                'Else
-                '    cQue = "SELECT * FROM zCEXTiposDocto WHERE id_modulo = " & idMod
-                'End If
-            Else
+        Else
             cQue = "SELECT * FROM zCEXTiposDocto WHERE id_modulo = " & idMod
         End If
 
@@ -1020,7 +1021,8 @@ Public Class frmClipExp
         Dim IdMod As Integer, IdSer As Integer, idSuc As Integer
         Dim iPer As Integer, iEjer As Integer
 
-        If rbasoc.Checked = False Then Exit Sub
+        'If rbasoc.Checked = False Then Exit Sub
+        If rbpendientes.Checked = True Then Exit Sub
 
         If dgDocDigitales.CurrentRow Is Nothing Then
             MsgBox("No ha seleccionado documento digital", vbInformation, "Validación")
@@ -1029,6 +1031,10 @@ Public Class frmClipExp
             MsgBox("No ha seleccionado documento digital", vbInformation, "Validación")
             Exit Sub
         End If
+
+        sIDDoc = CInt(dgDocDigitales.Item(0, dgDocDigitales.CurrentRow.Index).Value)
+
+        If sIDDoc = 0 Then Exit Sub
 
         mensaje = MsgBox("¿Desea desasociar el documento digital seleccionado?", vbQuestion + vbYesNo, ("Eliminar Registros"))
         If mensaje = vbYes Then
@@ -1129,12 +1135,19 @@ Public Class frmClipExp
     Private Sub dgDocDigitales_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgDocDigitales.CellClick
         Dim element As String = "", elementValue As String = ""
         Dim cQue As String = ""
-        Dim idservicio As Integer, servicio As String, tipodocto As String
+        Dim idservicio As Integer, servicio As String = "", tipodocto As String = ""
+        Dim idDoc As Long, tipo As Long
+
+        idDoc = 0
 
         LInfo.Text = ""
 
         With dgDocDigitales
-            If rbasoc.Checked Then
+            idDoc = CLng(.Item(0, .CurrentRow.Index).Value)
+
+            If idDoc = 0 Then Exit Sub
+
+            If rbasoc.Checked Or rball.Checked Then
 
                 'cQue = "SELECT * FROM XMLDigEmpresas WHERE idempresacrm = " & CInt(cbempresa.SelectedValue)
                 cQue = "SELECT * FROM CEXEmpresas WHERE idempresacrm = " & CInt(cbempresa.SelectedValue)
@@ -1148,34 +1161,30 @@ Public Class frmClipExp
                 End Using
 
                 'cQue = "SELECT a.idservicio, a.nombreservicio, a.elemento, t.tipo_docto FROM XMLDigAsocExped a INNER JOIN XMLDigTiposDoctoConfig t ON t.id = a.idtipodocto WHERE iddocdig = " & CInt(.Item(0, .CurrentRow.Index).Value)
-                cQue = "SELECT t.id_serviciocrm,  a.idcuenta, a.idmodulo, t.tipo_docto FROM zClipExped a INNER JOIN zCEXTiposDocto t ON t.id = a.tipo WHERE iddigital = " & CInt(.Item(0, .CurrentRow.Index).Value)
+                cQue = "SELECT a.idcuenta, a.idmodulo, a.tipo FROM zClipExped a WHERE iddigital = " & CInt(.Item(0, .CurrentRow.Index).Value)
                 Using cCom = New SqlCommand(cQue, FC_SQL)
                     Using aCr = cCom.ExecuteReader()
+                        aCr.Read()
                         If aCr.HasRows Then
-                            aCr.Read()
-                            idservicio = aCr("id_serviciocrm")
-                            'servicio = aCr("nombreservicio")
-                            servicio = getNombreServicio(aCr("id_serviciocrm"))
-                            tipodocto = aCr("tipo_docto")
-                            'elementValue = aCr("elemento")
-                            elementValue = getElemento(aCr("idcuenta"), aCr("idmodulo"))
+                            tipo = aCr("tipo")
+                            servicio = getNombreServicio(getIDServicio(aCr("idmodulo")))
                         End If
                     End Using
                 End Using
 
-                If idservicio = 21 Then
-                    element = "Empleado: "
-                ElseIf idservicio = 22 Then
-                    element = "Periodo: "
-                ElseIf idservicio = 23 Then
-                    element = "Activo Fijo: "
-                ElseIf idservicio = 25 Then
-                    element = "Bancos: "
-                End If
+                tipodocto = "(Vacio)"
+                cQue = "SELECT id_serviciocrm, tipo_docto FROM zCEXTiposDocto WHERE id = " & tipo
+                Using cCom2 = New SqlCommand(cQue, FC_SQL)
+                    Using aCr = cCom2.ExecuteReader()
+                        aCr.Read()
+                        If aCr.HasRows Then
+                            tipodocto = aCr("tipo_docto")
+                        End If
+                    End Using
+                End Using
 
                 LInfo.Text = "Documento Digital: " & .Item(3, .CurrentRow.Index).Value & vbCrLf &
                              "Servicio: " & servicio & vbCrLf &
-                             element & elementValue & vbCrLf &
                              "Tipo de Documento: " & tipodocto
             End If
         End With
@@ -1207,7 +1216,12 @@ Public Class frmClipExp
                 Else
                     Query = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo =" & idMod & " and idcuenta = " & getIDTax(Obtener_RFC(IDEmp)) & " and periodo <> 0 and e.procesado = 0"
                 End If
-
+            ElseIf idMod = ModExped_Activos Then
+                If idSer = SerCalculosActivos Then
+                    Query = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & idMod & " and procesado = 0 and numero1 = " & SerCalculosActivos
+                Else
+                    Query = "SELECT count(id) AS pendientes FROM zClipExped WHERE idmodulo = " & idMod & " and procesado = 0 and (numero1 <> " & SerCalculosActivos & " or numero1 is null)"
+                End If
             Else
                 Query = "SELECT count(e.id) AS pendientes FROM zClipExped e WHERE e.idmodulo =" & idMod & " and e.procesado = 0"
             End If
@@ -1224,22 +1238,6 @@ Public Class frmClipExp
         Next
     End Sub
 
-
-
-    Public Function getElemento(idElemento As Integer, idMod As Integer) As String
-        Dim valor As String = ""
-        If idMod = 1 Then
-            Using Con = New SqlCommand("", FC_Nom)
-
-            End Using
-        Else
-            Using Con = New SqlCommand("", FC_Con)
-
-            End Using
-        End If
-        getElemento = valor
-    End Function
-
     Private Sub dgServicios_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgServicios.CellContentClick
 
     End Sub
@@ -1253,6 +1251,14 @@ Public Class frmClipExp
     End Sub
 
     Private Sub dgServicios_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgServicios.CellDoubleClick
+
+    End Sub
+
+    Private Sub dgTiposDocto_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgTiposDocto.CellContentClick
+
+    End Sub
+
+    Private Sub dgDocDigitales_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgDocDigitales.CellContentClick
 
     End Sub
 End Class

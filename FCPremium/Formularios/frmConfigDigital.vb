@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
+Imports System.IO
 Public Class frmConfigDigital
     Private sBandLoad As Boolean
     Private cRubrosConceptos As New Collection
@@ -189,7 +190,7 @@ Public Class frmConfigDigital
             baseContPAQ = dgempresas.Item(8, e.RowIndex).Value
 
             If dgempresas.Item(7, e.RowIndex).Value = "" Then
-                eIDSuc = Enviar_Sucursal(eIDEmpresa, eSucursal, eRuta, 0)
+                eIDSuc = Enviar_Sucursal(eIDEmpresa, eSucursal, eRuta, 0, eIDAdw)
                 If eIDSuc <> 0 Then
                     Guarda_Sucursal(1, eIDCon, eIDAdw, eNomAdw, eSucursal,
                                 eRuta, eIDEmpresa, eNomCrm, eIDSuc)
@@ -203,14 +204,14 @@ Public Class frmConfigDigital
         End If
     End Sub
 
-    Private Function Enviar_Sucursal(ByVal eID As Integer, ByVal eSuc As String, ByVal eRuta As String, ByVal eIDSuc As Integer) As Integer
+    Private Function Enviar_Sucursal(ByVal eID As Integer, ByVal eSuc As String, ByVal eRuta As String, ByVal eIDSuc As Integer, ByVal eIDAdw As Integer) As Integer
         Dim dMetodo As String, dFiltro As String = ""
         Dim jsonMod As String
 
         Enviar_Sucursal = 0
         dFiltro = "{""Correo"":""" & GL_cUsuarioAPI.Correo & """, ""Contra"":""" &
                     GL_cUsuarioAPI.Contra & """, ""Idempresa"":" & eID & ", ""Sucursal"":""" &
-                    eSuc & """, ""Ruta"":""" & Replace(eRuta, "\", "\\") & """,""Idsucursal"":" &
+                    eSuc & """, ""Ruta"":""" & Replace(eRuta, "\", "\\") & """,""idAdw"":" & eIDAdw & ", ""Idsucursal"":" &
                     eIDSuc & "}"
         dMetodo = "addSucursal"
         jsonMod = ConsumeAPI(mApi, dMetodo, dFiltro, "POST", "JSON")
@@ -560,4 +561,7 @@ Public Class frmConfigDigital
         Enviar_RubrosModel(eIDEmpresa)
     End Sub
 
+    Private Sub dgempresas_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgempresas.CellContentClick
+
+    End Sub
 End Class
