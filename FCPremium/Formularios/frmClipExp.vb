@@ -817,26 +817,26 @@ Public Class frmClipExp
                             ElseIf d.Key() = "ADW" Then
                                 'If FC_ConexionSQL(cRs("RutaADW")) <> 0 Then Exit Sub
                                 If cRs("idsucursalcrm") = getIDSucCRM(CStr(cbsucursal.Text)) Then
-                                    If FC_ConexionFOX(cRs("RutaADW")) <> 0 Then Exit Sub
+                                    If FC_ConexionComercial(cRs("RutaADW")) <> 0 Then Exit Sub
                                     query = d.Value
-                                    Using fCom = New Odbc.OdbcCommand(query, FC_CONFOX)
-                                        Using fRs = fCom.ExecuteReader()
+                                    Using aCom = New SqlCommand(query, FC_CONCOMER)
+                                        Using aCr = aCom.ExecuteReader
                                             If ModExped_Clientes = idMod Or ModExped_Proveedores = idMod Then
                                                 dgElementos.Columns(2).Visible = True
                                                 dgElementos.Columns(1).Width = 300
                                                 dgElementos.Columns(2).Width = 190
                                                 dgElementos.Columns(1).HeaderText = "Razon Social"
                                                 dgElementos.Columns(2).HeaderText = "RFC"
-                                                Do While fRs.Read()
-                                                    dgElementos.Rows.Add(fRs(0), Trim(fRs(2)), Trim(fRs(1)))
+                                                Do While aCr.Read
+                                                    dgElementos.Rows.Add(aCr(0), Trim(aCr(2)), Trim(aCr(1)))
                                                 Loop
                                             End If
                                         End Using
                                     End Using
+
                                 End If
 
                                 Exit Sub
-
                             End If
 
                         Next

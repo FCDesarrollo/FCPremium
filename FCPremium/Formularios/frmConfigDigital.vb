@@ -132,19 +132,19 @@ Public Class frmConfigDigital
                     If cRs.HasRows Then
                         TabRubros.Enabled = True
                         If FC_ConexionSQL(cRs("ctBDD")) <> 0 Then Exit Sub
-                        If FC_ConexionFOX(cRs("rutaadw")) <> 0 Then Exit Sub
-                        fQue = "SELECT CIDDOCUM01,CDESCRIP01,CMODULO FROM MGW10007 WHERE CMODULO<>10 order by CMODULO "
-                        Using fCom = New Odbc.OdbcCommand(fQue, FC_CONFOX)
-                            Using fRs = fCom.ExecuteReader()
-                                Do While fRs.Read()
-                                    conData = Get_Modulo_SubMenu(fRs("CMODULO"))
-                                    claRubro = UCase(Strings.Left(Trim(fRs("CDESCRIP01")), 3))
+                        If FC_ConexionComercial(cRs("rutaadw")) <> 0 Then Exit Sub
+                        fQue = "SELECT CIDDOCUMENTODE,CDESCRIPCION,CMODULO FROM admDocumentosModelo WHERE CMODULO<>10 order by CMODULO "
+                        Using aCom = New SqlCommand(fQue, FC_CONCOMER)
+                            Using cCr = aCom.ExecuteReader
+                                Do While cCr.Read
+                                    conData = Get_Modulo_SubMenu(cCr("CMODULO"))
+                                    claRubro = UCase(Strings.Left(Trim(cCr("CDESCRIPCION")), 3))
                                     dgDocModelos.Rows.Add(claRubro, Menu_Digital_Operacion,
-                                                          conData(1), fRs("CIDDOCUM01"), fRs("CMODULO"), False, Trim(fRs("CDESCRIP01")), conData(0))
+                                                          conData(1), cCr("CIDDOCUMENTODE"), cCr("CMODULO"), False, Trim(cCr("CDESCRIPCION")), conData(0))
                                 Loop
                             End Using
                         End Using
-                        FC_CONFOX.Close()
+                        FC_CONCOMER.Close()
                     Else
                         MsgBox("No se han enviado sucursales a la empresa." &
                                 vbCrLf & cNombre, vbInformation, "Validación")
@@ -292,14 +292,14 @@ Public Class frmConfigDigital
             Using cCom = New SqlCommand(cQue, FC_Con)
                 Using cRs = cCom.ExecuteReader()
                     Do While cRs.Read
-                        If FC_ConexionFOX(cRs("rutaadw")) <> 0 Then Exit Sub
-                        str = "SELECT CCODIGOC01,CNOMBREC01 FROM MGW10006 WHERE CIDDOCUM01=" & iddocModel & ""
-                        Using fCom = New Odbc.OdbcCommand(str, FC_CONFOX)
-                            Using fRs = fCom.ExecuteReader()
-                                Do While fRs.Read()
-                                    clave = UCase(Strings.Left(fRs("CNOMBREC01"), 3))
-                                    dgConceptos.Rows.Add(Trim(fRs("CCODIGOC01")),
-                                                              True, cRs("sucursal"), Trim(fRs("CNOMBREC01")), False, clave, "")
+                        If FC_ConexionComercial(cRs("rutaadw")) <> 0 Then Exit Sub
+                        str = "SELECT CCODIGOCONCEPTO,CNOMBRECONCEPTO FROM admConceptos WHERE CIDDOCUMENTODE=" & iddocModel & ""
+                        Using aCom = New SqlCommand(str, FC_CONCOMER)
+                            Using cCr = aCom.ExecuteReader
+                                Do While cCr.Read
+                                    clave = UCase(Strings.Left(cCr("CNOMBRECONCEPTO"), 3))
+                                    dgConceptos.Rows.Add(Trim(cCr("CCODIGOCONCEPTO")),
+                                                              True, cRs("sucursal"), Trim(cCr("CNOMBRECONCEPTO")), False, clave, "")
                                     combobox = dgConceptos.Rows(dgConceptos.Rows.Count - 1).Cells(6)
 
 
@@ -309,7 +309,8 @@ Public Class frmConfigDigital
                                 Loop
                             End Using
                         End Using
-                        FC_CONFOX.Close()
+
+                        FC_CONCOMER.Close()
                     Loop
                 End Using
             End Using

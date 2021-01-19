@@ -1328,9 +1328,9 @@ Module modClipExped
             Using Con = New SqlCommand(Query, FC_Con)
                 Using RsGen = Con.ExecuteReader()
                     Do While RsGen.Read()
-                        FC_ConexionFOX(RsGen("RutaADW"))
-                        Query = "SELECT CIDCLIEN01, CRFC, CRAZONSO01 FROM MGW10002 WHERE CTIPOCLI01 <> 1 And CIDCLIEN01 <> 0"
-                        Using cCom = New Odbc.OdbcCommand(Query, FC_CONFOX)
+                        FC_ConexionComercial(RsGen("RutaADW"))
+                        Query = "SELECT CIDCLIENTEPROVEEDOR, CRFC, CRAZONSOCIAL FROM admClientes WHERE CTIPOCLIENTE <> 1 And CIDCLIENTEPROVEEDOR <> 0"
+                        Using cCom = New SqlCommand(Query, FC_CONCOMER)
                             Using aCr = cCom.ExecuteReader()
                                 Do While aCr.Read()
                                     Query = "SELECT fecha, ruta, ruta_original, tipo, iddigital, numero1 FROM zClipExped WHERE idcuenta = " & Trim(aCr("CIDCLIEN01")) & " and numero1 = " & idSucCrm & " and idmodulo = " & ModExped_Proveedores & ""
@@ -1353,7 +1353,7 @@ Module modClipExped
                                                 Loop
                                                 .Cells(Fila, 1).value = RsGen("idsucursalcrm")  'Trim(aCr("CIDCLIEN01"))
                                                 .Cells(Fila, 2) = Trim(aCr("CRFC")) & " (" & getSucursalCRM(RsGen("idsucursalcrm")) & ")"
-                                                .Cells(Fila, 3) = "'" & Trim(aCr("CRAZONSO01"))
+                                                .Cells(Fila, 3) = "'" & Trim(aCr("CRAZONSOCIAL"))
                                                 Fila = Fila + 1
                                             End If
                                         End Using
@@ -1450,10 +1450,10 @@ Module modClipExped
             Using Con = New SqlCommand(Query, FC_Con)
                 Using RsGen = Con.ExecuteReader()
                     Do While RsGen.Read()
-                        FC_ConexionFOX(RsGen("RutaADW"))
+                        FC_ConexionComercial(RsGen("RutaADW"))
 
-                        Query = "SELECT CIDCLIEN01, CRFC, CRAZONSO01 FROM MGW10002 WHERE CTIPOCLI01 <> 3 And CIDCLIEN01 <> 0"
-                        Using cCom = New Odbc.OdbcCommand(Query, FC_CONFOX)
+                        Query = "SELECT CIDCLIENTEPROVEEDOR, CRFC, CRAZONSOCIAL FROM admClientes WHERE CTIPOCLIENTE <> 3 And CIDCLIENTEPROVEEDOR <> 0"
+                        Using cCom = New SqlCommand(Query, FC_CONCOMER)
                             Using aCr = cCom.ExecuteReader()
                                 Do While aCr.Read()
                                     'fec = aCr("fechanacimiento")
@@ -1482,7 +1482,7 @@ Module modClipExped
                                                 Loop
                                                 .Cells(Fila, 1).value = RsGen("idsucursalcrm")  'Trim(aCr("CIDCLIEN01"))
                                                 .Cells(Fila, 2) = Trim(aCr("CRFC")) & " (" & getSucursalCRM(RsGen("idsucursalcrm")) & ")"
-                                                .Cells(Fila, 3) = "'" & Trim(aCr("CRAZONSO01"))
+                                                .Cells(Fila, 3) = "'" & Trim(aCr("CRAZONSOCIAL"))
                                                 Fila = Fila + 1
                                             End If
                                         End Using

@@ -13,7 +13,7 @@ Module GeneralFC
     Public FC_Con As New SqlConnection
     Public FC_SQL As New SqlConnection
     Public FC_Nom As New SqlConnection
-    Public FC_CONFOX As New OdbcConnection
+    Public FC_CONCOMER As New SqlConnection
     ''VARIABLES PARA CONSULTAS
     Public Rs As SqlDataReader
     Public ComRs As SqlCommand
@@ -105,19 +105,22 @@ ERR_CON:
         FC_ConexionNom = Err.Number
     End Function
 
-    Public Function FC_ConexionFOX(foxRuta As String) As Long
-        Dim sConn As String
+    Public Function FC_ConexionComercial(foxRuta As String) As Long
+        Dim conData() As String
         On Error GoTo ERR_CON
-        If FC_CONFOX.State = ConnectionState.Open Then FC_CONFOX.Close()
-        sConn = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=" &
-                foxRuta & ";"
-        FC_CONFOX = New OdbcConnection(sConn)
-        FC_CONFOX.Open()
-        FC_ConexionFOX = 0
+
+        If FC_CONCOMER.State = ConnectionState.Connecting Then FC_CONCOMER.Close()
+        conData = FC_GetDatos()
+        FC_CONCOMER = New SqlConnection()
+        FC_CONCOMER.ConnectionString = "Data Source=" + conData(0) + " ;" &
+                         "Initial Catalog=" + foxRuta + ";" &
+                         "User Id=" + conData(1) + ";Password=" + conData(2) + ";MultipleActiveResultSets=True"
+        FC_CONCOMER.Open()
+        FC_ConexionComercial = 0
         Exit Function
 ERR_CON:
-        MsgBox("Error al conectar base FoxCon." & vbCrLf & Err.Description, "Validación")
-        FC_ConexionFOX = Err.Number
+        MsgBox("Error al conectar base SQL." & vbCrLf & Err.Description, vbCritical, "Validación")
+        FC_ConexionComercial = Err.Number
     End Function
 
     Public Property FC_RutaEmpresasAdmin() As String

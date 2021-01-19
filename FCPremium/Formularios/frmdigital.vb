@@ -311,7 +311,7 @@ Public Class frmdigital
         Dim idDocModelo As Integer, nomDocModelo As String
 
         nomSuc = cbsucursal.Text
-        FC_ConexionFOX(cRut)
+        FC_ConexionComercial(cRut)
         'If FC_ConexionFOX(cRut) <> 0 Then Exit Sub
         dAll = False
         If cbdocmodelo.SelectedValue = "0" Or cbdocmodelo.SelectedValue = "-1" Then
@@ -357,14 +357,14 @@ Public Class frmdigital
                         End Using
                     End Using
 
-                    fQue = "SELECT MGW10008.CIDDOCUM01,CFECHA,CSERIEDO01,CFOLIO,
-                        CRAZONSO01,CTOTAL,CREFEREN01,CPLURAL,MGW10006.CCODIGOC01,MGW10006.CNOMBREC01 FROM MGW10008 
-                        INNER JOIN MGW10006 ON MGW10008.CIDCONCE01=MGW10006.CIDCONCE01
-                        INNER JOIN MGW10034 ON MGW10008.CIDMONEDA=MGW10034.CIDMONEDA
-                        WHERE CIDDOCUM02=" & idDocModelo & " AND CFECHA 
+                fQue = "SELECT doc.CIDDOCUMENTO,CFECHA,CSERIEDOCUMENTO,CFOLIO,
+                        CRAZONSOCIAL,CTOTAL,CREFERENCIA,CPLURAL,con.CCODIGOCONCEPTO,con.CNOMBRECONCEPTO FROM admDocumentos doc
+                        INNER JOIN admConceptos con ON doc.CIDCONCEPTODOCUMENTO=con.CIDCONCEPTODOCUMENTO
+                        INNER JOIN admMonedas mon ON doc.CIDMONEDA=mon.CIDMONEDA
+                        WHERE doc.CIDDOCUMENTODE=" & idDocModelo & " AND CFECHA 
                         BETWEEN {d '" & fechaI & "'} AND {d '" & fechaF & "'} ORDER BY CFECHA DESC"
-                    Using fCom = New Odbc.OdbcCommand(fQue, FC_CONFOX)
-                    Using aRs = fCom.ExecuteReader()
+                Using cCom = New SqlCommand(fQue, FC_CONCOMER)
+                    Using cCr = cCom.ExecuteReader
                         pr.Visible = True
                         pr.Location = New Point(705, 158)
                         LCargando.Visible = True
@@ -375,20 +375,19 @@ Public Class frmdigital
                         cuenta = 0
                         pr.Value = cuenta
                         pr.Refresh()
-                        'Application.DoEvents()
-                        Do While aRs.Read
+                        Do While cCr.Read
                             pr.Value = cuenta
                             pr.Refresh()
-                            If aRs("CIDDOCUM01") = 9704 Then
-                                Debug.Print(aRs("CIDDOCUM01"))
-                            End If
+                            'If aRs("CIDDOCUMENTO") = 9704 Then
+                            '    Debug.Print(aRs("CIDDOCUMENTO"))
+                            'End If
                             'Application.DoEvents()
-                            If Not dDocExclu.ContainsKey(Trim(aRs("CCODIGOC01"))) Then
-                                num = Get_NumArchivos(aRs("CIDDOCUM01"), nomSuc)
-                                dgDocAdw.Rows.Add(aRs("CIDDOCUM01"), num, nomDocModelo, Trim(aRs("CNOMBREC01")),
-                                                      Format(aRs("CFECHA"), "yyyy-MM-dd"), Trim(aRs("CSERIEDO01")), aRs("CFOLIO"),
-                                                      Trim(aRs("CRAZONSO01")), aRs("CTOTAL"),
-                                                      Trim(aRs("CREFEREN01")), Trim(aRs("CPLURAL")), idRubro, idDocModelo)
+                            If Not dDocExclu.ContainsKey(Trim(cCr("CCODIGOCONCEPTO"))) Then
+                                num = Get_NumArchivos(cCr("CIDDOCUMENTO"), nomSuc)
+                                dgDocAdw.Rows.Add(cCr("CIDDOCUMENTO"), num, nomDocModelo, Trim(cCr("CNOMBRECONCEPTO")),
+                                                      Format(cCr("CFECHA"), "yyyy-MM-dd"), Trim(cCr("CSERIEDOCUMENTO")), cCr("CFOLIO"),
+                                                      Trim(cCr("CRAZONSOCIAL")), cCr("CTOTAL"),
+                                                      Trim(cCr("CREFERENCIA")), Trim(cCr("CPLURAL")), idRubro, idDocModelo)
                                 If num > 0 Then
                                     dgDocAdw.Rows(dgDocAdw.Rows.Count - 1).DefaultCellStyle.BackColor = Color.CadetBlue
                                 End If
@@ -406,7 +405,7 @@ Public Class frmdigital
                         LCargando.Visible = False
                     End Using
                 End Using
-                End If
+            End If
             Next
 
 
@@ -494,28 +493,29 @@ Public Class frmdigital
         Dim fQue As String, num As Integer
 
         Try
-            fQue = "SELECT MGW10008.CIDDOCUM01 as iddoc,CFECHA,CSERIEDO01,CFOLIO,MGW10007.CIDDOCUM01,MGW10007.CDESCRIP01,
-                        CRAZONSO01,CTOTAL,CREFEREN01,CPLURAL,MGW10006.CCODIGOC01,MGW10006.CNOMBREC01 FROM MGW10008 
-                        INNER JOIN MGW10006 ON MGW10008.CIDCONCE01=MGW10006.CIDCONCE01
-                        INNER JOIN MGW10034 ON MGW10008.CIDMONEDA=MGW10034.CIDMONEDA
-                        INNER JOIN MGW10007 ON MGW10008.CIDDOCUM02=MGW10007.CIDDOCUM01
-                        WHERE MGW10008.CIDDOCUM01=" & dIdAdw & ""
-            Using fCom = New Odbc.OdbcCommand(fQue, FC_CONFOX)
-                Using fRs = fCom.ExecuteReader()
-                    If fRs.HasRows Then
-                        num = Get_NumArchivos(fRs("iddoc"), dSucursal)
-                        dgDocAdw.Rows.Add(fRs("iddoc"), num, Trim(fRs("CDESCRIP01")), Trim(fRs("CNOMBREC01")),
-                                          Format(fRs("CFECHA"), "yyyy-MM-dd"), Trim(fRs("CSERIEDO01")), fRs("CFOLIO"),
-                                          Trim(fRs("CRAZONSO01")), fRs("CTOTAL"),
-                                          Trim(fRs("CREFEREN01")), Trim(fRs("CPLURAL")), 0, Trim(fRs("CIDDOCUM01")))
+            fQue = "SELECT doc.CIDDOCUMENTO as iddoc,CFECHA,CSERIEDOCUMENTO,CFOLIO,mod.CIDDOCUMENTODE,mod.CDESCRIPCION,
+                        CRAZONSOCIAL,CTOTAL,CREFERENCIA,CPLURAL,con.CCODIGOCONCEPTO,con.CNOMBRECONCEPTO FROM admDocumentos doc 
+                        INNER JOIN admConceptos con ON doc.CIDCONCEPTODOCUMENTO=con.CIDCONCEPTODOCUMENTO
+                        INNER JOIN admMonedas mon ON doc.CIDMONEDA=mon.CIDMONEDA
+                        INNER JOIN admDocumentosModelo mod ON doc.CIDDOCUMENTODE=mod.CIDDOCUMENTODE
+                        WHERE doc.CIDDOCUMENTO=" & dIdAdw & ""
+            Using cCom = New SqlCommand(fQue, FC_CONCOMER)
+                Using cCr = cCom.ExecuteReader
+                    If cCr.HasRows Then
+                        num = Get_NumArchivos(cCr("iddoc"), dSucursal)
+                        dgDocAdw.Rows.Add(cCr("iddoc"), num, Trim(cCr("CDESCRIPCION")), Trim(cCr("CNOMBRECONCEPTO")),
+                                          Format(cCr("CFECHA"), "yyyy-MM-dd"), Trim(cCr("CSERIEDOCUMENTO")), cCr("CFOLIO"),
+                                          Trim(cCr("CRAZONSOCIAL")), cCr("CTOTAL"),
+                                          Trim(cCr("CREFERENCIA")), Trim(cCr("CPLURAL")), 0, Trim(cCr("CIDDOCUMENTODE")))
                         If num > 0 Then
                             dgDocAdw.Rows(dgDocAdw.Rows.Count - 1).DefaultCellStyle.BackColor = Color.CadetBlue
                         End If
                     End If
                 End Using
             End Using
+
         Catch ex As Exception
-            MsgBox("Error al cargar Documentos Otros ADW." & vbCrLf & ex.Message, vbInformation, "Validación")
+            MsgBox("Error al cargar Documentos Otros Comercial." & vbCrLf & ex.Message, vbInformation, "Validación")
         End Try
 
     End Sub
@@ -540,7 +540,7 @@ Public Class frmdigital
             aSerie = dgDocAdw.Item(5, dgDocAdw.CurrentRow.Index).Value
             aDes = "Concepto: " & aConcep & vbCrLf & "Folio: " & aFolio & IIf(aSerie <> "", "Serie: " & aSerie, "")
         Else
-            MsgBox("No ha seleccionado documento de AdminPAQ", vbInformation, "Validación")
+            MsgBox("No ha seleccionado documento de Comercial", vbInformation, "Validación")
             Exit Sub
         End If
         aSuc = CStr(cbsucursal.Text)
@@ -1001,7 +1001,7 @@ BuscaInicio:
         GL_cUsuarioAPI.Correo = "marina.valdez@dublock.com"
         GL_cUsuarioAPI.Contra = "DURANGO"
         cRut = cbsucursal.SelectedValue
-        FC_ConexionFOX(cRut)
+        FC_ConexionComercial(cRut)
         'If FC_ConexionFOX(cRut) <> 0 Then Exit Sub
         con = 0
         mQue = "SELECT iddocdig,iddocADW FROM XMLDigAsoc ORDER BY iddocdig"
@@ -1010,15 +1010,15 @@ BuscaInicio:
                 Do While mCr.Read
                     mID = mCr("iddocdig")
                     mIDAdw = mCr("iddocADW")
-                    fQue = "SELECT c.CNOMBREC01 as con,d.CFOLIO as fol,d.CSERIEDO01 as ser FROM MGW10008 d 
-                                INNER JOIN MGW10006 c ON d.CIDCONCE01=c.CIDCONCE01 
-                                    WHERE d.CIDDOCUM01=" & mIDAdw & ""
-                    Using fCom = New Odbc.OdbcCommand(fQue, FC_CONFOX)
-                        Using fRs = fCom.ExecuteReader()
-                            Do While fRs.Read
-                                fconcepto = Trim(fRs("con"))
-                                ffolio = fRs("fol")
-                                fSerie = Trim(fRs("ser"))
+                    fQue = "SELECT c.CNOMBRECONCEPTO as con,d.CFOLIO as fol,d.CSERIEDOCUMENTO as ser FROM admDocumentos d 
+                                INNER JOIN admConceptos c ON d.CIDCONCE01=c.CIDCONCE01 
+                                    WHERE d.CIDDOCUMENTO=" & mIDAdw & ""
+                    Using cComer = New SqlCommand(fQue, FC_CONCOMER)
+                        Using cCr = cComer.ExecuteReader
+                            Do While cCr.Read
+                                fconcepto = Trim(cCr("con"))
+                                ffolio = cCr("fol")
+                                fSerie = Trim(cCr("ser"))
                                 'If Marcar_Documentos(mID, mStatus, mIDRubro, fconcepto, ffolio, fSerie, _rfcEmpresa) Then
                                 '    con += 1
                                 'End If
@@ -1057,27 +1057,4 @@ BuscaInicio:
         Buscar_documentos()
     End Sub
 
-    Private Sub dgDocDigitales_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgDocDigitales.CellContentClick
-
-    End Sub
-
-    Private Sub txtBus_TextChanged(sender As Object, e As EventArgs) Handles txtBus.TextChanged
-
-    End Sub
-
-    Private Sub txtEjercicio_TextChanged(sender As Object, e As EventArgs) Handles txtEjercicio.TextChanged
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
-
-    Private Sub txtpendientes_TextChanged(sender As Object, e As EventArgs) Handles txtpendientes.TextChanged
-
-    End Sub
-
-    Private Sub btnUser_Click(sender As Object, e As EventArgs) Handles btnUser.Click
-
-    End Sub
 End Class

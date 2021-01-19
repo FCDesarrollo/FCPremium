@@ -146,17 +146,19 @@ Public Class frmConfigEmpresasEmp
         cb.DisplayMember = "Nombre"
     End Sub
     Private Sub cargaEmpresasADW()
-        Dim Query As String
+        Dim Query As String, aDatos() As String, aRuta As String
 
-        If FC_ConexionFOX(FC_RutaEmpresasAdmin) <> 0 Then Exit Sub
+        If FC_ConexionComercial("CompacWAdmin") <> 0 Then Exit Sub
 
         dgEmpresasADW.Rows.Clear()
 
-        Query = "SELECT cidempresa, cnombree01, crutadatos FROM MGW00001 WHERE cidempresa <> 1"
-        Using fCom = New Odbc.OdbcCommand(Query, FC_CONFOX)
+        Query = "SELECT CIDEMPRESA, CNOMBREEMPRESA, CRUTADATOS FROM Empresas WHERE CIDEMPRESA <> 1"
+        Using fCom = New SqlCommand(Query, FC_CONCOMER)
             Using cRs = fCom.ExecuteReader()
                 Do While cRs.Read()
-                    dgEmpresasADW.Rows.Add(checkEmpresa(IDEmp, cRs("cidempresa")), Trim(cRs("cidempresa")), Trim(cRs("cnombree01")), Trim(cRs("crutadatos")), getIDSucConfig(cRs("cidempresa")), getNombreSucConfig(cRs("cidempresa")))
+                    aDatos = Split(cRs("CRUTADATOS"), "|")
+                    aRuta = aDatos(UBound(aDatos))
+                    dgEmpresasADW.Rows.Add(checkEmpresa(IDEmp, cRs("cidempresa")), Trim(cRs("cidempresa")), Trim(cRs("cnombree01")), Trim(aRuta), getIDSucConfig(cRs("cidempresa")), getNombreSucConfig(cRs("cidempresa")))
                 Loop
             End Using
         End Using

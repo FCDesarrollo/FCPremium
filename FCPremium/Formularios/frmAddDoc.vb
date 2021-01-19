@@ -126,19 +126,19 @@ Public Class frmAddDoc
         fecha = Format(CDate(dtFecha.Value), "yyyy-MM-dd")
         dDatos = Get_IDs_cModulos(dIDSub)
         For Each idModulo In dDatos
-            fQue = "SELECT MGW10008.CIDDOCUM01,CFECHA,CSERIEDO01,CFOLIO,
-                        CRAZONSO01,CTOTAL,CREFEREN01,CPLURAL,MGW10006.CCODIGOC01,MGW10006.CNOMBREC01 FROM MGW10008 
-                        INNER JOIN MGW10006 ON MGW10008.CIDCONCE01=MGW10006.CIDCONCE01
-                        INNER JOIN MGW10034 ON MGW10008.CIDMONEDA=MGW10034.CIDMONEDA
-                        INNER JOIN MGW10007 ON MGW10008.CIDDOCUM02=MGW10007.CIDDOCUM01
+            fQue = "SELECT doc.CIDDOCUMENTO,CFECHA,CSERIEDOCUMENTO,CFOLIO,
+                        CRAZONSOCIAL,CTOTAL,CREFERENCIA,CPLURAL,con.CCODIGOCONCEPTO,con.CNOMBRECONCEPTO FROM admDocumentos doc 
+                        INNER JOIN admConceptos con ON doc.CIDCONCEPTODOCUMENTO=con.CIDCONCEPTODOCUMENTO
+                        INNER JOIN admMonedas mon ON doc.CIDMONEDA=mon.CIDMONEDA
+                        INNER JOIN admDocumentosModelo mod ON doc.CIDDOCUMENTODE=mod.CIDDOCUMENTODE
                         WHERE CMODULO=" & CInt(idModulo) & " AND CFECHA={d '" & fecha & "'}  ORDER BY CFECHA DESC"
-            Using fCom = New Odbc.OdbcCommand(fQue, FC_CONFOX)
-                Using fRs = fCom.ExecuteReader()
-                    Do While fRs.Read
-                        dgDocAdw.Rows.Add(fRs("CIDDOCUM01"), Trim(fRs("CNOMBREC01")),
-                                                      Format(fRs("CFECHA"), "yyyy-MM-dd"), Trim(fRs("CSERIEDO01")), fRs("CFOLIO"),
-                                                      Trim(fRs("CRAZONSO01")), fRs("CTOTAL"),
-                                                      Trim(fRs("CREFEREN01")), Trim(fRs("CPLURAL")))
+            Using cCom = New SqlCommand(fQue, FC_CONCOMER)
+                Using cCr = cCom.ExecuteReader
+                    Do While cCr.Read
+                        dgDocAdw.Rows.Add(cCr("CIDDOCUMENTO"), Trim(cCr("CNOMBRECONCEPTO")),
+                                                      Format(cCr("CFECHA"), "yyyy-MM-dd"), Trim(cCr("CSERIEDOCUMENTO")), cCr("CFOLIO"),
+                                                      Trim(cCr("CRAZONSOCIAL")), cCr("CTOTAL"),
+                                                      Trim(cCr("CREFERENCIA")), Trim(cCr("CPLURAL")))
                     Loop
                 End Using
             End Using
